@@ -9,3 +9,7 @@ angular.module('definitionsCenter', ['definitionsCenter.filters', 'definitionsCe
     $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: MyCtrl2});
     $routeProvider.otherwise({redirectTo: '/xsdForm/definitions.xsd'});
   }]);
+
+angular.module('definitionsCenter.filters', []);
+angular.module('definitionsCenter.services', []);
+angular.module('definitionsCenter.directives', []);
