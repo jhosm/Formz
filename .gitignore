@@ -9,3 +9,5 @@ build.xml
 
 .DS_Store
 
+app/xsd/Data/
+app/xsd/Schema/
