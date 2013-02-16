@@ -1,0 +1,38 @@
+<form class="form-horizontal">
+	<fieldset>
+		<legend>XSD Form</legend>
+		
+		<div class="control-group">
+			<label class="control-label">{{xmlSchema.rootElement.label}}</label>
+			<div class="controls">
+				<input type="text" placeholder="{{xmlSchema.rootElement.placeholder}}" ng-model="xmlSchema.rootElement.value"> <i class="help-inline icon-question-sign" ng-click="xmlSchema.rootElement.showHelp = !xmlSchema.rootElement.showHelp" ng-init="xmlSchema.rootElement.showHelp=false"></i>
+				<span class="help-block" ng-show="xmlSchema.rootElement.showHelp">{{xmlSchema.rootElement.documentation}}</span>
+			</div>
+		</div>
+
+		<div class="control-group" ng-show="showXml">
+			<label class="control-label">XML</label>
+			<div class="controls">
+				<textarea id="xml" rows="10">{{xmlSchema | asXml}}</textarea>
+			</div>
+		</div>
+
+		<div class="control-group" ng-show="showJson">
+			<label class="control-label">JSON</label>
+			<div class="controls">
+				<textarea rows="10">{{xmlSchema | json}}</textarea>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<div class="controls">
+				<label class="checkbox">
+					<input type="checkbox" ng-model="showXml">Show XML</label>
+				<label class="checkbox">
+					<input type="checkbox" ng-model="showJson">Show JSON</label>
+			</div>
+		</div>
+
+	</fieldset>
+
+</form>
