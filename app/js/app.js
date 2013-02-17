@@ -11,5 +11,5 @@ angular.module('definitionsCenter', ['definitionsCenter.filters', 'definitionsCe
   }]);
 
 angular.module('definitionsCenter.filters', []);
-angular.module('definitionsCenter.services', []);
+angular.module('definitionsCenter.services', ['ngResource']);
 angular.module('definitionsCenter.directives', []);

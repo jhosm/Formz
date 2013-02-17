@@ -5,6 +5,7 @@ describe('XsdCtrl', function() {
 
   beforeEach(function() {
     module('definitionsCenter.services');
+    
     inject(function(_$httpBackend_, $rootScope, $controller, $routeParams) {
       $httpBackend = _$httpBackend_;
       $httpBackend.expectGET('xsd/definitions.xsd').

@@ -6,7 +6,7 @@
 			<label class="control-label">{{xmlSchema.rootElement.label}}</label>
 			<div class="controls">
 				<input type="text" placeholder="{{xmlSchema.rootElement.placeholder}}" ng-model="xmlSchema.rootElement.value"> <i class="help-inline icon-question-sign" ng-click="xmlSchema.rootElement.showHelp = !xmlSchema.rootElement.showHelp" ng-init="xmlSchema.rootElement.showHelp=false"></i>
-				<span class="help-block" ng-show="xmlSchema.rootElement.showHelp">{{xmlSchema.rootElement.documentation}}</span>
+				<span class="help-block" ng-show="xmlSchema.rootElement.showHelp">{{locales.string(xmlSchema.rootElement.documentation)}}</span>
 			</div>
 		</div>
 
