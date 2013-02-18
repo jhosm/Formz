@@ -18,7 +18,7 @@ describe('service', function() {
 		it('should set a default documentation message when none is available', inject(function(fzXsd) {
 			var parsedSchema = fzXsd.parse(xsd_simpleElement_minimalData);
 
-			expect(parsedSchema.rootElement.documentation).toEqual('.noHelp');
+			expect(parsedSchema.rootElement.documentation).toEqual('.no-help');
 		}));
 
 		it("should set the name of the element as it's label if none is specified ", inject(function(fzXsd) {

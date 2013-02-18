@@ -1,6 +1,7 @@
 'use strict';
 
 function XsdCtrl($scope, $http, fzXsd, $routeParams, fzLocalization) {
+	$scope.showXml = false;
 	$scope.locales = fzLocalization;
 	$http.get('xsd/' + $routeParams.xsd).success(function(data) {
 		$scope.xmlSchema = fzXsd.parse(data);

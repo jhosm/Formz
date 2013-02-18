@@ -29,5 +29,21 @@ describe('my app', function() {
       input('xmlSchema.rootElement.value').enter('Joao');
       expect(element('#xml').text()).toMatch('<person>Joao</person>');
     });
+
+    it('should toggle the xml visibility when user toggles "Show XML"', function() {
+      expect(element('#controlGroupXml').css('display')).toBe('none');
+      input('showXml').check();
+      expect(element('#controlGroupXml').css('display')).toBe('block');
+      input('showXml').check();
+      expect(element('#controlGroupXml').css('display')).toBe('none');
+    });
+
+    it('should toggle the json visibility when user toggles "Show JSON"', function() {
+      expect(element('#controlGroupJson').css('display')).toBe('none');
+      input('showJson').check();
+      expect(element('#controlGroupJson').css('display')).toBe('block');
+      input('showJson').check();
+      expect(element('#controlGroupJson').css('display')).toBe('none');
+    });
   });
 });

@@ -15,7 +15,7 @@ service('fzXsd', ['fzXml', function(xml) {
 	function getDocumentation(node) {
 		var doc = xml.select(node, 'xs:annotation/xs:documentation');
 		if( doc.length == 0 ) {
-			return '.noHelp';
+			return '.no-help';
 		}
 		return doc[0].textContent;
 	}
