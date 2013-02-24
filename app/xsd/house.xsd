@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ui="http://www.jhosm.com/XMLSchema-UI">
+	<xs:element name="house" type="xs:string" ui:label="Casa" ui:placeholder="Nome da Casa">
+		<xs:annotation>
+            <xs:documentation>
+            	Uma casa é um lar.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+</xs:schema>

@@ -1,6 +1,6 @@
 'use strict;'
 
-angular.module('definitionsCenter.services').
+angular.module('formz.services').
 service('fzXml', function() {
 	function parse(xmlDocStr) {
 		var xmlDoc;

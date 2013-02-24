@@ -2,7 +2,7 @@
 
 describe('service', function() {
 
-	beforeEach(module('definitionsCenter.services'));
+	beforeEach(module('formz.services'));
 
 	describe('The xml schema parser', function() {
 

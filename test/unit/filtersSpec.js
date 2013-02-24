@@ -4,8 +4,8 @@
 
 describe('filter', function() {
 	beforeEach(function() {
-		module('definitionsCenter.services');
-		module('definitionsCenter.filters');
+		module('formz.services');
+		module('formz.filters');
 	});
 
 

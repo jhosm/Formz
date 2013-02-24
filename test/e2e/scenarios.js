@@ -9,24 +9,24 @@ describe('my app', function() {
   });
 
 
-  it('should automatically redirect to /xsdForm/definitions.xsd when location hash/fragment is empty', function() {
-    expect(browser().location().url()).toBe("/xsdForm/definitions.xsd");
+  it('should automatically redirect to /form/human.xsd when location hash/fragment is empty', function() {
+    expect(browser().location().url()).toBe("/form/human");
   });
 
 
   describe('xsd form', function() {
 
     beforeEach(function() {
-      browser().navigateTo('../../app/index.html#/xsdForm/definitions.xsd');
+      browser().navigateTo('../../app/index.html#/form/human');
     });
 
 
-    it('should render xsdForm when user navigates to /xsdForm/definitions.xsd', function() {
-      expect(element('legend').text()).toMatch(/XSD Form/);
+    it('should render form when user navigates to /form/human', function() {
+      expect(element('legend').text()).toMatch(/Form/);
     });
 
     it('should update the xml when user types some data', function() {
-      input('xmlSchema.rootElement.value').enter('Joao');
+      input('forms[$index].schema.rootElement.value').enter('Joao');
       expect(element('#xml').text()).toMatch('<person>Joao</person>');
     });
 

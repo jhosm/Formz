@@ -4,7 +4,7 @@ describe('service', function() {
 	var $httpBackend;
 
   beforeEach(function() {
-    module('definitionsCenter.services');
+    module('formz.services');
     inject(function(_$httpBackend_) {
       $httpBackend = _$httpBackend_;
       $httpBackend.expectGET('locales/en-us.js').

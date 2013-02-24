@@ -1,6 +1,6 @@
 'use strict;'
 
-angular.module('definitionsCenter.services').
+angular.module('formz.services').
 service('fzLocalization', ['$resource', '$cacheFactory', '$locale', function($resource, $cacheFactory, $locale) {
 	var cache = $cacheFactory('fzLocalization');
 	var Localization = $resource('locales/:localeId.js', {localeId : $locale.id});

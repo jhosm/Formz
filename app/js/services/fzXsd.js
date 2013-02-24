@@ -1,6 +1,6 @@
 'use strict;'
 
-angular.module('definitionsCenter.services').
+angular.module('formz.services').
 service('fzXsd', ['fzXml', function(xml) {
 	function parse(xmlDoc) {
 		if(angular.isString(xmlDoc)) {

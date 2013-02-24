@@ -1,0 +1,47 @@
+<div ng-controller="TabsCtrl">
+	<div class="tabbable tabs-left" ng-model="currentTab">
+		<div class="tab-pane" ng-repeat="form in forms" title="{{form.label}}" value="{{form.id}}">
+			<form class="form-horizontal">
+				<fieldset>
+					<legend>Form</legend>
+
+					<div class="control-group">
+						<label class="control-label">{{forms[$index].schema.rootElement.label}}:</label>
+						<div class="controls">
+							<input type="text" placeholder="{{forms[$index].schema.rootElement.placeholder}}" ng-model="forms[$index].schema.rootElement.value"> <i class="help-inline icon-question-sign" ng-click="forms[$index].schema.rootElement.showHelp = !forms[$index].schema.rootElement.showHelp" ng-init="forms[$index].schema.rootElement.showHelp=false"></i>
+							<span class="help-block" ng-show="forms[$index].schema.rootElement.showHelp">{{locales.string(forms[$index].schema.rootElement.documentation)}}</span>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>Debug Info</legend>
+
+					<div class="control-group">
+						<label class="control-label">{{locales.string('.label-show')}}:</label>
+						<div class="controls">
+							<label class="checkbox inline">
+								<input type="checkbox" ng-model="showXml">XML</label>
+							<label class="checkbox inline">
+								<input type="checkbox" ng-model="showJson">JSON</label>
+						</div>
+					</div>
+
+					<div class="control-group" id="controlGroupXml" ng-show="showXml">
+						<label class="control-label">XML:</label>
+						<div class="controls">
+							<textarea id="xml" rows="10">{{forms[$index].schema | asXml}}</textarea>
+						</div>
+					</div>
+
+					<div class="control-group" id="controlGroupJson" ng-show="showJson">
+						<label class="control-label">JSON:</label>
+						<div class="controls">
+							<textarea rows="10">{{forms[$index].schema | json}}</textarea>
+						</div>
+					</div>
+				</fieldset>
+
+			</form>
+		</div>
+	</div>
+</div>

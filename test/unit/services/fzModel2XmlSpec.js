@@ -2,7 +2,7 @@
 
 describe('service', function() {
 
-	beforeEach(module('definitionsCenter.services'));
+	beforeEach(module('formz.services'));
 
 	describe('The xsd -> xml serializer', function() {
 		it('should serialize an xsd javascript structure into an xml instance string', inject(function(fzModel2Xml) {

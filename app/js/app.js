@@ -3,13 +3,13 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('definitionsCenter', ['definitionsCenter.filters', 'definitionsCenter.services', 'definitionsCenter.directives']).
+angular.module('formz', ['bootstrap', 'formz.controllers', 'formz.filters', 'formz.services', 'formz.directives']).
   config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/xsdForm/:xsd', {templateUrl: 'partials/xsdForm.html', controller: XsdCtrl});
-    $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: MyCtrl2});
-    $routeProvider.otherwise({redirectTo: '/xsdForm/definitions.xsd'});
+    $routeProvider.when('/form/:id', {templateUrl: 'partials/form.html', controller: 'XsdCtrl'});
+    $routeProvider.otherwise({redirectTo: '/form/human'});
   }]);
 
-angular.module('definitionsCenter.filters', []);
-angular.module('definitionsCenter.services', ['ngResource']);
-angular.module('definitionsCenter.directives', []);
+angular.module('formz.controllers', ['ngResource']);
+angular.module('formz.filters', []);
+angular.module('formz.services', ['ngResource']);
+angular.module('formz.directives', []);
