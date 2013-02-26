@@ -20,16 +20,8 @@ describe('XsdCtrl', function() {
   });
 
   it('should get and parse a schema', function() {
-    expect(scope.forms).toBeUndefined();
+    expect(scope.form).toBeUndefined();
     $httpBackend.flush();
-    expect(scope.forms[0].schema.rootElement.name).toEqual('person');
-  });
-
-  it("should reuse forms property, if there's already one in the scope", function() {
-    scope.forms = [{'id':'anID'}];
-    $httpBackend.flush();
-    expect(scope.forms[1].schema.rootElement.name).toEqual('person');
-
-    expect(scope.forms[0].id).toEqual('anID');
+    expect(scope.form.rootElement.name).toEqual('person');
   });
 });

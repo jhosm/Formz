@@ -1,15 +1,16 @@
+<span ng-show="forms.length == 0">{{locales.string('.no-form-definitions')}}</span>
 <div ng-controller="TabsCtrl">
 	<div class="tabbable tabs-left" ng-model="currentTab">
-		<div class="tab-pane" ng-repeat="form in forms" title="{{form.label}}" value="{{form.id}}">
-			<form class="form-horizontal">
+		<div class="tab-pane" ng-repeat="formInfo in forms" title="{{formInfo.label}}" value="{{formInfo.id}}">
+			<form class="form-horizontal" ng-controller="XsdCtrl">
 				<fieldset>
 					<legend>Form</legend>
 
 					<div class="control-group">
-						<label class="control-label">{{forms[$index].schema.rootElement.label}}:</label>
+						<label class="control-label">{{form.rootElement.label}}:</label>
 						<div class="controls">
-							<input type="text" placeholder="{{forms[$index].schema.rootElement.placeholder}}" ng-model="forms[$index].schema.rootElement.value"> <i class="help-inline icon-question-sign" ng-click="forms[$index].schema.rootElement.showHelp = !forms[$index].schema.rootElement.showHelp" ng-init="forms[$index].schema.rootElement.showHelp=false"></i>
-							<span class="help-block" ng-show="forms[$index].schema.rootElement.showHelp">{{locales.string(forms[$index].schema.rootElement.documentation)}}</span>
+							<input type="text" placeholder="{{form.rootElement.placeholder}}" ng-model="form.rootElement.value"> <i class="help-inline icon-question-sign" ng-click="form.rootElement.showHelp = !form.rootElement.showHelp" ng-init="form.rootElement.showHelp=false"></i>
+							<span class="help-block" ng-show="form.rootElement.showHelp">{{locales.string(form.rootElement.documentation)}}</span>
 						</div>
 					</div>
 				</fieldset>
@@ -29,14 +30,14 @@
 					<div class="control-group" id="controlGroupXml" ng-show="showXml">
 						<label class="control-label">XML:</label>
 						<div class="controls">
-							<textarea id="xml" rows="10">{{forms[$index].schema | asXml}}</textarea>
+							<textarea id="xml" rows="10">{{form | asXml}}</textarea>
 						</div>
 					</div>
 
 					<div class="control-group" id="controlGroupJson" ng-show="showJson">
 						<label class="control-label">JSON:</label>
 						<div class="controls">
-							<textarea rows="10">{{forms[$index].schema | json}}</textarea>
+							<textarea rows="10">{{form | json}}</textarea>
 						</div>
 					</div>
 				</fieldset>

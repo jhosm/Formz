@@ -3,30 +3,23 @@
 var app = angular.module('formz.controllers');
 
 app.controller('XsdCtrl', function XsdCtrl($scope, $http, fzXsd, $routeParams, fzLocalization) {
+	
 	$scope.showXml = false;
 	$scope.locales = fzLocalization;
 	$http.get('xsd/' + $routeParams.id + '.xsd').success(function(data) {
-		if(angular.isUndefined($scope.forms)) $scope.forms = [];
-		
-		var forms = $scope.forms;
-		var currentForm = _.find(forms, function(form){ return form.id === $routeParams.id; });
-
-		if(angular.isUndefined(currentForm)) {
-			currentForm = {};
-			forms.push(currentForm);
-		}
-		
-		currentForm.schema = fzXsd.parse(data);
+		$scope.form = fzXsd.parse(data);
 	});
 }).$inject = ['$scope', '$http', 'fzXsd', '$routeParams', 'fzLocalization'];
 
 
-app.controller('MainCtrl', function MainCtrl($scope, $resource) {
+app.controller('MainCtrl', function MainCtrl($scope, $resource, fzLocalization) {
+	$scope.locales = fzLocalization;
+
 	var FormsDefinitions = $resource('xsd/formsDefinitions.js');
 	$scope.forms = FormsDefinitions.query(function() {
 		$scope.tabs = _.pluck($scope.forms, 'label');
 	});
-}).$inject = ['$scope', '$resource'];
+}).$inject = ['$scope', '$resource', 'fzLocalization'];
 
 app.controller("TabsCtrl", function($scope, $routeParams, $location) {
 

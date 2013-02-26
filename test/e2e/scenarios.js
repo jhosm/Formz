@@ -2,9 +2,10 @@
 
 /* http://docs.angularjs.org/guide/dev_guide.e2e-testing */
 
-describe('my app', function() {
+describe('Formz', function() {
 
   beforeEach(function() {
+//    angular.module('formz', []).value('teste',123);
     browser().navigateTo('../../app/index.html');
   });
 
@@ -13,8 +14,19 @@ describe('my app', function() {
     expect(browser().location().url()).toBe("/form/human");
   });
 
+  describe('form tabs', function() {
+    it('should be able to choose a tab', function() {
+      element("a:contains('Pessoas')").click();
+      input('form.rootElement.value').enter('Joao');
+      expect(element('#xml').text()).toMatch('<person>Joao</person>');
 
-  describe('xsd form', function() {
+      element("a:contains('Casas')").click();
+      input('form.rootElement.value').enter('myHouse');
+      expect(element('#xml').text()).toMatch('<house>myHouse</house>');
+    });
+  });
+
+  describe('form', function() {
 
     beforeEach(function() {
       browser().navigateTo('../../app/index.html#/form/human');
@@ -26,7 +38,7 @@ describe('my app', function() {
     });
 
     it('should update the xml when user types some data', function() {
-      input('forms[$index].schema.rootElement.value').enter('Joao');
+      input('form.rootElement.value').enter('Joao');
       expect(element('#xml').text()).toMatch('<person>Joao</person>');
     });
 
