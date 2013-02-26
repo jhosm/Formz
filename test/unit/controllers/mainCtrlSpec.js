@@ -17,7 +17,7 @@ describe('MainCtrl', function() {
   }
 
   beforeEach(function() {
-    module('formz.controllers');
+    module('formz.controllers', 'formz.services');
   });
 
   it("should get all the forms' definitions", function() {
