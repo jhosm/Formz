@@ -5,24 +5,23 @@
 describe('directives', function() {
 
   describe('fzInput', function() {
-    var element;
+    var element, $httpBackend;
 
-    beforeEach(module('formz.directives', 'partials/directives/fzInput.html'));
+    beforeEach(module('formz.directives', 'formz.services', 'partials/directives/fzInput.html'));
 
-    beforeEach(inject(function($compile, $rootScope) {
+    beforeEach(inject(function($compile, $rootScope, _$httpBackend_) {
+
+      $httpBackend = _$httpBackend_;
+      $httpBackend.expectGET('locales/en-us.js').
+        respond({help: 'No help.'});
 
       var scope = $rootScope;
 
-      scope.label = 'My Label';
-      scope.placeholder = 'My Placeholder';
-      scope.value = 'My Value';      
-      scope.documentation = 'My Docs';
-      scope.locales = {string: function(text) {
-        if(text === 'My Docs') return 'My Documentation';
-      }};
+      scope.value='My Value';
 
-      element = angular.element('<fzinput></fzinput>');
+      element = angular.element('<div fz-input label="My Label" placeholder="My Placeholder" fz-value="value" documentation="My Docs"/>');
       $compile(element)(scope);
+
       scope.$digest();
     }));
 
@@ -33,7 +32,8 @@ describe('directives', function() {
       expect(input.attr('placeholder')).toBe('My Placeholder');
       expect(input.val()).toBe('My Value');
 
-      expect(element.find('span.help-block').text()).toBe('My Documentation');
+      $httpBackend.flush();
+      expect(element.find('span.help-block').text()).toBe('My Docs');
     });
   });
 });

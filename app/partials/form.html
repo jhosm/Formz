@@ -6,13 +6,8 @@
 				<fieldset>
 					<legend>Form</legend>
 
-					<div class="control-group">
-						<label class="control-label">{{form.rootElement.label}}:</label>
-						<div class="controls">
-							<input type="text" placeholder="{{form.rootElement.placeholder}}" ng-model="form.rootElement.value"> <i class="help-inline icon-question-sign" ng-click="form.rootElement.showHelp = !form.rootElement.showHelp" ng-init="form.rootElement.showHelp=false"></i>
-							<span class="help-block" ng-show="form.rootElement.showHelp">{{locales.string(form.rootElement.documentation)}}</span>
-						</div>
-					</div>
+					<div fz-input label="{{form.rootElement.label}}" placeholder="{{form.rootElement.placeholder}}" fz-value="form.rootElement.value" documentation="{{form.rootElement.documentation}}"></div>
+					
 				</fieldset>
 				<fieldset>
 					<legend>Debug Info</legend>
