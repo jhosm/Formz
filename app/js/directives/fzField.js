@@ -1,20 +1,20 @@
 'use strict';
 
 angular.module('formz.directives').
-directive('fzInput', function fzInputFactory() {
+directive('fzField', function fzFieldFactory() {
   
   return {
     restrict: 'EA',
     replace: true,
-    controller: ['$scope', 'fzLocalization', function fzInputCtrl($scope, fzLocalization) {
+    controller: ['$scope', 'fzLocalization', function fzFieldCtrl($scope, fzLocalization) {
       $scope.locales = fzLocalization;
     }],
     scope: {
       label: '@label',
       placeholder: '@placeholder',
       documentation: '@documentation',
-      value: '=fzValue'
+      value: '=ngModel'
     },
-    templateUrl: 'partials/directives/fzInput.html'
+    templateUrl: 'partials/directives/fzField.html'
   };
 });

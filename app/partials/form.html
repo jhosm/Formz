@@ -4,9 +4,9 @@
 		<div class="tab-pane" ng-repeat="formInfo in forms" title="{{formInfo.label}}" value="{{formInfo.id}}">
 			<form class="form-horizontal" ng-controller="XsdCtrl">
 				<fieldset>
-					<legend>Form</legend>
+					<legend>{{form.rootElement.label}}</legend>
 
-					<div fz-input label="{{form.rootElement.label}}" placeholder="{{form.rootElement.placeholder}}" fz-value="form.rootElement.value" documentation="{{form.rootElement.documentation}}"></div>
+					<fz-field label="{{form.rootElement.label}}" placeholder="{{form.rootElement.placeholder}}" ng-model="form.rootElement.value" documentation="{{form.rootElement.documentation}}"></fz-field>
 					
 				</fieldset>
 				<fieldset>
