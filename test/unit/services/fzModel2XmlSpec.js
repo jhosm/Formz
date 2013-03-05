@@ -4,16 +4,43 @@ describe('service', function() {
 
 	beforeEach(module('formz.services'));
 
-	describe('The xsd -> xml serializer', function() {
-		it('should serialize an xsd javascript structure into an xml instance string', inject(function(fzModel2Xml) {
-			var xmlSchema = {
+	describe('The model -> xml serializer', function() {
+		it('should serialize a model structure into an xml instance string', inject(function(fzModel2Xml) {
+			var model = {
 				rootElement: {
 					name: 'person',
-					value: 'Little John'
+					children: [{
+						name: '@gender',
+						value: 'male'
+					}, {
+						name: 'name',
+						children: [{
+							name: 'firstName',
+							value: 'Little'
+						},{
+							name: 'lastName',
+							value: 'John'
+						}]
+					}]
 				}
 			};
 
-			expect(fzModel2Xml.toString(xmlSchema)).toEqual("<person>Little John</person>");
+			expect(fzModel2Xml.toString(model)).toBe('<person gender="male"><name><firstName>Little</firstName><lastName>John</lastName></name></person>');
+		}));
+
+		it('should serialize a model with a target namespace into an xml instance string', inject(function(fzModel2Xml) {
+			var model = {
+				namespace: 'http://formz.com/ANamespace',
+				rootElement: {
+					name: 'person',
+					children: [{
+						name: '@gender',
+						value: 'male'
+					}]
+				}
+			};
+
+			expect(fzModel2Xml.toString(model)).toBe('<person xmlns="http://formz.com/ANamespace" gender="male"></person>');
 		}));
 	});
 });
