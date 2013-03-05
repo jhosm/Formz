@@ -1,7 +1,10 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ui="http://www.jhosm.com/XMLSchema-UI">
-	<xs:element name="house" type="xs:string" ui:label="Casa" ui:placeholder="Nome da Casa">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ui="http://formz.com/UI" targetNamespace="http://formz.com/houseDefinition">
+	<xs:element name="house" type="xs:string">
 		<xs:annotation>
+			<xs:appinfo>
+				<ui:info label="Casa" placeholder="Nome da Casa"/>
+			</xs:appinfo>
             <xs:documentation>
             	Uma casa é um lar.
             </xs:documentation>
