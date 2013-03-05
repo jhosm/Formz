@@ -28,8 +28,21 @@ service('fzXml', function() {
 		}
 	}
 
-	function select(xmlDoc, xpath) {
-		var nsResolver = document.createNSResolver(xmlDoc.ownerDocument == null ? xmlDoc.documentElement : xmlDoc.ownerDocument.documentElement);
+	function documentElement(node) {
+		return node.ownerDocument == null ? node.documentElement : node.ownerDocument.documentElement
+	}
+
+	function select(xmlDoc, xpath, namespaces) {
+		var nsResolver;
+		if(angular.isDefined(namespaces)) {
+		 	nsResolver = function nsResolver(prefix) {
+			  return namespaces[prefix] || null;
+			}
+		}
+		else {
+			nsResolver = document.createNSResolver(documentElement(xmlDoc));
+		}
+
 		var xpathResult = document.evaluate(xpath, xmlDoc, nsResolver, XPathResult.ANY_TYPE, null);
 
 		var result = [];
@@ -45,6 +58,7 @@ service('fzXml', function() {
 	return {
 		'parse': parse,
 		'toString': toString,
+		'documentElement': documentElement,
 		'select': select
 	};
 })
