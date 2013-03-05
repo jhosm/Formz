@@ -17,12 +17,12 @@ describe('Formz', function() {
   describe('form tabs', function() {
     it('should be able to choose a tab', function() {
       element("a:contains('Pessoas')").click();
-      input('form.rootElement.value').enter('Joao');
+      input('value').enter('Joao');
       expect(element('#xml').text()).toMatch('<person>Joao</person>');
 
       element("a:contains('Casas')").click();
-      input('form.rootElement.value').enter('myHouse');
-      expect(element('#xml').text()).toMatch('<house>myHouse</house>');
+      input('value').enter('myHouse');
+      expect(element('#xml').text()).toMatch('<house xmlns="http://formz.com/houseDefinition">myHouse</house>');
     });
   });
 
@@ -34,11 +34,11 @@ describe('Formz', function() {
 
 
     it('should render form when user navigates to /form/human', function() {
-      expect(element('legend').text()).toMatch(/Form/);
+      expect(element('legend').text()).toMatch(/Pessoa/);
     });
 
     it('should update the xml when user types some data', function() {
-      input('form.rootElement.value').enter('Joao');
+      input('value').enter('Joao');
       expect(element('#xml').text()).toMatch('<person>Joao</person>');
     });
 
