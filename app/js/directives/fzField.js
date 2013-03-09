@@ -10,6 +10,7 @@ directive('fzField', function fzFieldFactory() {
       $scope.locales = fzLocalization;
     }],
     scope: {
+      name: '@name',
       label: '@label',
       placeholder: '@placeholder',
       documentation: '@documentation',

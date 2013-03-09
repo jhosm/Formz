@@ -19,7 +19,7 @@ describe('directives', function() {
 
       scope.value='My Value';
 
-      element = angular.element('<div fz-field label="My Label" placeholder="My Placeholder" ng-model="value" documentation="My Docs"/>');
+      element = angular.element('<div fz-field label="My Label" placeholder="My Placeholder" ng-model="value" name="My Name" documentation="My Docs"/>');
       $compile(element)(scope);
 
       scope.$digest();
@@ -30,6 +30,7 @@ describe('directives', function() {
       expect(element.find('label').text()).toBe('My Label:');
       var input = element.find('div.controls input[type=text]');
       expect(input.attr('placeholder')).toBe('My Placeholder');
+      expect(input.attr('name')).toBe('My Name');
       expect(input.val()).toBe('My Value');
 
       $httpBackend.flush();
