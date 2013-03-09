@@ -1,13 +1,32 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ui="http://formz.com/UI" targetNamespace="http://formz.com/houseDefinition">
-	<xs:element name="house" type="xs:string">
+	<xs:element name="house" type="houseType"></xs:element>
+
+	<xs:complexType name="houseType">
 		<xs:annotation>
 			<xs:appinfo>
-				<ui:info label="Casa" placeholder="Nome da Casa"/>
+				<ui:info label="Casa"/>
 			</xs:appinfo>
-            <xs:documentation>
-            	Uma casa é um lar.
-            </xs:documentation>
-        </xs:annotation>
-    </xs:element>
+			<xs:documentation>Uma casa é um lar.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="name" type="xs:string">
+			<xs:annotation>
+				<xs:appinfo>
+					<ui:info label="Nome" placeholder="Nome da Casa" />
+				</xs:appinfo>
+				<xs:documentation>Indicar nome da casa</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="numOfRooms" type="xs:string">
+			<xs:annotation>
+				<xs:appinfo>
+					<ui:info label="Nº Quartos" placeholder="Número de quartos que a casa possui" />
+				</xs:appinfo>
+				<xs:documentation>
+**Número** de quartos que a casa possui. 
+Não inclui salas.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
 </xs:schema>
