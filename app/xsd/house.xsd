@@ -9,24 +9,43 @@
 			</xs:appinfo>
 			<xs:documentation>Uma casa é um lar.</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="name" type="xs:string">
-			<xs:annotation>
-				<xs:appinfo>
-					<ui:info label="Nome" placeholder="Nome da Casa" />
-				</xs:appinfo>
-				<xs:documentation>Indicar nome da casa</xs:documentation>
-			</xs:annotation>
-		</xs:attribute>
-		<xs:attribute name="numOfRooms" type="xs:string">
-			<xs:annotation>
-				<xs:appinfo>
-					<ui:info label="Nº Quartos" placeholder="Número de quartos que a casa possui" />
-				</xs:appinfo>
-				<xs:documentation>
+		<xs:complexContent>
+			<xs:extension base="buildingType">
+				<xs:attribute name="name" type="xs:string">
+					<xs:annotation>
+						<xs:appinfo>
+							<ui:info label="Nome" placeholder="Nome da Casa" />
+						</xs:appinfo>
+						<xs:documentation>Indicar nome da casa</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="numOfRooms" type="xs:string">
+					<xs:annotation>
+						<xs:appinfo>
+							<ui:info label="Nº Quartos" placeholder="Número de quartos que a casa possui" />
+						</xs:appinfo>
+						<xs:documentation>
 **Número** de quartos que a casa possui. 
 Não inclui salas.
-				</xs:documentation>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="buildingType">
+		<xs:attributeGroup ref="buildingAttributesGroup"/>
+	</xs:complexType>
+
+	<xs:attributeGroup name="buildingAttributesGroup">
+		<xs:attribute name="id" type="xs:string">
+			<xs:annotation>
+				<xs:appinfo>
+					<ui:info label="ID" placeholder="Identificador único" />
+				</xs:appinfo>
+				<xs:documentation>Indicar referência matricial</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-	</xs:complexType>
+	</xs:attributeGroup>
 </xs:schema>

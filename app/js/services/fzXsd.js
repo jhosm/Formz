@@ -2,11 +2,23 @@
 
 angular.module('formz.services').
 service('fzXsd', ['fzXml', function(xml) {
-	function select(node, xpath) {
-		return xml.select(node, xpath, {
+	var xsdNamespaces = {
 			'xs': 'http://www.w3.org/2001/XMLSchema',
 			'ui': 'http://formz.com/UI'
-		});
+		};
+
+	function select(node, xpath) {
+		return xml.select(node, xpath, xsdNamespaces);
+	}
+
+	function selectOne(node, xpath) {
+		return xml.selectOne(node, xpath, xsdNamespaces);
+	}
+
+	function getReference(node, xpath) {
+		var documentElement = xml.documentElement(node);
+		var reference = selectOne(documentElement, xpath);
+		return reference;
 	}
 
 	function parse(xmlDoc) {
@@ -24,11 +36,7 @@ service('fzXsd', ['fzXml', function(xml) {
 	}
 
 	function getUiInfo(node) {
-		var uiInfoNode = select(node, 'xs:annotation/xs:appinfo/ui:info');
-		if(uiInfoNode.length === 0) {
-			return null;
-		}
-		return uiInfoNode[0];
+		return selectOne(node, 'xs:annotation/xs:appinfo/ui:info');
 	}
 
 	function getLabel(node, defaultLabel) {
@@ -52,11 +60,11 @@ service('fzXsd', ['fzXml', function(xml) {
 	}
 
 	function getDocumentation(node) {
-		var doc = xml.select(node, 'xs:annotation/xs:documentation');
-		if(doc.length === 0) {
+		var doc = xml.selectOne(node, 'xs:annotation/xs:documentation');
+		if(doc === null) {
 			return '.no-help';
 		}
-		return doc[0].textContent;
+		return doc.textContent;
 	}
 
 	function parseUiInfo(model, node) {
@@ -69,7 +77,7 @@ service('fzXsd', ['fzXml', function(xml) {
 
 	function parseAttributes(model, node) {
 		var attributes = xml.select(node, 'xs:attribute');
-		if(attributes.length == 0) return model;
+		if(attributes.length === 0) return model;
 
 		var parsedAttributes = _.map(attributes, function(attr) {
 			var parsedAttribute = { name: '@' + attr.getAttribute('name') };
@@ -79,16 +87,38 @@ service('fzXsd', ['fzXml', function(xml) {
 		return model;
 	}
 
-	function parseComplexContent(model, node) {
-		var extension = xml.select(node, 'xs:complexContent/xs:extension');
-		if(extension.length == 0) return model;
-		extension = extension[0];
+	function parseAttributeGroup(model, node) {
+		var attributeGroupRef = xml.selectOne(node, 'xs:attributeGroup/@ref');
+		if(attributeGroupRef === null) return model;
 
-		model = parseAttributes(model, extension);
+		var attributeGroup = getReference(node, '//xs:attributeGroup[@name="' + attributeGroupRef.value + '"]');
+		if(attributeGroup === null) {
+			throw new Error('xsd service: Could not find a referenced attributeGroup named "' + attributeGroupRef.value + '".');
+		}
+
+		model = parseAttributes(model, attributeGroup);
+
+		return model;
+	}
+
+	function parseContent(model, node) {
+		model = parseAttributes(model, node);
+		model = parseAttributeGroup(model, node);
+		return model;
+	}
+
+	function parseComplexContent(model, node) {
+		var extension = xml.selectOne(node, 'xs:complexContent/xs:extension');
+		if(extension === null) return model;
+		
+		model = parseContent(model, extension);
 
 		var nodeComplexType = getComplexType(extension);
 		if(nodeComplexType !== null) {
-			return parseComplexType(model, nodeComplexType);
+			model = parseComplexContent(model, nodeComplexType);
+			model = parseContent(model, nodeComplexType);
+		
+			return model;
 		}
 
 		return model;
@@ -100,29 +130,26 @@ service('fzXsd', ['fzXml', function(xml) {
 		if(type === null) return null;
 		if(/^xs:/.test(type)) return null;
 
-		var documentElement = xml.documentElement(node);
-		var complexType = select(documentElement, '//xs:complexType[@name="' + type + '"]');
-		if(complexType.length === 0) {
+		var complexType = getReference(node, '//xs:complexType[@name="' + type + '"]');
+		if(complexType === null) {
 			throw new Error('xsd service: Could not find a referenced type named "' + type + '".');
 		}
-
-		return complexType[0];
+		return complexType;
 	}
 
 	function parseComplexType(model, complexTypeNode) {
 		model = parseUiInfo(model, complexTypeNode);
 		model = parseComplexContent(model, complexTypeNode);
-		model = parseAttributes(model, complexTypeNode);
-
+		model = parseContent(model, complexTypeNode);
+		
 		return model;
 	}
 
 	function parseRootElement(xmlDoc) {
-		var rootNode = xml.select(xmlDoc, '/xs:schema/xs:element');
-		if(rootNode.length === 0) {
+		var rootNode = xml.selectOne(xmlDoc, '/xs:schema/xs:element');
+		if(rootNode === null) {
 			throw new Error('xsd service: Could not find a root element definition on this Xml Schema.');
 		}
-		rootNode = rootNode[0];
 
 		// name acts as default label
 		var rootElement = {
@@ -136,6 +163,7 @@ service('fzXsd', ['fzXml', function(xml) {
 		}
 
 		rootElement = parseUiInfo(rootElement, rootNode);
+		rootElement = parseContent(rootElement, rootNode);
 
 		return rootElement;
 	}

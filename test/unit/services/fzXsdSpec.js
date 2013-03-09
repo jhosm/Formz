@@ -9,6 +9,7 @@ describe('Services', function() {
 	beforeEach(module('xsd/samples/simpleElement_complexType_oneAttribute.xsd'));
 	beforeEach(module('xsd/samples/simpleElement_complexType_twoAttributes.xsd'));
 	beforeEach(module('xsd/samples/simpleElement_complexType_complexContent_extension.xsd'));
+	beforeEach(module('xsd/samples/simpleElement_complexType_attributeGroup.xsd'));
 
 	describe('The xml schema parser', function() {
 		var xsd, templateCache;
@@ -98,6 +99,9 @@ describe('Services', function() {
 			it('should parse a complex type with an extension', function() {
 				var rootElement = xsd.parse(getXsd('simpleElement_complexType_complexContent_extension')).rootElement;
 
+				// Make sure the uiInfo elements are not overriden by the extension's uiinfo...
+				expect(rootElement.label).toBe('Pessoa');
+				
 				expect(rootElement.children.length).toBe(3);
 
 				// "Inherited" attribute.
@@ -105,24 +109,47 @@ describe('Services', function() {
 				expect(attribute.name).toBe('@furColor');
 			});		
 
+			it('should parse a complex type with an attribute group', function() {
+				var rootElement = xsd.parse(getXsd('simpleElement_complexType_attributeGroup')).rootElement;
+
+				expect(rootElement.children.length).toBe(1);
+
+				// "Inherited" attribute.
+				var attribute = rootElement.children[0];
+				expect(attribute.name).toBe('@color');
+			});	
 		});
 
 		it("should give a clear explanation when it doesn't find a root element", function() {
 			var noRootElement = '<?xml version="1.0"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"></xs:schema>';
 
 			expect(function() {
-				xsd.parse(getXsd('noRootElement'));
-			}).toThrow();
-
+				xsd.parse(noRootElement);
+			}).toThrow('xsd service: Could not find a root element definition on this Xml Schema.');
 		});
 
 		it("should give a clear explanation when it doesn't find a type", function() {
 			var unknownType = '<?xml version="1.0"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="aName" type="unknownType"/></xs:schema>';
 
 			expect(function() {
-				xsd.parse(getXsd('unknownType'));
-			}).toThrow();
+				xsd.parse(unknownType);
+			}).toThrow('xsd service: Could not find a referenced type named "unknownType".');
+		});
 
+		it("should give a clear explanation when it doesn't find a type's extension", function() {
+			var unknownType = '<?xml version="1.0"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="aName" type="aType"/><xs:complexType name="aType"><xs:complexContent><xs:extension base="unknownType"/></xs:complexContent></xs:complexType></xs:schema>';
+
+			expect(function() {
+				xsd.parse(unknownType);
+			}).toThrow('xsd service: Could not find a referenced type named "unknownType".');
+		});
+
+		it("should give a clear explanation when it doesn't find a referenced attribute group", function() {
+			var unknownAttributeGroup = '<?xml version="1.0"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="aName"><xs:attributeGroup ref="unknownAttributeGroup" /></xs:element></xs:schema>';
+
+			expect(function() {
+				xsd.parse(unknownAttributeGroup);
+			}).toThrow('xsd service: Could not find a referenced attributeGroup named "unknownAttributeGroup".');
 		});
 	});
 });
