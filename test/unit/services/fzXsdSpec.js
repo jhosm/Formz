@@ -33,12 +33,6 @@ describe('Services', function() {
 			expect(rootElement.children.length).toBe(0);
 		});
 
-		it('should set a default documentation message when none is available', function() {
-			var parsedSchema = xsd.parse(getXsd('simpleElement_minimalData'));
-
-			expect(parsedSchema.rootElement.documentation).toBe('.no-help');
-		});
-
 		it('should set a default target namespace when one is available', function() {
 			var parsedSchema = xsd.parse(getXsd('simpleElement'));
 			expect(parsedSchema.namespace).toBe(null);
@@ -47,16 +41,24 @@ describe('Services', function() {
 			expect(parsedSchema.namespace).toBe('http://formz.com/ANamespace');
 		});
 
-		it("should set the name of the element as it's label if none is specified", function() {
-			var parsedSchema = xsd.parse(getXsd('simpleElement_minimalData'));
+		describe('when parsing ui info', function() {
+			it('should set a default documentation message when none is available', function() {
+				var parsedSchema = xsd.parse(getXsd('simpleElement_minimalData'));
 
-			expect(parsedSchema.rootElement.label).toBe('person');
-		});
+				expect(parsedSchema.rootElement.documentation).toBe('.no-help');
+			});
 
-		it("should define an empty placeholder when the element doesn't have one", function() {
-			var parsedSchema = xsd.parse(getXsd('simpleElement_minimalData'));
+			it("should set the name of the element as it's label if none is specified", function() {
+				var parsedSchema = xsd.parse(getXsd('simpleElement_minimalData'));
 
-			expect(parsedSchema.rootElement.placeholder).toBe('');
+				expect(parsedSchema.rootElement.label).toBe('person');
+			});
+
+			it("should define an empty placeholder when the element doesn't have one", function() {
+				var parsedSchema = xsd.parse(getXsd('simpleElement_minimalData'));
+
+				expect(parsedSchema.rootElement.placeholder).toBe('');
+			});
 		});
 
 		describe('when parsing a schema with a complex type', function() {
@@ -120,36 +122,39 @@ describe('Services', function() {
 			});	
 		});
 
-		it("should give a clear explanation when it doesn't find a root element", function() {
-			var noRootElement = '<?xml version="1.0"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"></xs:schema>';
+		describe('when detects parsing errors', function() {
+			it("should give a clear explanation when it doesn't find a root element", function() {
+				var noRootElement = '<?xml version="1.0"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"></xs:schema>';
 
-			expect(function() {
-				xsd.parse(noRootElement);
-			}).toThrow('xsd service: Could not find a root element definition on this Xml Schema.');
+				expect(function() {
+					xsd.parse(noRootElement);
+				}).toThrow('xsd service: Could not find a root element definition on this Xml Schema.');
+			});
+
+			it("should give a clear explanation when it doesn't find a type", function() {
+				var unknownType = '<?xml version="1.0"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="aName" type="unknownType"/></xs:schema>';
+
+				expect(function() {
+					xsd.parse(unknownType);
+				}).toThrow('xsd service: Could not find a referenced type named "unknownType".');
+			});
+
+			it("should give a clear explanation when it doesn't find a type's extension", function() {
+				var unknownType = '<?xml version="1.0"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="aName" type="aType"/><xs:complexType name="aType"><xs:complexContent><xs:extension base="unknownType"/></xs:complexContent></xs:complexType></xs:schema>';
+
+				expect(function() {
+					xsd.parse(unknownType);
+				}).toThrow('xsd service: Could not find a referenced type named "unknownType".');
+			});
+
+			it("should give a clear explanation when it doesn't find a referenced attribute group", function() {
+				var unknownAttributeGroup = '<?xml version="1.0"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="aName"><xs:attributeGroup ref="unknownAttributeGroup" /></xs:element></xs:schema>';
+
+				expect(function() {
+					xsd.parse(unknownAttributeGroup);
+				}).toThrow('xsd service: Could not find a referenced attributeGroup named "unknownAttributeGroup".');
+			});
 		});
-
-		it("should give a clear explanation when it doesn't find a type", function() {
-			var unknownType = '<?xml version="1.0"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="aName" type="unknownType"/></xs:schema>';
-
-			expect(function() {
-				xsd.parse(unknownType);
-			}).toThrow('xsd service: Could not find a referenced type named "unknownType".');
-		});
-
-		it("should give a clear explanation when it doesn't find a type's extension", function() {
-			var unknownType = '<?xml version="1.0"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="aName" type="aType"/><xs:complexType name="aType"><xs:complexContent><xs:extension base="unknownType"/></xs:complexContent></xs:complexType></xs:schema>';
-
-			expect(function() {
-				xsd.parse(unknownType);
-			}).toThrow('xsd service: Could not find a referenced type named "unknownType".');
-		});
-
-		it("should give a clear explanation when it doesn't find a referenced attribute group", function() {
-			var unknownAttributeGroup = '<?xml version="1.0"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="aName"><xs:attributeGroup ref="unknownAttributeGroup" /></xs:element></xs:schema>';
-
-			expect(function() {
-				xsd.parse(unknownAttributeGroup);
-			}).toThrow('xsd service: Could not find a referenced attributeGroup named "unknownAttributeGroup".');
-		});
+			
 	});
 });
