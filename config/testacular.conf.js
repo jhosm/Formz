@@ -8,6 +8,7 @@ files = [
   'lib/angular/angular.js',
   'lib/angular/angular-*.js',
   'lib/underscore/underscore-min.js',
+  'lib/showdown/showdown.js',
   '../test/lib/angular/angular-mocks.js',
   'js/**/*.js',
   '../test/unit/**/*.js',
