@@ -79,8 +79,24 @@ service('fzXsd', ['fzXml', function(xml) {
 		return model;
 	}
 
+	function parseComplexContent(model, node) {
+		var extension = xml.select(node, 'xs:complexContent/xs:extension');
+		if(extension.length == 0) return model;
+		extension = extension[0];
+
+		model = parseAttributes(model, extension);
+
+		var nodeComplexType = getComplexType(extension);
+		if(nodeComplexType !== null) {
+			return parseComplexType(model, nodeComplexType);
+		}
+
+		return model;
+	}
+
 	function getComplexType(node) {
 		var type = node.getAttribute('type');
+		if(type === null) type = node.getAttribute('base');
 		if(type === null) return null;
 		if(/^xs:/.test(type)) return null;
 
@@ -95,6 +111,7 @@ service('fzXsd', ['fzXml', function(xml) {
 
 	function parseComplexType(model, complexTypeNode) {
 		model = parseUiInfo(model, complexTypeNode);
+		model = parseComplexContent(model, complexTypeNode);
 		model = parseAttributes(model, complexTypeNode);
 
 		return model;

@@ -18,6 +18,7 @@ describe('Services', function() {
 			expect(rootElement.label).toBe('Pessoa');
 			expect(rootElement.documentation).toBe('Humano');
 			expect(rootElement.placeholder).toBe('Nome da Pessoa');
+			expect(rootElement.children.length).toBe(0);
 		});
 
 		it('should set a default documentation message when none is available', function() {
@@ -46,22 +47,54 @@ describe('Services', function() {
 			expect(parsedSchema.rootElement.placeholder).toBe('');
 		});
 
-		it('should parse a complex type with an atttribute', function() {
-			var rootElement = xsd.parse(xsd_simpleElement_complexType_oneAttribute).rootElement;
+		describe('when parsing a schema with a complex type', function() {
+			it('should parse a complex type with an atttribute', function() {
+				var rootElement = xsd.parse(xsd_simpleElement_complexType_oneAttribute).rootElement;
 
-			expect(rootElement.name).toBe('person');
-			expect(rootElement.label).toBe('Pessoa');
-			expect(rootElement.documentation).toBe('Humano');
-			expect(rootElement.placeholder).toBe('');
+				expect(rootElement.name).toBe('person');
+				expect(rootElement.label).toBe('Pessoa');
+				expect(rootElement.documentation).toBe('Humano');
+				expect(rootElement.placeholder).toBe('');
 
-			expect(rootElement.children.length).toBe(1);
-			var attribute = rootElement.children[0];
+				expect(rootElement.children.length).toBe(1);
+				var attribute = rootElement.children[0];
 
-			expect(attribute.name).toBe('@name');
-			expect(attribute.label).toBe('Nome');
-			expect(attribute.documentation).toBe('Indicar nome da pessoa');
-			expect(attribute.placeholder).toBe('Nome da Pessoa');
-		});
+				expect(attribute.name).toBe('@name');
+				expect(attribute.label).toBe('Nome');
+				expect(attribute.documentation).toBe('Indicar nome da pessoa');
+				expect(attribute.placeholder).toBe('Nome da Pessoa');
+			});
+
+			it('should parse a complex type with two atttributes', function() {
+				var rootElement = xsd.parse(xsd_simpleElement_complexType_twoAttributes).rootElement;
+
+				expect(rootElement.children.length).toBe(2);
+				var attribute = rootElement.children[0];
+
+				expect(attribute.name).toBe('@name');
+				expect(attribute.label).toBe('Nome');
+				expect(attribute.documentation).toBe('Indicar nome da pessoa');
+				expect(attribute.placeholder).toBe('Nome da Pessoa');
+
+				var attribute = rootElement.children[1];
+
+				expect(attribute.name).toBe('@genre');
+				expect(attribute.label).toBe('Género');
+				expect(attribute.documentation).toBe('Indicar género da pessoa');
+				expect(attribute.placeholder).toBe('Género da Pessoa');
+			});
+
+			it('should parse a complex type with an extension', function() {
+				var rootElement = xsd.parse(xsd_simpleElement_complexType_complexContent_extension).rootElement;
+
+				expect(rootElement.children.length).toBe(3);
+
+				// "Inherited" attribute.
+				var attribute = rootElement.children[2];
+				expect(attribute.name).toBe('@furColor');
+			});		
+
+		})
 
 		it("should give a clear explanation when it doesn't find a root element", function() {
 			var noRootElement = '<?xml version="1.0"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"></xs:schema>';
