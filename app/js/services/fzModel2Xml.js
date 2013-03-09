@@ -12,25 +12,51 @@ service('fzModel2Xml', function() {
 		var attributes = _.filter(element.children, function(child) { return /^@/.test(child.name) });
 		var elements = _.difference(element.children, attributes); 
 
+		// open starting tag. I thought about extracting this out, but I found it harder to read...
 		xmlString = append(xmlString, '<' + element.name);
 
-		if(namespace !== null && namespace !== undefined) xmlString = append(xmlString, ' xmlns="' + namespace + '"');
+		xmlString = addNamespace(xmlString, namespace);
 
-		if(attributes.length === 0) xmlString += '>';
-
-		xmlString += _.reduce(attributes, function(memo, child) {
-			return memo + " " + child.name.substring(1) + '="' + child.value + '"';
-		}, '');
+		xmlString = addAttributes(xmlString, attributes);
 		
-		if(attributes.length > 0) xmlString += '>';
-		if(angular.isDefined(element.value)) xmlString = append(xmlString, element.value);
-		
-		_.each(elements, function(element) {
-			xmlString = addChild(xmlString, element);
-		});
+		// close starting tag
+		xmlString += '>';
 
+		xmlString = addElementValue(xmlString, element.value);
+		
+		xmlString = addElements(xmlString, elements);
+
+		// close ending tag
 		xmlString = append(xmlString, '</' + element.name + '>');
 
+		return xmlString;
+	}
+
+	function addNamespace(xmlString, namespace) {
+		if(namespace !== null && namespace !== undefined) xmlString = append(xmlString, ' xmlns="' + namespace + '"');
+		return xmlString;
+	}
+
+	function addElements(xmlString, elements) {
+		xmlString = _.reduce(elements, function(memo, element) {
+			return addChild(memo, element);
+		}, xmlString);
+
+		return xmlString;
+	}
+
+	function addElementValue(xmlString, value) {
+		if(angular.isDefined(value) && value !== null) xmlString = append(xmlString, value);
+
+		return xmlString;
+	}
+
+	function addAttributes(xmlString, attributes) {
+		xmlString += _.reduce(attributes, function(memo, child) {
+			var result = memo + " " + child.name.substring(1) + '="';
+			if(angular.isDefined(child.value) && child.value !== null) result += child.value;
+			return result + '"';
+		}, '');
 		return xmlString;
 	}
 

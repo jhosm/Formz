@@ -5,7 +5,6 @@
 describe('Formz', function() {
 
   beforeEach(function() {
-//    angular.module('formz', []).value('teste',123);
     browser().navigateTo('../../app/index.html');
   });
 
@@ -21,8 +20,10 @@ describe('Formz', function() {
       expect(element('#xml').text()).toMatch('<person>Joao</person>');
 
       element("a:contains('Casas')").click();
-      input('value').enter('myHouse');
-      expect(element('#xml').text()).toMatch('<house xmlns="http://formz.com/houseDefinition">myHouse</house>');
+
+      var nameInput = using('div[name="@name"]');
+      nameInput.input('value').enter('myHouse');
+      expect(element('#xml').text()).toMatch('<house xmlns="http://formz.com/houseDefinition" name="myHouse" numOfRooms=""></house>');
     });
   });
 
