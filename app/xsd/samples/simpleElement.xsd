@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ui="http://formz.com/UI">
+	<xs:element name="person" type="xs:string" >
+		<xs:annotation>
+			<xs:appinfo>
+				<ui:info label="Pessoa" placeholder="Nome da Pessoa"/>
+			</xs:appinfo>
+	  	<xs:documentation>Humano</xs:documentation>
+	  </xs:annotation>
+	</xs:element>
+</xs:schema>

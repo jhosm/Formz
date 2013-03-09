@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ui="http://formz.com/UI">
+	<xs:element name="person" type="personType"/>
+	<xs:complexType name="personType">
+		<xs:annotation>
+			<xs:appinfo>
+				<ui:info label="Pessoa"/>
+			</xs:appinfo>
+	  	<xs:documentation>Humano</xs:documentation>
+	  </xs:annotation>
+		<xs:attribute name="name" type="xs:string">
+			<xs:annotation>
+			<xs:appinfo>
+				<ui:info label="Nome" placeholder="Nome da Pessoa" />
+			</xs:appinfo>
+	  		<xs:documentation>Indicar nome da pessoa</xs:documentation>
+	  	</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="genre" type="xs:string">
+			<xs:annotation>
+			<xs:appinfo>
+				<ui:info label="Género" placeholder="Género da Pessoa" />
+			</xs:appinfo>
+	  		<xs:documentation>Indicar género da pessoa</xs:documentation>
+	  	</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>'

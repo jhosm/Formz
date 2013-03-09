@@ -14,11 +14,15 @@ files = [
   '../test/unit/**/*.js',
 
   // templates
-  'partials/directives/*.html'
+  'partials/directives/*.html',
+
+  //xsd Samples
+  'xsd/samples/*.xsd'
 ];
 
 // generate js files from html templates
 preprocessors = {
+  '**/*.xsd': 'html2js',
   '**/*.html': 'html2js'
 };
 
