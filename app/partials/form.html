@@ -3,12 +3,10 @@
 	<div class="tabbable tabs-left" ng-model="currentTab">
 		<div class="tab-pane" ng-repeat="formInfo in forms" title="{{formInfo.label}}" value="{{formInfo.id}}">
 			<form class="form-horizontal" ng-controller="XsdCtrl">
-				<fieldset>
-					<legend>{{form.rootElement.label}}</legend>
-
-					<fz-field label="{{form.rootElement.label}}" placeholder="{{form.rootElement.placeholder}}" ng-model="form.rootElement.value" documentation="{{form.rootElement.documentation}}"></fz-field>
-					
-				</fieldset>
+				
+				<fz-field-set ng-model="form.rootElement">
+				</fz-field-set>
+				
 				<fieldset>
 					<legend>Debug Info</legend>
 
