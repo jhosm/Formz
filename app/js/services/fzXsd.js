@@ -81,6 +81,15 @@ service('fzXsd', ['fzXml', function(xml) {
 
 		var parsedAttributes = _.map(attributes, function(attr) {
 			var parsedAttribute = { name: '@' + attr.getAttribute('name') };
+			
+			var use = attr.getAttribute('use');
+			if(use === null || use === 'optional') {
+				parsedAttribute.required = false;
+			}
+			else {
+				parsedAttribute.required = true;	
+			}
+
 			return parseUiInfo(parsedAttribute, attr);
 		});
 		model.children = _.union(model.children, parsedAttributes);

@@ -23,7 +23,8 @@ describe('Formz', function() {
 
       var nameInput = using('div[name="@name"]');
       nameInput.input('value').enter('myHouse');
-      expect(element('#xml').text()).toMatch('<house xmlns="http://formz.com/houseDefinition" name="myHouse" numOfRooms=""></house>');
+      var housesDiv = using('div[title="Casas"]');
+      expect(housesDiv.element('#xml').text()).toMatch('<house xmlns="http://formz.com/houseDefinition" name="myHouse" numOfRooms="" id=""></house>');
     });
   });
 

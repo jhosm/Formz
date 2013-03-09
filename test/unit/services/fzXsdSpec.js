@@ -7,7 +7,7 @@ describe('Services', function() {
 	beforeEach(module('xsd/samples/simpleElement_minimalData.xsd'));
 	beforeEach(module('xsd/samples/simpleElement_targetNamespace.xsd'));
 	beforeEach(module('xsd/samples/simpleElement_complexType_oneAttribute.xsd'));
-	beforeEach(module('xsd/samples/simpleElement_complexType_twoAttributes.xsd'));
+	beforeEach(module('xsd/samples/simpleElement_complexType_threeAttributes.xsd'));
 	beforeEach(module('xsd/samples/simpleElement_complexType_complexContent_extension.xsd'));
 	beforeEach(module('xsd/samples/simpleElement_complexType_attributeGroup.xsd'));
 
@@ -61,6 +61,21 @@ describe('Services', function() {
 			});
 		});
 
+		describe('when parsing validation', function() {
+			it("should parse attributes' optionality", function() {
+				var rootElement = xsd.parse(getXsd('simpleElement_complexType_threeAttributes')).rootElement;
+
+				var attribute = rootElement.children[0];
+				expect(attribute.required).toBeTruthy();
+
+				var attribute = rootElement.children[1];
+				expect(attribute.required).toBeFalsy();
+
+				var attribute = rootElement.children[2];
+				expect(attribute.required).toBeFalsy();
+			})
+		});
+
 		describe('when parsing a schema with a complex type', function() {
 			it('should parse a complex type with an atttribute', function() {
 				var rootElement = xsd.parse(getXsd('simpleElement_complexType_oneAttribute')).rootElement;
@@ -79,10 +94,10 @@ describe('Services', function() {
 				expect(attribute.placeholder).toBe('Nome da Pessoa');
 			});
 
-			it('should parse a complex type with two atttributes', function() {
-				var rootElement = xsd.parse(getXsd('simpleElement_complexType_twoAttributes')).rootElement;
+			it('should parse a complex type with three atttributes', function() {
+				var rootElement = xsd.parse(getXsd('simpleElement_complexType_threeAttributes')).rootElement;
 
-				expect(rootElement.children.length).toBe(2);
+				expect(rootElement.children.length).toBe(3);
 				var attribute = rootElement.children[0];
 
 				expect(attribute.name).toBe('@name');
@@ -96,6 +111,8 @@ describe('Services', function() {
 				expect(attribute.label).toBe('Género');
 				expect(attribute.documentation).toBe('Indicar género da pessoa');
 				expect(attribute.placeholder).toBe('Género da Pessoa');
+
+				//let's assume the third is correct...
 			});
 
 			it('should parse a complex type with an extension', function() {
