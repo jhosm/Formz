@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('formz.directives').
-directive('fzFieldSet', function fzFieldFactory() {
+directive('fzFieldset', function fzFieldFactory() {
   
   return {
     restrict: 'EA',

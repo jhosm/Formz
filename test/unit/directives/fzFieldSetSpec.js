@@ -23,7 +23,7 @@ describe('directives', function() {
 
         scope.model = model;
 
-        element = angular.element('<fz-field-set ng-model="model"/>');
+        element = angular.element('<fz-fieldset ng-model="model"/>');
         $compile(element)(scope);
 
         scope.$digest();
