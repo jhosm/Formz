@@ -5,6 +5,11 @@ describe('service', function() {
 	beforeEach(module('formz.services'));
 
 	describe('The model -> xml serializer', function() {
+		it('should return the empty string when given a null or undefined model', inject(function(fzModel2Xml) {
+			expect(fzModel2Xml.toString(null)).toBe('');
+			expect(fzModel2Xml.toString()).toBe('');
+		}));
+
 		it('should serialize a model structure into an xml instance string', inject(function(fzModel2Xml) {
 			var model = {
 				rootElement: {

@@ -3,6 +3,7 @@
 angular.module('formz.services').
 service('fzModel2Xml', function() {
 	function toString(xsdModel) {
+		if(angular.isUndefined(xsdModel) || xsdModel === null) return '';
 		return addChild('', xsdModel.rootElement, xsdModel.namespace);
 	}
 
