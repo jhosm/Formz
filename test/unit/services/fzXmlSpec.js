@@ -39,5 +39,15 @@ describe('service', function() {
 			expect(selectedOneNode.length).toBe(1);
 			expect(selectedOneNode[0].textContent).toBe('hello');
 		}));
+
+		it('should selectOne node based on a xpath', inject(function(fzXml) {
+			var loadedSampleXml = fzXml.parse(sampleXml);
+			expect(fzXml.selectOne(loadedSampleXml, '/xs:schema').nodeName).toBe('xs:schema');
+		}));
+
+		it('should return null when selectOne receives a xpath which matches no nodes', inject(function(fzXml) {
+			var loadedSampleXml = fzXml.parse(sampleXml);
+			expect(fzXml.selectOne(loadedSampleXml, '/noMatch')).toBeNull();
+		}));
 	});
 });

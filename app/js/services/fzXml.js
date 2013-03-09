@@ -55,10 +55,17 @@ service('fzXml', function() {
 		return result;
 	}
 
+	function selectOne(xmlDoc, xpath, namespaces) {
+		var result = select(xmlDoc, xpath, namespaces);
+		if(result.length === 0) return null;
+		return result[0];
+	}
+
 	return {
 		'parse': parse,
 		'toString': toString,
 		'documentElement': documentElement,
-		'select': select
+		'select': select,
+		'selectOne': selectOne
 	};
 })
