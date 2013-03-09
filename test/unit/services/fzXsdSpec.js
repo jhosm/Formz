@@ -23,7 +23,7 @@ describe('Services', function() {
 		}));
 
 		it('should parse a simple element with all the basic info', function() {
-			var rootElement = xsd.parse(getXsd('simpleElement")).rootElement;
+			var rootElement = xsd.parse(getXsd('simpleElement')).rootElement;
 
 			expect(rootElement.name).toBe('person');
 			expect(rootElement.label).toBe('Pessoa');
@@ -33,34 +33,34 @@ describe('Services', function() {
 		});
 
 		it('should set a default documentation message when none is available', function() {
-			var parsedSchema = xsd.parse(getXsd('simpleElement_minimalData"));
+			var parsedSchema = xsd.parse(getXsd('simpleElement_minimalData'));
 
 			expect(parsedSchema.rootElement.documentation).toBe('.no-help');
 		});
 
 		it('should set a default target namespace when one is available', function() {
-			var parsedSchema = xsd.parse(getXsd('simpleElement"));
+			var parsedSchema = xsd.parse(getXsd('simpleElement'));
 			expect(parsedSchema.namespace).toBe(null);
 
-			var parsedSchema = xsd.parse(getXsd('simpleElement_targetNamespace"));
+			var parsedSchema = xsd.parse(getXsd('simpleElement_targetNamespace'));
 			expect(parsedSchema.namespace).toBe('http://formz.com/ANamespace');
 		});
 
 		it("should set the name of the element as it's label if none is specified", function() {
-			var parsedSchema = xsd.parse(getXsd('simpleElement_minimalData"));
+			var parsedSchema = xsd.parse(getXsd('simpleElement_minimalData'));
 
 			expect(parsedSchema.rootElement.label).toBe('person');
 		});
 
 		it("should define an empty placeholder when the element doesn't have one", function() {
-			var parsedSchema = xsd.parse(getXsd('simpleElement_minimalData"));
+			var parsedSchema = xsd.parse(getXsd('simpleElement_minimalData'));
 
 			expect(parsedSchema.rootElement.placeholder).toBe('');
 		});
 
 		describe('when parsing a schema with a complex type', function() {
 			it('should parse a complex type with an atttribute', function() {
-				var rootElement = xsd.parse(getXsd('simpleElement_complexType_oneAttribute")).rootElement;
+				var rootElement = xsd.parse(getXsd('simpleElement_complexType_oneAttribute')).rootElement;
 
 				expect(rootElement.name).toBe('person');
 				expect(rootElement.label).toBe('Pessoa');
@@ -77,7 +77,7 @@ describe('Services', function() {
 			});
 
 			it('should parse a complex type with two atttributes', function() {
-				var rootElement = xsd.parse(getXsd('simpleElement_complexType_twoAttributes")).rootElement;
+				var rootElement = xsd.parse(getXsd('simpleElement_complexType_twoAttributes')).rootElement;
 
 				expect(rootElement.children.length).toBe(2);
 				var attribute = rootElement.children[0];
@@ -96,7 +96,7 @@ describe('Services', function() {
 			});
 
 			it('should parse a complex type with an extension', function() {
-				var rootElement = xsd.parse(getXsd('simpleElement_complexType_complexContent_extension")).rootElement;
+				var rootElement = xsd.parse(getXsd('simpleElement_complexType_complexContent_extension')).rootElement;
 
 				expect(rootElement.children.length).toBe(3);
 
@@ -111,7 +111,7 @@ describe('Services', function() {
 			var noRootElement = '<?xml version="1.0"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"></xs:schema>';
 
 			expect(function() {
-				xsd.parse(getXsd('noRootElement"));
+				xsd.parse(getXsd('noRootElement'));
 			}).toThrow();
 
 		});
@@ -120,7 +120,7 @@ describe('Services', function() {
 			var unknownType = '<?xml version="1.0"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="aName" type="unknownType"/></xs:schema>';
 
 			expect(function() {
-				xsd.parse(getXsd('unknownType"));
+				xsd.parse(getXsd('unknownType'));
 			}).toThrow();
 
 		});
