@@ -11,7 +11,7 @@
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="buildingType">
-				<xs:attribute name="name" type="xs:string">
+				<xs:attribute name="name" type="xs:string" use="required">
 					<xs:annotation>
 						<xs:appinfo>
 							<ui:info label="Nome" placeholder="Nome da Casa" />

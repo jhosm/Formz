@@ -17,9 +17,14 @@ describe('directives', function() {
 
       var scope = $rootScope;
 
-      scope.value='My Value';
+      scope.data = {
+        label: 'My Label',
+        placeholder: 'My Placeholder',
+        documentation: 'My Docs',
+        value: 'My Value'
+      };
 
-      element = angular.element('<div fz-field label="My Label" placeholder="My Placeholder" ng-model="value" name="My Name" documentation="My Docs"/>');
+      element = angular.element('<div fz-field data="data"/>');
       $compile(element)(scope);
 
       scope.$digest();
@@ -27,14 +32,14 @@ describe('directives', function() {
 
 
     it('should print all the relevant information', function() {
-      expect(element.find('label').text()).toBe('My Label:');
+      expect(element.find('label').text()).toBe('* My Label:');
       var input = element.find('div.controls input[type=text]');
       expect(input.attr('placeholder')).toBe('My Placeholder');
-      expect(input.attr('name')).toBe('My Name');
       expect(input.val()).toBe('My Value');
 
       $httpBackend.flush();
-      expect(element.find('span.help-block').text()).toBe('My Docs');
+      // this replace is just a trim()
+      expect(element.find('span.help-block').text().replace(/(^\s+|\s+$)/g, '')).toBe('My Docs');
     });
   });
 });

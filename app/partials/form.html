@@ -2,11 +2,13 @@
 <div ng-controller="TabsCtrl">
 	<div class="tabbable tabs-left" ng-model="currentTab">
 		<div class="tab-pane" ng-repeat="formInfo in forms" title="{{formInfo.label}}" value="{{formInfo.id}}">
-			<form class="form-horizontal" ng-controller="XsdCtrl">
-				
-				<fz-fieldset ng-model="form.rootElement">
-				</fz-fieldset>
-				
+			<form class="form-horizontal" name="modelForm" ng-controller="XsdCtrl">
+
+				<fz-fieldset data="form.rootElement" form="modelForm"></fz-fieldset>
+
+				<button ng-click="save(form)"
+                ng-disabled="modelForm.$invalid">Save</button>
+
 				<fieldset>
 					<legend>Debug Info</legend>
 
@@ -16,9 +18,10 @@
 							<label class="checkbox inline">
 								<input type="checkbox" ng-model="showXml">XML</label>
 							<label class="checkbox inline">
-								<input type="checkbox" ng-model="showJson">JSON</label>
+								<input type="checkbox" ng-model="showDebug">Debug</label>
 						</div>
 					</div>
+
 					<div class="control-group" id="controlGroupXml" ng-show="showXml">
 						<label class="control-label">XML:</label>
 						<div class="controls">
@@ -26,10 +29,21 @@
 						</div>
 					</div>
 
-					<div class="control-group" id="controlGroupJson" ng-show="showJson">
-						<label class="control-label">JSON:</label>
-						<div class="controls">
-							<textarea rows="10">{{form | json}}</textarea>
+					<div ng-show="showDebug" id="controlGroupJson">
+
+						<div class="control-group"  >
+							<label class="control-label">modelForm.$valid:</label>
+
+							<div class="controls">
+								<input type="text" ng-model="modelForm.$valid" readonly></input>
+								<br></div>
+						</div>
+
+						<div class="control-group"  >
+							<label class="control-label">JSON:</label>
+							<div class="controls">
+								<textarea rows="10">{{form | json}}</textarea>
+							</div>
 						</div>
 					</div>
 				</fieldset>

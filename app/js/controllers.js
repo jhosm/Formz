@@ -2,8 +2,13 @@
 
 var app = angular.module('formz.controllers');
 
+//Teste
 app.controller('XsdCtrl', function XsdCtrl($scope, $http, fzXsd, $routeParams, fzLocalization) {
 	
+ 	$scope.save = function(form) {
+    $scope.showXml = true;
+  };
+
 	$scope.showXml = false;
 	$scope.locales = fzLocalization;
 	$http.get('xsd/' + $routeParams.id + '.xsd').success(function(data) {

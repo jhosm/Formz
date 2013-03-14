@@ -10,7 +10,7 @@ directive('fzFieldset', function fzFieldFactory() {
       $scope.locales = fzLocalization;
     }],
     scope: {
-      model: '=ngModel'
+      data: '='
     },
     templateUrl: 'partials/directives/fzFieldSet.html'
   };

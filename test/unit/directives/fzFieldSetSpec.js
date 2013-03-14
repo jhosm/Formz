@@ -23,7 +23,7 @@ describe('directives', function() {
 
         scope.model = model;
 
-        element = angular.element('<fz-fieldset ng-model="model"/>');
+        element = angular.element('<fz-fieldset data="model"/>');
         $compile(element)(scope);
 
         scope.$digest();
@@ -72,8 +72,10 @@ describe('directives', function() {
         }]
       });
 
-      expect(element.find('input[name="@gender"]').val()).toBe('male');
-      expect(element.find('input[name="@height"]').val()).toBe('1.86');
+      _.each(element.find('input[type="text"]'), function(elm, idx) {
+        if(idx === 0) expect(elm.value).toBe('male');
+        if(idx === 1) expect(elm.value).toBe('1.86');
+      });
     });
   });
 });

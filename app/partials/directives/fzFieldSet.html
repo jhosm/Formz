@@ -1,11 +1,11 @@
 <fieldset>
-	<legend>{{model.label}}</legend>
+	<legend>{{data.label}}</legend>
 
-	<div ng-switch on="model.children.length">
-		<fz-field ng-switch-when="0" label="{{model.label}}" placeholder="{{model.placeholder}}" ng-model="model.value" documentation="{{model.documentation}}" name="{{model.name}}"></fz-field>
+	<div ng-switch on="data.children.length">
+		<fz-field ng-switch-when="0" data="data"></fz-field>
 
-		<div ng-switch-default> <!--div only existe becausa ng-switch-default does not interact very well with ng-repeat -->
-			<fz-field ng-repeat="field in model.children" label="{{field.label}}" placeholder="{{field.placeholder}}" ng-model="field.value" documentation="{{field.documentation}}" name="{{field.name}}"></fz-field>
+		<div ng-switch-default> <!--div only exists because ng-switch-default does not interact very well with ng-repeat -->
+			<fz-field ng-repeat="field in data.children" data="field"></fz-field>
 		</div>
 
 	</div>

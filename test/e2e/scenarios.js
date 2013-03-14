@@ -16,15 +16,12 @@ describe('Formz', function() {
   describe('form tabs', function() {
     it('should be able to choose a tab', function() {
       element("a:contains('Pessoas')").click();
-      input('value').enter('Joao');
+      input('data.value').enter('Joao');
       expect(element('#xml').text()).toMatch('<person>Joao</person>');
 
       element("a:contains('Casas')").click();
 
-      var nameInput = using('div[name="@name"]');
-      nameInput.input('value').enter('myHouse');
-      var housesDiv = using('div[title="Casas"]');
-      expect(housesDiv.element('#xml').text()).toMatch('<house xmlns="http://formz.com/houseDefinition" name="myHouse" numOfRooms="" id=""></house>');
+      expect(repeater('div[title="Casas"] div[data="field"]').count()).toBe(3);
     });
   });
 
@@ -40,7 +37,7 @@ describe('Formz', function() {
     });
 
     it('should update the xml when user types some data', function() {
-      input('value').enter('Joao');
+      input('data.value').enter('Joao');
       expect(element('#xml').text()).toMatch('<person>Joao</person>');
     });
 
