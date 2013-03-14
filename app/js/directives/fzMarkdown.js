@@ -8,7 +8,7 @@ directive('fzMarkdown', function MarkdownFactory() {
 		restrict: 'A',
 		link: function(scope, element, attrs) {
 
-			attrs.$observe('documentation', function(value) {
+			attrs.$observe('text', function(value) {
 				var htmlText = converter.makeHtml(value);
 				element.html(htmlText);
 			});
