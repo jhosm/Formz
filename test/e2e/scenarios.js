@@ -21,7 +21,7 @@ describe('Formz', function() {
 
       element("a:contains('Casas')").click();
 
-      expect(repeater('div[title="Casas"] div[data="field"]').count()).toBe(3);
+      expect(repeater('div[title="Casas"] ng-form[data="field"]').count()).toBe(3);
     });
   });
 
@@ -49,12 +49,12 @@ describe('Formz', function() {
       expect(element('#controlGroupXml').css('display')).toBe('none');
     });
 
-    it('should toggle the json visibility when user toggles "Show JSON"', function() {
-      expect(element('#controlGroupJson').css('display')).toBe('none');
-      input('showJson').check();
-      expect(element('#controlGroupJson').css('display')).toBe('block');
-      input('showJson').check();
-      expect(element('#controlGroupJson').css('display')).toBe('none');
+    it('should toggle the debug info visibility when user toggles "Show DEBUG"', function() {
+      expect(element('#controlGroupDebug').css('display')).toBe('none');
+      input('showDebug').check();
+      expect(element('#controlGroupDebug').css('display')).toBe('block');
+      input('showDebug').check();
+      expect(element('#controlGroupDebug').css('display')).toBe('none');
     });
   });
 });
