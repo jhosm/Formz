@@ -6,8 +6,8 @@
 
 				<fz-fieldset data="form.rootElement" form="modelForm"></fz-fieldset>
 
-				<button ng-click="save(form)"
-                ng-disabled="modelForm.$invalid">Save</button>
+				<button class="save" ng-click="save(form)"
+                ng-disabled="modelForm.$invalid">{{locales.string('.save')}}</button>
 
 				<fieldset>
 					<legend>Debug Info</legend>

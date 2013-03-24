@@ -5,8 +5,7 @@
 describe('directives', function() {
 
   describe('The fzFieldSet directive', function() {
-    var element;
-
+    
     beforeEach(module('formz.directives', 'partials/directives/fzFieldSet.html', 'partials/directives/fzField.html'));
 
     beforeEach(
@@ -18,6 +17,8 @@ describe('directives', function() {
     }));
 
     function compileFzFieldSet(model) {
+      var element;
+  
       inject(function($compile, $rootScope) {
         var scope = $rootScope;
 
@@ -28,10 +29,12 @@ describe('directives', function() {
 
         scope.$digest();
       });
+
+      return element;
     }
 
     it('should handle a basic model', function() {
-      compileFzFieldSet({
+      var element = compileFzFieldSet({
         "name": " a name",
         "children": [],
         "label": "a label",
@@ -49,7 +52,7 @@ describe('directives', function() {
     });
 
     it('should handle a model with a child', function() {
-      compileFzFieldSet({
+      var element = compileFzFieldSet({
         name: 'person',
         children: [{
           name: '@gender',
@@ -61,7 +64,7 @@ describe('directives', function() {
     });
 
     it('should handle a model with more than one child', function() {
-      compileFzFieldSet({
+      var element = compileFzFieldSet({
         name: 'person',
         children: [{
           name: '@gender',
