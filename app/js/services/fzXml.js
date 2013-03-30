@@ -61,11 +61,20 @@ service('fzXml', function() {
 		return result[0];
 	}
 
+	function getValue(xmlDoc, xpath, defaultValue, namespaces) {
+		if(angular.isUndefined(defaultValue)) defaultValue = null;
+
+		var result = selectOne(xmlDoc, xpath, namespaces);
+		if(result === null || angular.isUndefined(result.nodeValue) || result.nodeValue === null ) return defaultValue;
+		return result.nodeValue;
+	}
+
 	return {
 		'parse': parse,
 		'toString': toString,
 		'documentElement': documentElement,
 		'select': select,
-		'selectOne': selectOne
+		'selectOne': selectOne,
+		'getValue': getValue
 	};
 })
