@@ -75,14 +75,10 @@ service('fzXsd', ['fzXml', function(xml) {
 		return model;
 	}
 
-	function parseAttributes(model, node) {
-		var attributes = xml.select(node, 'xs:attribute');
-		if(attributes.length === 0) return model;
-
-		var parsedAttributes = _.map(attributes, function(attr) {
-			var parsedAttribute = { name: '@' + attr.getAttribute('name') };
+	function parseAttribute(attrNode) {
+			var parsedAttribute = { name: '@' + attrNode.getAttribute('name') };
 			
-			var use = attr.getAttribute('use');
+			var use = attrNode.getAttribute('use');
 			if(use === null || use === 'optional') {
 				parsedAttribute.required = false;
 			}
@@ -90,7 +86,25 @@ service('fzXsd', ['fzXml', function(xml) {
 				parsedAttribute.required = true;	
 			}
 
-			return parseUiInfo(parsedAttribute, attr);
+			var attrType = getType(attrNode);
+			if(attrType !== null) {
+				if(typeof attrType === 'string') {
+					parsedAttribute = parseXsdType(parsedAttribute, attrType);
+				}
+				else {
+					parsedAttribute = parseType(parsedAttribute, attrType);
+				}
+			}
+
+			return parseUiInfo(parsedAttribute, attrNode);
+	}
+
+	function parseAttributes(model, node) {
+		var attributes = xml.select(node, 'xs:attribute');
+		if(attributes.length === 0) return model;
+
+		var parsedAttributes = _.map(attributes, function(attr) {
+			return parseAttribute(attr);
 		});
 		model.children = _.union(model.children, parsedAttributes);
 		return model;
@@ -122,7 +136,7 @@ service('fzXsd', ['fzXml', function(xml) {
 		
 		model = parseContent(model, extension);
 
-		var nodeComplexType = getComplexType(extension);
+		var nodeComplexType = getType(extension);
 		if(nodeComplexType !== null) {
 			model = parseComplexContent(model, nodeComplexType);
 			model = parseContent(model, nodeComplexType);
@@ -133,25 +147,56 @@ service('fzXsd', ['fzXml', function(xml) {
 		return model;
 	}
 
-	function getComplexType(node) {
-		var type = node.getAttribute('type');
-		if(type === null) type = node.getAttribute('base');
-		if(type === null) return null;
-		if(/^xs:/.test(type)) return null;
+	function parseRestrictions(model, node) {
+		var restriction = xml.selectOne(node, 'xs:restriction');
+		if(restriction === null) return model;	
 
-		var complexType = getReference(node, '//xs:complexType[@name="' + type + '"]');
-		if(complexType === null) {
-			throw new Error('xsd service: Could not find a referenced type named "' + type + '".');
-		}
-		return complexType;
+		if(model.restrictions === undefined) model.restrictions = {};
+		model.restrictions.minLength = parseInt(xml.getValue(restriction, 'xs:minLength/@value', 0)); 
+
+		return model;
 	}
 
-	function parseComplexType(model, complexTypeNode) {
-		model = parseUiInfo(model, complexTypeNode);
-		model = parseComplexContent(model, complexTypeNode);
-		model = parseContent(model, complexTypeNode);
+	function parseType(model, typeNode) {
+		model = parseUiInfo(model, typeNode);
+
+		if(typeNode.localName === 'complexType') {
+			model = parseComplexContent(model, typeNode);
+			model = parseContent(model, typeNode);
+		}
+		else {
+			model = parseRestrictions(model, typeNode);
+		}
 		
 		return model;
+	}
+
+	function setStringType(model) {
+		model.type = 'string';
+		model.restrictions = {};
+		model.restrictions.minLength = 0;
+		return model;
+	}
+
+	function parseXsdType(model, xsdType) {
+		switch(xsdType) {
+			case 'xs:string': return setStringType(model);
+			default: throw new Error('xsd service: Could not parse a standard type names "' + xsdType + '".');
+		}
+	}
+
+	function getType(node) {
+		var typeName = node.getAttribute('type');
+		if(typeName === null) typeName = node.getAttribute('base');
+		if(typeName === null) return null;
+		if(/^xs:/.test(typeName)) return typeName;
+
+		var result = getReference(node, '//xs:complexType[@name="' + typeName + '"] | //xs:simpleType[@name="' + typeName + '"]');
+		if(result === null) {
+			throw new Error('xsd service: Could not find a referenced type named "' + typeName + '".');
+		}
+
+		return result;
 	}
 
 	function parseRootElement(xmlDoc) {
@@ -166,9 +211,14 @@ service('fzXsd', ['fzXml', function(xml) {
 			children: []
 		};
 
-		var rootNodeComplexType = getComplexType(rootNode);
-		if(rootNodeComplexType !== null) {
-			return parseComplexType(rootElement, rootNodeComplexType);
+		var rootType = getType(rootNode);
+		if(rootType !== null) {
+			if(typeof rootType === 'string') {
+				rootElement = parseXsdType(rootElement, rootType);
+			}
+			else {
+				return parseType(rootElement, rootType);
+			}
 		}
 
 		rootElement = parseUiInfo(rootElement, rootNode);

@@ -10,6 +10,7 @@ describe('Services', function() {
 	beforeEach(module('xsd/samples/simpleElement_complexType_threeAttributes.xsd'));
 	beforeEach(module('xsd/samples/simpleElement_complexType_complexContent_extension.xsd'));
 	beforeEach(module('xsd/samples/simpleElement_complexType_attributeGroup.xsd'));
+	beforeEach(module('xsd/samples/simpleElement_simpleType.xsd'));
 
 	describe('The xml schema parser', function() {
 		var xsd, templateCache;
@@ -74,6 +75,26 @@ describe('Services', function() {
 				var attribute = rootElement.children[2];
 				expect(attribute.required).toBeFalsy();
 			})
+		});
+
+		describe('when parsing a schema with a simple type', function() {
+			it('should parse the xs:string type', function() {
+				var rootElement = xsd.parse(getXsd('simpleElement')).rootElement;
+
+				expect(rootElement.type).toBe('string');
+				expect(rootElement.restrictions.minLength).toBe(0);
+			});
+
+			it('should parse a simple type with a length restriction', function() {
+				var rootElement = xsd.parse(getXsd('simpleElement_simpleType')).rootElement;
+
+				expect(rootElement.restrictions.minLength).toBe(1);
+			});
+
+
+			// restrições em cima de restrições
+			// simpleTypes dentro de complexTypes
+			// suporte a todos os datatypes standard (xs:string, ...)
 		});
 
 		describe('when parsing a schema with a complex type', function() {

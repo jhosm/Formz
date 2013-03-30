@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ui="http://formz.com/UI">
+	<xs:element name="person" type="NonEmptyString" >
+		<xs:annotation>
+			<xs:appinfo>
+				<ui:info label="Pessoa" placeholder="Nome da Pessoa"/>
+			</xs:appinfo>
+	  	<xs:documentation>Humano</xs:documentation>
+	  </xs:annotation>
+	</xs:element>
+
+	<xs:simpleType name="NonEmptyString">
+	    <xs:restriction base="xs:string">
+	    	<xs:minLength value="1"  />
+	    </xs:restriction>
+  	</xs:simpleType>
+</xs:schema>
