@@ -70,7 +70,7 @@ describe('Formz', function() {
       expect(saveButton.text()).toBe('Save');
       expect(saveButton.attr('disabled')).toBe('disabled');
 
-      input('data.value').enter('1');
+      input('data.value').enter('12');
       expect(saveButton.attr('disabled')).not().toBeDefined();
       expect(controlGroupElm.attr('class')).not().toContain('error');
       expect(requiredMessageElm.css('display')).toBe('none');
