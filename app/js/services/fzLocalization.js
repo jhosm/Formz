@@ -5,7 +5,7 @@ service('fzLocalization', ['$resource', '$cacheFactory', '$locale', function($re
 	var cache = $cacheFactory('fzLocalization');
 	var Localization = $resource('locales/:localeId.js', {localeId : $locale.id});
 
-
+	//TODO: Needs to support "string.format"
 	function string(key) {
 		var strings = cache.get('strings');
 		if(!strings) {
