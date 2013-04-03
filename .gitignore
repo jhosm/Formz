@@ -12,3 +12,5 @@ build.xml
 app/xsd/Data/
 app/xsd/Schema/
 doc/
+node_modules/
+build/
