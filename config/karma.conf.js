@@ -4,7 +4,7 @@ files = [
   JASMINE,
   JASMINE_ADAPTER,
   
-  'lib/jquery/jquery-1.9.1.js',
+  'lib/jquery/jquery-1.9.1.min.js',
   'lib/angular/angular.js',
   'lib/angular/angular-*.js',
   'lib/underscore/underscore-min.js',
