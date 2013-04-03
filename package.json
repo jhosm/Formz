@@ -1,0 +1,29 @@
+{
+  "name": "formz",
+  "version": "0.1.0",
+  "description": "Create sophisticated HTML forms declaratively",
+  "author": "João Miranda (https://github.com/jhosm)",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jhosm/Formz.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jhosm/Formz/issues"
+  },
+  "keywords": [
+    "Forms",
+    "HTML",
+    "declarative"
+  ],
+  "scripts": {
+    "test": "grunt travis --verbose"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-karma": "~0.4.1"
+  }
+}
