@@ -26,17 +26,30 @@ module.exports = function(grunt) {
       dev: {
         reporters: 'dots'
       }
+    },
+    docker: {
+      app: {
+      expand: true,
+      src: ['app/js', 'app/locales', 'app/partials', 'app/index*.html', 'test/e2e', 'test/unit', 'README.md'],
+      dest: './doc',
+      options: {
+        ignoreHidden: true,
+        exclude: 'lib',
+        extras: ['fileSearch']
+      }
+    }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-docker');
 
   // Default task(s).
-  grunt.registerTask('default', ['karma:continuous']);
+  grunt.registerTask('default', ['karma:dev']);
 
   // Travis CI task.
-  grunt.registerTask('travis', ['karma:continuous']);
+  grunt.registerTask('travis', ['karma:continuous', 'docker']);
 
 };
