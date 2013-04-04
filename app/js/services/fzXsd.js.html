@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>fzXsd.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "app/js/services/fzXsd.js", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+  <script src="../../../fileSearch.js"></script>
+  <link rel="stylesheet" href="../../../fileSearch.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>fzXsd.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="s1">&#39;use strict;&#39;</span>
+
+<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.services&#39;</span><span class="p">).</span>
+<span class="nx">service</span><span class="p">(</span><span class="s1">&#39;fzXsd&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;fzXml&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">xml</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">xsdNamespaces</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="s1">&#39;xs&#39;</span><span class="o">:</span> <span class="s1">&#39;http://www.w3.org/2001/XMLSchema&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;ui&#39;</span><span class="o">:</span> <span class="s1">&#39;http://formz.com/UI&#39;</span>
+    <span class="p">};</span>
+
+  <span class="kd">function</span> <span class="nx">select</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">xpath</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">xpath</span><span class="p">,</span> <span class="nx">xsdNamespaces</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">selectOne</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">xpath</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">selectOne</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">xpath</span><span class="p">,</span> <span class="nx">xsdNamespaces</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">getReference</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">xpath</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">documentElement</span> <span class="o">=</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">reference</span> <span class="o">=</span> <span class="nx">selectOne</span><span class="p">(</span><span class="nx">documentElement</span><span class="p">,</span> <span class="nx">xpath</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">reference</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">parse</span><span class="p">(</span><span class="nx">xmlDoc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">angular</span><span class="p">.</span><span class="nx">isString</span><span class="p">(</span><span class="nx">xmlDoc</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">xmlDoc</span> <span class="o">=</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">xmlDoc</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">rootElement</span> <span class="o">=</span> <span class="nx">parseRootElement</span><span class="p">(</span><span class="nx">xmlDoc</span><span class="p">);</span>
+
+    <span class="kd">var</span> <span class="nx">schema</span> <span class="o">=</span> <span class="nx">select</span><span class="p">(</span><span class="nx">xmlDoc</span><span class="p">,</span> <span class="s1">&#39;xs:schema&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+    
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="s1">&#39;namespace&#39;</span><span class="o">:</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;targetNamespace&#39;</span><span class="p">)</span> <span class="p">,</span>
+      <span class="s1">&#39;rootElement&#39;</span><span class="o">:</span> <span class="nx">rootElement</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">getUiInfo</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">selectOne</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="s1">&#39;xs:annotation/xs:appinfo/ui:info&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">getLabel</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">defaultLabel</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">angular</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">defaultLabel</span><span class="p">))</span> <span class="nx">defaultLabel</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">uiInfoNode</span> <span class="o">=</span> <span class="nx">getUiInfo</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">uiInfoNode</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="nx">defaultLabel</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">label</span> <span class="o">=</span> <span class="nx">uiInfoNode</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">label</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="nx">label</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">defaultLabel</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">getPlaceholder</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">uiInfoNode</span> <span class="o">=</span> <span class="nx">getUiInfo</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">uiInfoNode</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">placeholder</span> <span class="o">=</span> <span class="nx">uiInfoNode</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;placeholder&#39;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">placeholder</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="nx">placeholder</span><span class="p">;</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">getDocumentation</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">doc</span> <span class="o">=</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">selectOne</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="s1">&#39;xs:annotation/xs:documentation&#39;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">doc</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="s1">&#39;.no-help&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">textContent</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">parseUiInfo</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">model</span><span class="p">.</span><span class="nx">label</span> <span class="o">=</span> <span class="nx">getLabel</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">model</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+    <span class="nx">model</span><span class="p">.</span><span class="nx">documentation</span> <span class="o">=</span> <span class="nx">getDocumentation</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+    <span class="nx">model</span><span class="p">.</span><span class="nx">placeholder</span> <span class="o">=</span> <span class="nx">getPlaceholder</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nx">model</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">parseAttribute</span><span class="p">(</span><span class="nx">attrNode</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">parsedAttribute</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;@&#39;</span> <span class="o">+</span> <span class="nx">attrNode</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="p">};</span>
+      
+      <span class="kd">var</span> <span class="nx">use</span> <span class="o">=</span> <span class="nx">attrNode</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;use&#39;</span><span class="p">);</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">use</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">use</span> <span class="o">===</span> <span class="s1">&#39;optional&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">parsedAttribute</span><span class="p">.</span><span class="nx">required</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">parsedAttribute</span><span class="p">.</span><span class="nx">required</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>  
+      <span class="p">}</span>
+
+      <span class="kd">var</span> <span class="nx">attrType</span> <span class="o">=</span> <span class="nx">getType</span><span class="p">(</span><span class="nx">attrNode</span><span class="p">);</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">attrType</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">attrType</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">parsedAttribute</span> <span class="o">=</span> <span class="nx">parseXsdType</span><span class="p">(</span><span class="nx">parsedAttribute</span><span class="p">,</span> <span class="nx">attrType</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+          <span class="nx">parsedAttribute</span> <span class="o">=</span> <span class="nx">parseType</span><span class="p">(</span><span class="nx">parsedAttribute</span><span class="p">,</span> <span class="nx">attrType</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span> <span class="nx">parseUiInfo</span><span class="p">(</span><span class="nx">parsedAttribute</span><span class="p">,</span> <span class="nx">attrNode</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">parseAttributes</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">attributes</span> <span class="o">=</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="s1">&#39;xs:attribute&#39;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nx">model</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">parsedAttributes</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">attributes</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">attr</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">parseAttribute</span><span class="p">(</span><span class="nx">attr</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="nx">model</span><span class="p">.</span><span class="nx">children</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">union</span><span class="p">(</span><span class="nx">model</span><span class="p">.</span><span class="nx">children</span><span class="p">,</span> <span class="nx">parsedAttributes</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">model</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">parseAttributeGroup</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">attributeGroupRef</span> <span class="o">=</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">selectOne</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="s1">&#39;xs:attributeGroup/@ref&#39;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">attributeGroupRef</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="nx">model</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">attributeGroup</span> <span class="o">=</span> <span class="nx">getReference</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="s1">&#39;//xs:attributeGroup[@name=&quot;&#39;</span> <span class="o">+</span> <span class="nx">attributeGroupRef</span><span class="p">.</span><span class="nx">value</span> <span class="o">+</span> <span class="s1">&#39;&quot;]&#39;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">attributeGroup</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;xsd service: Could not find a referenced attributeGroup named &quot;&#39;</span> <span class="o">+</span> <span class="nx">attributeGroupRef</span><span class="p">.</span><span class="nx">value</span> <span class="o">+</span> <span class="s1">&#39;&quot;.&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">model</span> <span class="o">=</span> <span class="nx">parseAttributes</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">attributeGroup</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nx">model</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">parseContent</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">model</span> <span class="o">=</span> <span class="nx">parseAttributes</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">node</span><span class="p">);</span>
+    <span class="nx">model</span> <span class="o">=</span> <span class="nx">parseAttributeGroup</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">node</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">model</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">parseComplexContent</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">extension</span> <span class="o">=</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">selectOne</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="s1">&#39;xs:complexContent/xs:extension&#39;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">extension</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="nx">model</span><span class="p">;</span>
+    
+    <span class="nx">model</span> <span class="o">=</span> <span class="nx">parseContent</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">extension</span><span class="p">);</span>
+
+    <span class="kd">var</span> <span class="nx">nodeComplexType</span> <span class="o">=</span> <span class="nx">getType</span><span class="p">(</span><span class="nx">extension</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">nodeComplexType</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">model</span> <span class="o">=</span> <span class="nx">parseComplexContent</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">nodeComplexType</span><span class="p">);</span>
+      <span class="nx">model</span> <span class="o">=</span> <span class="nx">parseContent</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">nodeComplexType</span><span class="p">);</span>
+    
+      <span class="k">return</span> <span class="nx">model</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">model</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">parseRestrictions</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">restriction</span> <span class="o">=</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">selectOne</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="s1">&#39;xs:restriction&#39;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">restriction</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="nx">model</span><span class="p">;</span>  
+
+    <span class="k">if</span><span class="p">(</span><span class="nx">model</span><span class="p">.</span><span class="nx">restrictions</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="nx">model</span><span class="p">.</span><span class="nx">restrictions</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">model</span><span class="p">.</span><span class="nx">restrictions</span><span class="p">.</span><span class="nx">minLength</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">xml</span><span class="p">.</span><span class="nx">getValue</span><span class="p">(</span><span class="nx">restriction</span><span class="p">,</span> <span class="s1">&#39;xs:minLength/@value&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span> 
+
+    <span class="k">return</span> <span class="nx">model</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">parseType</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">typeNode</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">model</span> <span class="o">=</span> <span class="nx">parseUiInfo</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">typeNode</span><span class="p">);</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="nx">typeNode</span><span class="p">.</span><span class="nx">localName</span> <span class="o">===</span> <span class="s1">&#39;complexType&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">model</span> <span class="o">=</span> <span class="nx">parseComplexContent</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">typeNode</span><span class="p">);</span>
+      <span class="nx">model</span> <span class="o">=</span> <span class="nx">parseContent</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">typeNode</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">model</span> <span class="o">=</span> <span class="nx">parseRestrictions</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">typeNode</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="k">return</span> <span class="nx">model</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">setStringType</span><span class="p">(</span><span class="nx">model</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">model</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;string&#39;</span><span class="p">;</span>
+    <span class="nx">model</span><span class="p">.</span><span class="nx">restrictions</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">model</span><span class="p">.</span><span class="nx">restrictions</span><span class="p">.</span><span class="nx">minLength</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">model</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">parseXsdType</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">xsdType</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">switch</span><span class="p">(</span><span class="nx">xsdType</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="s1">&#39;xs:string&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="nx">setStringType</span><span class="p">(</span><span class="nx">model</span><span class="p">);</span>
+      <span class="k">default</span><span class="o">:</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;xsd service: Could not parse a standard type names &quot;&#39;</span> <span class="o">+</span> <span class="nx">xsdType</span> <span class="o">+</span> <span class="s1">&#39;&quot;.&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">getType</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">typeName</span> <span class="o">=</span> <span class="nx">node</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">typeName</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="nx">typeName</span> <span class="o">=</span> <span class="nx">node</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;base&#39;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">typeName</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="sr">/^xs:/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">typeName</span><span class="p">))</span> <span class="k">return</span> <span class="nx">typeName</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">getReference</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="s1">&#39;//xs:complexType[@name=&quot;&#39;</span> <span class="o">+</span> <span class="nx">typeName</span> <span class="o">+</span> <span class="s1">&#39;&quot;] | //xs:simpleType[@name=&quot;&#39;</span> <span class="o">+</span> <span class="nx">typeName</span> <span class="o">+</span> <span class="s1">&#39;&quot;]&#39;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">result</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;xsd service: Could not find a referenced type named &quot;&#39;</span> <span class="o">+</span> <span class="nx">typeName</span> <span class="o">+</span> <span class="s1">&#39;&quot;.&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">parseRootElement</span><span class="p">(</span><span class="nx">xmlDoc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">rootNode</span> <span class="o">=</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">selectOne</span><span class="p">(</span><span class="nx">xmlDoc</span><span class="p">,</span> <span class="s1">&#39;/xs:schema/xs:element&#39;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">rootNode</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;xsd service: Could not find a root element definition on this Xml Schema.&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>name acts as default label</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="kd">var</span> <span class="nx">rootElement</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="nx">rootNode</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">),</span>
+      <span class="nx">children</span><span class="o">:</span> <span class="p">[]</span>
+    <span class="p">};</span>
+
+    <span class="kd">var</span> <span class="nx">rootType</span> <span class="o">=</span> <span class="nx">getType</span><span class="p">(</span><span class="nx">rootNode</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">rootType</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">rootType</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">rootElement</span> <span class="o">=</span> <span class="nx">parseXsdType</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">,</span> <span class="nx">rootType</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">parseType</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">,</span> <span class="nx">rootType</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">rootElement</span> <span class="o">=</span> <span class="nx">parseUiInfo</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">,</span> <span class="nx">rootNode</span><span class="p">);</span>
+    <span class="nx">rootElement</span> <span class="o">=</span> <span class="nx">parseContent</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">,</span> <span class="nx">rootNode</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nx">rootElement</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="s1">&#39;parse&#39;</span><span class="o">:</span> <span class="nx">parse</span>
+  <span class="p">}</span>
+<span class="p">}]);</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

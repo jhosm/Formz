@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>fzXsdSpec.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "test/unit/services/fzXsdSpec.js", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+  <script src="../../../fileSearch.js"></script>
+  <link rel="stylesheet" href="../../../fileSearch.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>fzXsdSpec.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Services&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.services&#39;</span><span class="p">));</span>
+  <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;xsd/samples/simpleElement.xsd&#39;</span><span class="p">));</span>
+  <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;xsd/samples/simpleElement_minimalData.xsd&#39;</span><span class="p">));</span>
+  <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;xsd/samples/simpleElement_targetNamespace.xsd&#39;</span><span class="p">));</span>
+  <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;xsd/samples/simpleElement_complexType_oneAttribute.xsd&#39;</span><span class="p">));</span>
+  <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;xsd/samples/simpleElement_complexType_threeAttributes.xsd&#39;</span><span class="p">));</span>
+  <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;xsd/samples/simpleElement_complexType_complexContent_extension.xsd&#39;</span><span class="p">));</span>
+  <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;xsd/samples/simpleElement_complexType_attributeGroup.xsd&#39;</span><span class="p">));</span>
+  <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;xsd/samples/simpleElement_simpleType.xsd&#39;</span><span class="p">));</span>
+
+  <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;The xml schema parser&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">xsd</span><span class="p">,</span> <span class="nx">templateCache</span><span class="p">;</span>
+    
+    <span class="kd">function</span> <span class="nx">getXsd</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">templateCache</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;xsd/samples/&#39;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;.xsd&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXsd</span><span class="p">,</span> <span class="nx">$templateCache</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">xsd</span> <span class="o">=</span> <span class="nx">fzXsd</span><span class="p">;</span>
+      <span class="nx">templateCache</span> <span class="o">=</span> <span class="nx">$templateCache</span><span class="p">;</span>
+    <span class="p">}));</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should parse a simple element with all the basic info&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">rootElement</span> <span class="o">=</span> <span class="nx">xsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">getXsd</span><span class="p">(</span><span class="s1">&#39;simpleElement&#39;</span><span class="p">)).</span><span class="nx">rootElement</span><span class="p">;</span>
+
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">name</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;person&#39;</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">label</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Pessoa&#39;</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">documentation</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Humano&#39;</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">placeholder</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Nome da Pessoa&#39;</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should set a default target namespace when one is available&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">parsedSchema</span> <span class="o">=</span> <span class="nx">xsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">getXsd</span><span class="p">(</span><span class="s1">&#39;simpleElement&#39;</span><span class="p">));</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">parsedSchema</span><span class="p">.</span><span class="nx">namespace</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+
+      <span class="kd">var</span> <span class="nx">parsedSchema</span> <span class="o">=</span> <span class="nx">xsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">getXsd</span><span class="p">(</span><span class="s1">&#39;simpleElement_targetNamespace&#39;</span><span class="p">));</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">parsedSchema</span><span class="p">.</span><span class="nx">namespace</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;http://formz.com/ANamespace&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;when parsing ui info&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should set a default documentation message when none is available&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">parsedSchema</span> <span class="o">=</span> <span class="nx">xsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">getXsd</span><span class="p">(</span><span class="s1">&#39;simpleElement_minimalData&#39;</span><span class="p">));</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">parsedSchema</span><span class="p">.</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">documentation</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;.no-help&#39;</span><span class="p">);</span>
+      <span class="p">});</span>
+
+      <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should set the name of the element as it&#39;s label if none is specified&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">parsedSchema</span> <span class="o">=</span> <span class="nx">xsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">getXsd</span><span class="p">(</span><span class="s1">&#39;simpleElement_minimalData&#39;</span><span class="p">));</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">parsedSchema</span><span class="p">.</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">label</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;person&#39;</span><span class="p">);</span>
+      <span class="p">});</span>
+
+      <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should define an empty placeholder when the element doesn&#39;t have one&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">parsedSchema</span> <span class="o">=</span> <span class="nx">xsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">getXsd</span><span class="p">(</span><span class="s1">&#39;simpleElement_minimalData&#39;</span><span class="p">));</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">parsedSchema</span><span class="p">.</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">placeholder</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;when parsing validation&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should parse attributes&#39; optionality&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">rootElement</span> <span class="o">=</span> <span class="nx">xsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">getXsd</span><span class="p">(</span><span class="s1">&#39;simpleElement_complexType_threeAttributes&#39;</span><span class="p">)).</span><span class="nx">rootElement</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">attribute</span> <span class="o">=</span> <span class="nx">rootElement</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">attribute</span><span class="p">.</span><span class="nx">required</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+
+        <span class="kd">var</span> <span class="nx">attribute</span> <span class="o">=</span> <span class="nx">rootElement</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">attribute</span><span class="p">.</span><span class="nx">required</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
+
+        <span class="kd">var</span> <span class="nx">attribute</span> <span class="o">=</span> <span class="nx">rootElement</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">attribute</span><span class="p">.</span><span class="nx">required</span><span class="p">).</span><span class="nx">toBeFalsy</span><span class="p">();</span>
+      <span class="p">})</span>
+    <span class="p">});</span>
+
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;when parsing a schema with a simple type&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should parse the xs:string type&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">rootElement</span> <span class="o">=</span> <span class="nx">xsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">getXsd</span><span class="p">(</span><span class="s1">&#39;simpleElement&#39;</span><span class="p">)).</span><span class="nx">rootElement</span><span class="p">;</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">type</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">restrictions</span><span class="p">.</span><span class="nx">minLength</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+      <span class="p">});</span>
+
+      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should parse a simple type with a length restriction&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">rootElement</span> <span class="o">=</span> <span class="nx">xsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">getXsd</span><span class="p">(</span><span class="s1">&#39;simpleElement_simpleType&#39;</span><span class="p">)).</span><span class="nx">rootElement</span><span class="p">;</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">restrictions</span><span class="p">.</span><span class="nx">minLength</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+      <span class="p">});</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>restrições em cima de restrições
+simpleTypes dentro de complexTypes
+suporte a todos os datatypes standard (xs:string, ...)</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="p">});</span>
+
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;when parsing a schema with a complex type&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should parse a complex type with an atttribute&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">rootElement</span> <span class="o">=</span> <span class="nx">xsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">getXsd</span><span class="p">(</span><span class="s1">&#39;simpleElement_complexType_oneAttribute&#39;</span><span class="p">)).</span><span class="nx">rootElement</span><span class="p">;</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">name</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;person&#39;</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">label</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Pessoa&#39;</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">documentation</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Humano&#39;</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">placeholder</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">attribute</span> <span class="o">=</span> <span class="nx">rootElement</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">attribute</span><span class="p">.</span><span class="nx">name</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;@name&#39;</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">attribute</span><span class="p">.</span><span class="nx">label</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Nome&#39;</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">attribute</span><span class="p">.</span><span class="nx">documentation</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Indicar nome da pessoa&#39;</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">attribute</span><span class="p">.</span><span class="nx">placeholder</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Nome da Pessoa&#39;</span><span class="p">);</span>
+      <span class="p">});</span>
+
+      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should parse a complex type with three atttributes&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">rootElement</span> <span class="o">=</span> <span class="nx">xsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">getXsd</span><span class="p">(</span><span class="s1">&#39;simpleElement_complexType_threeAttributes&#39;</span><span class="p">)).</span><span class="nx">rootElement</span><span class="p">;</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">attribute</span> <span class="o">=</span> <span class="nx">rootElement</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">attribute</span><span class="p">.</span><span class="nx">name</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;@name&#39;</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">attribute</span><span class="p">.</span><span class="nx">label</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Nome&#39;</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">attribute</span><span class="p">.</span><span class="nx">documentation</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Indicar nome da pessoa&#39;</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">attribute</span><span class="p">.</span><span class="nx">placeholder</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Nome da Pessoa&#39;</span><span class="p">);</span>
+
+        <span class="kd">var</span> <span class="nx">attribute</span> <span class="o">=</span> <span class="nx">rootElement</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">attribute</span><span class="p">.</span><span class="nx">name</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;@genre&#39;</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">attribute</span><span class="p">.</span><span class="nx">label</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Género&#39;</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">attribute</span><span class="p">.</span><span class="nx">documentation</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Indicar género da pessoa&#39;</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">attribute</span><span class="p">.</span><span class="nx">placeholder</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Género da Pessoa&#39;</span><span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>let's assume the third is correct...</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="p">});</span>
+
+      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should parse a complex type with an extension&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">rootElement</span> <span class="o">=</span> <span class="nx">xsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">getXsd</span><span class="p">(</span><span class="s1">&#39;simpleElement_complexType_complexContent_extension&#39;</span><span class="p">)).</span><span class="nx">rootElement</span><span class="p">;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>Make sure the uiInfo elements are not overriden by the extension's uiinfo...</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">label</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Pessoa&#39;</span><span class="p">);</span>
+        
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>"Inherited" attribute.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="kd">var</span> <span class="nx">attribute</span> <span class="o">=</span> <span class="nx">rootElement</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">attribute</span><span class="p">.</span><span class="nx">name</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;@furColor&#39;</span><span class="p">);</span>
+      <span class="p">});</span>   
+
+      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should parse a complex type with an attribute group&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">rootElement</span> <span class="o">=</span> <span class="nx">xsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">getXsd</span><span class="p">(</span><span class="s1">&#39;simpleElement_complexType_attributeGroup&#39;</span><span class="p">)).</span><span class="nx">rootElement</span><span class="p">;</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>"Inherited" attribute.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="kd">var</span> <span class="nx">attribute</span> <span class="o">=</span> <span class="nx">rootElement</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">attribute</span><span class="p">.</span><span class="nx">name</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;@color&#39;</span><span class="p">);</span>
+      <span class="p">});</span> 
+    <span class="p">});</span>
+
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;when detects parsing errors&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should give a clear explanation when it doesn&#39;t find a root element&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">noRootElement</span> <span class="o">=</span> <span class="s1">&#39;&lt;?xml version=&quot;1.0&quot;?&gt;&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;&lt;/xs:schema&gt;&#39;</span><span class="p">;</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+          <span class="nx">xsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">noRootElement</span><span class="p">);</span>
+        <span class="p">}).</span><span class="nx">toThrow</span><span class="p">(</span><span class="s1">&#39;xsd service: Could not find a root element definition on this Xml Schema.&#39;</span><span class="p">);</span>
+      <span class="p">});</span>
+
+      <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should give a clear explanation when it doesn&#39;t find a type&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">unknownType</span> <span class="o">=</span> <span class="s1">&#39;&lt;?xml version=&quot;1.0&quot;?&gt;&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;&lt;xs:element name=&quot;aName&quot; type=&quot;unknownType&quot;/&gt;&lt;/xs:schema&gt;&#39;</span><span class="p">;</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+          <span class="nx">xsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">unknownType</span><span class="p">);</span>
+        <span class="p">}).</span><span class="nx">toThrow</span><span class="p">(</span><span class="s1">&#39;xsd service: Could not find a referenced type named &quot;unknownType&quot;.&#39;</span><span class="p">);</span>
+      <span class="p">});</span>
+
+      <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should give a clear explanation when it doesn&#39;t find a type&#39;s extension&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">unknownType</span> <span class="o">=</span> <span class="s1">&#39;&lt;?xml version=&quot;1.0&quot;?&gt;&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;&lt;xs:element name=&quot;aName&quot; type=&quot;aType&quot;/&gt;&lt;xs:complexType name=&quot;aType&quot;&gt;&lt;xs:complexContent&gt;&lt;xs:extension base=&quot;unknownType&quot;/&gt;&lt;/xs:complexContent&gt;&lt;/xs:complexType&gt;&lt;/xs:schema&gt;&#39;</span><span class="p">;</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+          <span class="nx">xsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">unknownType</span><span class="p">);</span>
+        <span class="p">}).</span><span class="nx">toThrow</span><span class="p">(</span><span class="s1">&#39;xsd service: Could not find a referenced type named &quot;unknownType&quot;.&#39;</span><span class="p">);</span>
+      <span class="p">});</span>
+
+      <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should give a clear explanation when it doesn&#39;t find a referenced attribute group&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">unknownAttributeGroup</span> <span class="o">=</span> <span class="s1">&#39;&lt;?xml version=&quot;1.0&quot;?&gt;&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;&lt;xs:element name=&quot;aName&quot;&gt;&lt;xs:attributeGroup ref=&quot;unknownAttributeGroup&quot; /&gt;&lt;/xs:element&gt;&lt;/xs:schema&gt;&#39;</span><span class="p">;</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+          <span class="nx">xsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">unknownAttributeGroup</span><span class="p">);</span>
+        <span class="p">}).</span><span class="nx">toThrow</span><span class="p">(</span><span class="s1">&#39;xsd service: Could not find a referenced attributeGroup named &quot;unknownAttributeGroup&quot;.&#39;</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+      
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

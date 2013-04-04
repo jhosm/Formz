@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>fzModel2Xml.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "app/js/services/fzModel2Xml.js", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+  <script src="../../../fileSearch.js"></script>
+  <link rel="stylesheet" href="../../../fileSearch.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>fzModel2Xml.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="s1">&#39;use strict;&#39;</span>
+
+<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.services&#39;</span><span class="p">).</span>
+<span class="nx">service</span><span class="p">(</span><span class="s1">&#39;fzModel2Xml&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">function</span> <span class="nx">toString</span><span class="p">(</span><span class="nx">xsdModel</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">angular</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">xsdModel</span><span class="p">)</span> <span class="o">||</span> <span class="nx">xsdModel</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">addChild</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nx">xsdModel</span><span class="p">.</span><span class="nx">rootElement</span><span class="p">,</span> <span class="nx">xsdModel</span><span class="p">.</span><span class="nx">namespace</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">addChild</span><span class="p">(</span><span class="nx">xmlString</span><span class="p">,</span> <span class="nx">element</span><span class="p">,</span> <span class="nx">namespace</span><span class="p">)</span> <span class="p">{</span>
+    
+    <span class="kd">var</span> <span class="nx">attributes</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">children</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">child</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="sr">/^@/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">child</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">});</span>
+    <span class="kd">var</span> <span class="nx">elements</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">difference</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">children</span><span class="p">,</span> <span class="nx">attributes</span><span class="p">);</span> 
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>open starting tag. I thought about extracting this out, but I found it harder to read...</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">xmlString</span> <span class="o">=</span> <span class="nx">append</span><span class="p">(</span><span class="nx">xmlString</span><span class="p">,</span> <span class="s1">&#39;&lt;&#39;</span> <span class="o">+</span> <span class="nx">element</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+
+    <span class="nx">xmlString</span> <span class="o">=</span> <span class="nx">addNamespace</span><span class="p">(</span><span class="nx">xmlString</span><span class="p">,</span> <span class="nx">namespace</span><span class="p">);</span>
+
+    <span class="nx">xmlString</span> <span class="o">=</span> <span class="nx">addAttributes</span><span class="p">(</span><span class="nx">xmlString</span><span class="p">,</span> <span class="nx">attributes</span><span class="p">);</span>
+    
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>close starting tag</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">xmlString</span> <span class="o">+=</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">;</span>
+
+    <span class="nx">xmlString</span> <span class="o">=</span> <span class="nx">addElementValue</span><span class="p">(</span><span class="nx">xmlString</span><span class="p">,</span> <span class="nx">element</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+    
+    <span class="nx">xmlString</span> <span class="o">=</span> <span class="nx">addElements</span><span class="p">(</span><span class="nx">xmlString</span><span class="p">,</span> <span class="nx">elements</span><span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>close ending tag</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">xmlString</span> <span class="o">=</span> <span class="nx">append</span><span class="p">(</span><span class="nx">xmlString</span><span class="p">,</span> <span class="s1">&#39;&lt;/&#39;</span> <span class="o">+</span> <span class="nx">element</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nx">xmlString</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">addNamespace</span><span class="p">(</span><span class="nx">xmlString</span><span class="p">,</span> <span class="nx">namespace</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">namespace</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">namespace</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="nx">xmlString</span> <span class="o">=</span> <span class="nx">append</span><span class="p">(</span><span class="nx">xmlString</span><span class="p">,</span> <span class="s1">&#39; xmlns=&quot;&#39;</span> <span class="o">+</span> <span class="nx">namespace</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">xmlString</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">addElements</span><span class="p">(</span><span class="nx">xmlString</span><span class="p">,</span> <span class="nx">elements</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">xmlString</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">elements</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">memo</span><span class="p">,</span> <span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">addChild</span><span class="p">(</span><span class="nx">memo</span><span class="p">,</span> <span class="nx">element</span><span class="p">);</span>
+    <span class="p">},</span> <span class="nx">xmlString</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nx">xmlString</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">addElementValue</span><span class="p">(</span><span class="nx">xmlString</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">angular</span><span class="p">.</span><span class="nx">isDefined</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">value</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="nx">xmlString</span> <span class="o">=</span> <span class="nx">append</span><span class="p">(</span><span class="nx">xmlString</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nx">xmlString</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">addAttributes</span><span class="p">(</span><span class="nx">xmlString</span><span class="p">,</span> <span class="nx">attributes</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">xmlString</span> <span class="o">+=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="nx">attributes</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">memo</span><span class="p">,</span> <span class="nx">child</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">memo</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nx">child</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;=&quot;&#39;</span><span class="p">;</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">angular</span><span class="p">.</span><span class="nx">isDefined</span><span class="p">(</span><span class="nx">child</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">child</span><span class="p">.</span><span class="nx">value</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="nx">result</span> <span class="o">+=</span> <span class="nx">child</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+      <span class="k">return</span> <span class="nx">result</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">;</span>
+    <span class="p">},</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">xmlString</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">append</span><span class="p">(</span><span class="nx">string</span><span class="p">,</span> <span class="nx">toAppend</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">string</span> <span class="o">+=</span> <span class="nx">toAppend</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="s1">&#39;toString&#39;</span><span class="o">:</span> <span class="nx">toString</span>
+  <span class="p">};</span>
+<span class="p">});</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>form.html</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "app/partials/form.html", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+  <script src="../../fileSearch.js"></script>
+  <link rel="stylesheet" href="../../fileSearch.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>form.html</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nt">&lt;span</span> <span class="na">ng-show=</span><span class="s">&quot;forms.length == 0&quot;</span><span class="nt">&gt;</span>{{locales.string(&#39;.no-form-definitions&#39;)}}<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">ng-controller=</span><span class="s">&quot;TabsCtrl&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;tabbable tabs-left&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;currentTab&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;tab-pane&quot;</span> <span class="na">ng-repeat=</span><span class="s">&quot;formInfo in forms&quot;</span> <span class="na">title=</span><span class="s">&quot;{{formInfo.label}}&quot;</span> <span class="na">value=</span><span class="s">&quot;{{formInfo.id}}&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;form</span> <span class="na">class=</span><span class="s">&quot;form-horizontal&quot;</span> <span class="na">name=</span><span class="s">&quot;modelForm&quot;</span> <span class="na">ng-controller=</span><span class="s">&quot;XsdCtrl&quot;</span><span class="nt">&gt;</span>
+
+        <span class="nt">&lt;fz</span><span class="na">-fieldset</span> <span class="na">data=</span><span class="s">&quot;form.rootElement&quot;</span> <span class="na">form=</span><span class="s">&quot;modelForm&quot;</span><span class="nt">&gt;</span><span class="err">&lt;</span>/fz-fieldset&gt;
+
+        <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">&quot;save&quot;</span> <span class="na">ng-click=</span><span class="s">&quot;save(form)&quot;</span>
+                <span class="na">ng-disabled=</span><span class="s">&quot;modelForm.$invalid&quot;</span><span class="nt">&gt;</span>{{locales.string(&#39;.save&#39;)}}<span class="nt">&lt;/button&gt;</span>
+
+        <span class="nt">&lt;fieldset&gt;</span>
+          <span class="nt">&lt;legend&gt;</span>Debug Info<span class="nt">&lt;/legend&gt;</span>
+
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;control-group&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">&quot;control-label&quot;</span><span class="nt">&gt;</span>{{locales.string(&#39;.label-show&#39;)}}:<span class="nt">&lt;/label&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;controls&quot;</span><span class="nt">&gt;</span>
+              <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">&quot;checkbox inline&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;showXml&quot;</span><span class="nt">&gt;</span>XML<span class="nt">&lt;/label&gt;</span>
+              <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">&quot;checkbox inline&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;showDebug&quot;</span><span class="nt">&gt;</span>Debug<span class="nt">&lt;/label&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;control-group&quot;</span> <span class="na">id=</span><span class="s">&quot;controlGroupXml&quot;</span> <span class="na">ng-show=</span><span class="s">&quot;showXml&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">&quot;control-label&quot;</span><span class="nt">&gt;</span>XML:<span class="nt">&lt;/label&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;controls&quot;</span><span class="nt">&gt;</span>
+              <span class="nt">&lt;textarea</span> <span class="na">id=</span><span class="s">&quot;xml&quot;</span> <span class="na">rows=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;</span>{{form | asXml}}<span class="nt">&lt;/textarea&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+
+          <span class="nt">&lt;div</span> <span class="na">ng-show=</span><span class="s">&quot;showDebug&quot;</span> <span class="na">id=</span><span class="s">&quot;controlGroupDebug&quot;</span><span class="nt">&gt;</span>
+
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;control-group&quot;</span>  <span class="nt">&gt;</span>
+              <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">&quot;control-label&quot;</span><span class="nt">&gt;</span>modelForm.$valid:<span class="nt">&lt;/label&gt;</span>
+
+              <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;controls&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;modelForm.$valid&quot;</span> <span class="na">readonly</span><span class="nt">&gt;&lt;/input&gt;</span>
+                <span class="nt">&lt;br&gt;&lt;/div&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;control-group&quot;</span>  <span class="nt">&gt;</span>
+              <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">&quot;control-label&quot;</span><span class="nt">&gt;</span>JSON:<span class="nt">&lt;/label&gt;</span>
+              <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;controls&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;textarea</span> <span class="na">rows=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;</span>{{form | json}}<span class="nt">&lt;/textarea&gt;</span>
+              <span class="nt">&lt;/div&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/fieldset&gt;</span>
+
+      <span class="nt">&lt;/form&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

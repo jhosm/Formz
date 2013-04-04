@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>fzFieldSpec.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "test/unit/directives/fzFieldSpec.js", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+  <script src="../../../fileSearch.js"></script>
+  <link rel="stylesheet" href="../../../fileSearch.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>fzFieldSpec.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="cm">/* jasmine specs for directives go here */</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;directives&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;The fzField directive&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">element</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">$httpBackend</span><span class="p">,</span> <span class="nx">compile</span><span class="p">;</span>
+
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.directives&#39;</span><span class="p">,</span> <span class="s1">&#39;formz.services&#39;</span><span class="p">,</span> <span class="s1">&#39;partials/directives/fzField.html&#39;</span><span class="p">));</span>
+
+    <span class="nx">beforeEach</span><span class="p">(</span>
+      <span class="nx">module</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$provide</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">mock</span> <span class="o">=</span> <span class="p">{</span>
+          <span class="nx">string</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="s1">&#39;My Docs&#39;</span><span class="p">;}</span>
+        <span class="p">};</span>
+        <span class="nx">$provide</span><span class="p">.</span><span class="nx">value</span><span class="p">(</span><span class="s1">&#39;fzLocalization&#39;</span><span class="p">,</span> <span class="nx">mock</span><span class="p">);</span>
+      <span class="p">})</span>
+    <span class="p">);</span>
+
+    <span class="kd">function</span> <span class="nx">compileFzField</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">element</span><span class="p">;</span>
+  
+      <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$compile</span><span class="p">,</span> <span class="nx">$rootScope</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">scope</span> <span class="o">=</span> <span class="nx">$rootScope</span><span class="p">;</span>
+
+        <span class="nx">scope</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
+
+        <span class="nx">element</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">element</span><span class="p">(</span><span class="s1">&#39;&lt;div fz-field data=&quot;data&quot;/&gt;&#39;</span><span class="p">);</span>
+        <span class="nx">$compile</span><span class="p">(</span><span class="nx">element</span><span class="p">)(</span><span class="nx">scope</span><span class="p">);</span>
+
+        <span class="nx">scope</span><span class="p">.</span><span class="nx">$digest</span><span class="p">();</span>
+      <span class="p">});</span>
+
+      <span class="k">return</span> <span class="nx">element</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should print all the relevant information&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nx">compileFzField</span><span class="p">({</span>
+        <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;My Label&#39;</span><span class="p">,</span>
+        <span class="nx">placeholder</span><span class="o">:</span> <span class="s1">&#39;My Placeholder&#39;</span><span class="p">,</span>
+        <span class="nx">documentation</span><span class="o">:</span> <span class="s1">&#39;My Docs&#39;</span><span class="p">,</span>
+        <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;My Value&#39;</span>
+      <span class="p">});</span>
+ 
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;* My Label:&#39;</span><span class="p">);</span>
+      <span class="kd">var</span> <span class="nx">input</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;div.controls input[type=text]&#39;</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;placeholder&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;My Placeholder&#39;</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">val</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;My Value&#39;</span><span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>this replace is just a trim()</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;span.help-block&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">().</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/(^\s+|\s+$)/g</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;My Docs&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
