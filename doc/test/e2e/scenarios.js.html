@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>scenarios.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "test/e2e/scenarios.js", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+  <script src="../../fileSearch.js"></script>
+  <link rel="stylesheet" href="../../fileSearch.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>scenarios.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="cm">/* http://docs.angularjs.org/guide/dev_guide.e2e-testing */</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Formz&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">browser</span><span class="p">().</span><span class="nx">navigateTo</span><span class="p">(</span><span class="s1">&#39;../../app/index.html&#39;</span><span class="p">);</span>
+  <span class="p">});</span>
+
+
+  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should automatically redirect to /form/human.xsd when location hash/fragment is empty&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">browser</span><span class="p">().</span><span class="nx">location</span><span class="p">().</span><span class="nx">url</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;/form/human&quot;</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;form tabs&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should be able to choose a tab&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">element</span><span class="p">(</span><span class="s2">&quot;a:contains(&#39;Pessoas&#39;)&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">();</span>
+      <span class="nx">input</span><span class="p">(</span><span class="s1">&#39;data.value&#39;</span><span class="p">).</span><span class="nx">enter</span><span class="p">(</span><span class="s1">&#39;Joao&#39;</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">(</span><span class="s1">&#39;#xml&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">()).</span><span class="nx">toMatch</span><span class="p">(</span><span class="s1">&#39;&lt;person&gt;Joao&lt;/person&gt;&#39;</span><span class="p">);</span>
+
+      <span class="nx">element</span><span class="p">(</span><span class="s2">&quot;a:contains(&#39;Casas&#39;)&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">();</span>
+
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">repeater</span><span class="p">(</span><span class="s1">&#39;div[title=&quot;Casas&quot;] div[data=&quot;field&quot;]&#39;</span><span class="p">).</span><span class="nx">count</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+
+  <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">browser</span><span class="p">().</span><span class="nx">navigateTo</span><span class="p">(</span><span class="s1">&#39;../../app/index.html#/form/human&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should render form when user navigates to /form/human&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">(</span><span class="s1">&#39;legend&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">()).</span><span class="nx">toMatch</span><span class="p">(</span><span class="sr">/Pessoa/</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should update the xml when user types some data&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">input</span><span class="p">(</span><span class="s1">&#39;data.value&#39;</span><span class="p">).</span><span class="nx">enter</span><span class="p">(</span><span class="s1">&#39;Joao&#39;</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">(</span><span class="s1">&#39;#xml&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">()).</span><span class="nx">toMatch</span><span class="p">(</span><span class="s1">&#39;&lt;person&gt;Joao&lt;/person&gt;&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should toggle the xml visibility when user toggles &quot;Show XML&quot;&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">(</span><span class="s1">&#39;#controlGroupXml&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;display&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;none&#39;</span><span class="p">);</span>
+      <span class="nx">input</span><span class="p">(</span><span class="s1">&#39;showXml&#39;</span><span class="p">).</span><span class="nx">check</span><span class="p">();</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">(</span><span class="s1">&#39;#controlGroupXml&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;display&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;block&#39;</span><span class="p">);</span>
+      <span class="nx">input</span><span class="p">(</span><span class="s1">&#39;showXml&#39;</span><span class="p">).</span><span class="nx">check</span><span class="p">();</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">(</span><span class="s1">&#39;#controlGroupXml&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;display&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;none&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should toggle the debug info visibility when user toggles &quot;Show Debug&quot;&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">(</span><span class="s1">&#39;#controlGroupDebug&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;display&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;none&#39;</span><span class="p">);</span>
+      <span class="nx">input</span><span class="p">(</span><span class="s1">&#39;showDebug&#39;</span><span class="p">).</span><span class="nx">check</span><span class="p">();</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">(</span><span class="s1">&#39;#controlGroupDebug&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;display&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;block&#39;</span><span class="p">);</span>
+      <span class="nx">input</span><span class="p">(</span><span class="s1">&#39;showDebug&#39;</span><span class="p">).</span><span class="nx">check</span><span class="p">();</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">(</span><span class="s1">&#39;#controlGroupDebug&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;display&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;none&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+
+  <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;fzFieldSet&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">browser</span><span class="p">().</span><span class="nx">navigateTo</span><span class="p">(</span><span class="s1">&#39;../../app/index.html#/form/house&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should show error message when required field is empty, but dirty&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">saveButton</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="s1">&#39;div[title=&quot;Casas&quot;] button.save&#39;</span><span class="p">);</span>
+      <span class="kd">var</span> <span class="nx">controlGroupElm</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="s1">&#39;div[title=&quot;Casas&quot;] div.control-group&#39;</span><span class="p">);</span>
+      <span class="kd">var</span> <span class="nx">requiredMessageElm</span> <span class="o">=</span> <span class="nx">element</span><span class="p">(</span><span class="s1">&#39;div[title=&quot;Casas&quot;] span.required-message&#39;</span><span class="p">);</span>
+
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">saveButton</span><span class="p">.</span><span class="nx">text</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;Save&#39;</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">saveButton</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;disabled&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;disabled&#39;</span><span class="p">);</span>
+
+      <span class="nx">input</span><span class="p">(</span><span class="s1">&#39;data.value&#39;</span><span class="p">).</span><span class="nx">enter</span><span class="p">(</span><span class="s1">&#39;12&#39;</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">saveButton</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;disabled&#39;</span><span class="p">)).</span><span class="nx">not</span><span class="p">().</span><span class="nx">toBeDefined</span><span class="p">();</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">controlGroupElm</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">)).</span><span class="nx">not</span><span class="p">().</span><span class="nx">toContain</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">requiredMessageElm</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;display&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;none&#39;</span><span class="p">);</span>
+      
+      <span class="nx">input</span><span class="p">(</span><span class="s1">&#39;data.value&#39;</span><span class="p">).</span><span class="nx">enter</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">controlGroupElm</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">)).</span><span class="nx">toContain</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">saveButton</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;disabled&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;disabled&#39;</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">requiredMessageElm</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;display&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;inline-block&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

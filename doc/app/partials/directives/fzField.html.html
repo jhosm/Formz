@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>fzField.html</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "app/partials/directives/fzField.html", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+  <script src="../../../fileSearch.js"></script>
+  <link rel="stylesheet" href="../../../fileSearch.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>fzField.html</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">ng-form=</span><span class="s">&quot;fieldForm&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;control-group&quot;</span> <span class="na">ng-class=</span><span class="s">&quot;controlGroupClasses&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">&quot;control-label&quot;</span> <span class="nt">&gt;&lt;span</span> <span class="na">ng-show=</span><span class="s">&quot;data.required&quot;</span><span class="nt">&gt;</span>*<span class="nt">&lt;/span&gt;</span> {{data.label}}:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;controls&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;{{data.placeholder}}&quot;</span> <span class="na">name=</span><span class="s">&quot;input&quot;</span> <span class="na">ng-model=</span><span class="s">&quot;data.value&quot;</span> <span class="na">ng-required=</span><span class="s">&quot;data.required&quot;</span> <span class="na">fz-minlength=</span><span class="s">&quot;data.restrictions.minLength&quot;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">&quot;help-inline icon-question-sign&quot;</span> <span class="na">ng-click=</span><span class="s">&quot;showHelp = !showHelp&quot;</span> <span class="na">ng-init=</span><span class="s">&quot;showHelp=false&quot;</span><span class="nt">&gt;&lt;/i&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;help-block&quot;</span> <span class="na">ng-show=</span><span class="s">&quot;showHelp&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">fz-markdown</span> <span class="na">text=</span><span class="s">&quot;{{locales.string(data.documentation)}}&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+      <span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">ng-show=</span><span class="s">&quot;fieldForm.input.$dirty &amp;&amp; fieldForm.input.$invalid&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">ng-show=</span><span class="s">&quot;fieldForm.input.$error.required&quot;</span> <span class="na">class=</span><span class="s">&quot;help-inline required-message&quot;</span><span class="nt">&gt;</span>{{locales.string(&#39;.field-required&#39;)}}<span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">ng-show=</span><span class="s">&quot;fieldForm.input.$error.minlength&quot;</span> <span class="na">class=</span><span class="s">&quot;help-inline min-length-message&quot;</span><span class="nt">&gt;</span>{{locales.string(&#39;.field-min-length&#39;, data.restrictions.minLength)}}<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

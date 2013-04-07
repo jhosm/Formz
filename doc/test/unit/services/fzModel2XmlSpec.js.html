@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>fzModel2XmlSpec.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "test/unit/services/fzModel2XmlSpec.js", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+  <script src="../../../fileSearch.js"></script>
+  <link rel="stylesheet" href="../../../fileSearch.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>fzModel2XmlSpec.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;service&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.services&#39;</span><span class="p">));</span>
+
+  <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;The model -&gt; xml serializer&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should return the empty string when given a null or undefined model&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzModel2Xml</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">fzModel2Xml</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="kc">null</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">fzModel2Xml</span><span class="p">.</span><span class="nx">toString</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+    <span class="p">}));</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should serialize a model structure into an xml instance string&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzModel2Xml</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">rootElement</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;person&#39;</span><span class="p">,</span>
+          <span class="nx">children</span><span class="o">:</span> <span class="p">[{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;@gender&#39;</span><span class="p">,</span>
+            <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;male&#39;</span>
+          <span class="p">},</span> <span class="p">{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+            <span class="nx">children</span><span class="o">:</span> <span class="p">[{</span>
+              <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;firstName&#39;</span><span class="p">,</span>
+              <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;Little&#39;</span>
+            <span class="p">},</span> <span class="p">{</span>
+              <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;lastName&#39;</span><span class="p">,</span>
+              <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;John&#39;</span>
+            <span class="p">}]</span>
+          <span class="p">}]</span>
+        <span class="p">}</span>
+      <span class="p">};</span>
+
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">fzModel2Xml</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">model</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;&lt;person gender=&quot;male&quot;&gt;&lt;name&gt;&lt;firstName&gt;Little&lt;/firstName&gt;&lt;lastName&gt;John&lt;/lastName&gt;&lt;/name&gt;&lt;/person&gt;&#39;</span><span class="p">);</span>
+    <span class="p">}));</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should serialize a model with a target namespace into an xml instance string&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzModel2Xml</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">namespace</span><span class="o">:</span> <span class="s1">&#39;http://formz.com/ANamespace&#39;</span><span class="p">,</span>
+        <span class="nx">rootElement</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;person&#39;</span><span class="p">,</span>
+          <span class="nx">children</span><span class="o">:</span> <span class="p">[{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;@gender&#39;</span><span class="p">,</span>
+            <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;male&#39;</span>
+          <span class="p">}]</span>
+        <span class="p">}</span>
+      <span class="p">};</span>
+
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">fzModel2Xml</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">model</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;&lt;person xmlns=&quot;http://formz.com/ANamespace&quot; gender=&quot;male&quot;&gt;&lt;/person&gt;&#39;</span><span class="p">);</span>
+    <span class="p">}));</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should serialize a model with undefined or null attribute values into empty strings&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzModel2Xml</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">rootElement</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;person&#39;</span><span class="p">,</span>
+          <span class="nx">children</span><span class="o">:</span> <span class="p">[{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;@gender&#39;</span>
+          <span class="p">}]</span>
+        <span class="p">}</span>
+      <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>value is undefined</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">fzModel2Xml</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">model</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;&lt;person gender=&quot;&quot;&gt;&lt;/person&gt;&#39;</span><span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>value is null</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">model</span><span class="p">.</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">fzModel2Xml</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">model</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;&lt;person gender=&quot;&quot;&gt;&lt;/person&gt;&#39;</span><span class="p">);</span>
+    <span class="p">}));</span>
+
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should serialize a model with undefined or null element values into empty strings&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzModel2Xml</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">model</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">rootElement</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;person&#39;</span>
+        <span class="p">}</span>
+      <span class="p">};</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>value is undefined</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">fzModel2Xml</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">model</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;&lt;person&gt;&lt;/person&gt;&#39;</span><span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>value is null</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">model</span><span class="p">.</span><span class="nx">rootElement</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">fzModel2Xml</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">model</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;&lt;person&gt;&lt;/person&gt;&#39;</span><span class="p">);</span>
+    <span class="p">}));</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
