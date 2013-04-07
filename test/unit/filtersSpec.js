@@ -1,24 +1,24 @@
-'use strict';
+(function() {
+	'use strict';
 
-/* jasmine specs for filters go here */
+	describe('filter', function() {
+		beforeEach(function() {
+			module('formz.services');
+			module('formz.filters');
+		});
 
-describe('filter', function() {
-	beforeEach(function() {
-		module('formz.services');
-		module('formz.filters');
+
+		describe('asXml', function() {
+
+			it('should serialize into xml', inject(function(asXmlFilter) {
+				var xmlSchema = {
+					rootElement: {
+						name: 'person',
+						value: 'Little John'
+					}
+				};
+				expect(asXmlFilter(xmlSchema)).toEqual('<person>Little John</person>');
+			}));
+		});
 	});
-
-
-	describe('asXml', function() {
-
-		it('should serialize into xml', inject(function(asXmlFilter) {
-			var xmlSchema = {
-				rootElement: {
-					name: 'person',
-					value: 'Little John'
-				}
-			};
-			expect(asXmlFilter(xmlSchema)).toEqual('<person>Little John</person>');
-		}));
-	});
-});
+}());
