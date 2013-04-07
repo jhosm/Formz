@@ -5,7 +5,7 @@ node_js:
 before_script:
   - npm install -g grunt-cli
   - sudo easy_install Pygments
-after_success: sh ./update-gh-pages.sh
+after_success: ./update-gh-pages.sh
 env:
   global:
   - secure: |-
