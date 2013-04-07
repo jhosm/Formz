@@ -1,6 +1,14 @@
+---
 language: node_js
 node_js:
-   - "0.8"
-before_script: 
-   - npm install -g grunt-cli
-   - sudo easy_install Pygments
+  - '0.8'
+before_script:
+  - npm install -g grunt-cli
+  - sudo easy_install Pygments
+after_success: ./update-gh-pages.sh
+env:
+  global:
+  - secure: |-
+      bFnahT2undYf+Am9zkAFYOOSBYr5IeMvl7XYaci3AFqi51dTgY9zSyXXGYS9
+      jJLmTUAWZCstycJcinsv6gGqLNXp745glXvaMnVkONd97jRo+ZDOd7D4+TTR
+      zbVuwyfVWRONgX9jagqBjd2fi4z48rePVxKwANfCVo7SmrdcSCE=

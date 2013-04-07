@@ -2,15 +2,19 @@
 
 angular.module('formz.services').
 service('fzXsd', ['fzXml', function(xml) {
+	
+	// namespaces used to select nodes in the given xml.
 	var xsdNamespaces = {
 			'xs': 'http://www.w3.org/2001/XMLSchema',
 			'ui': 'http://formz.com/UI'
 		};
 
+	//selects nodes based on a xpath, namespacing it with xsdNamespaces.
 	function select(node, xpath) {
 		return xml.select(node, xpath, xsdNamespaces);
 	}
 
+	//selects one node based on a xpath, namespacing it with xsdNamespaces.
 	function selectOne(node, xpath) {
 		return xml.selectOne(node, xpath, xsdNamespaces);
 	}
