@@ -39,9 +39,10 @@
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+        <td class="code highlight"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
-<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.controllers&#39;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.controllers&#39;</span><span class="p">);</span>
 
 
 </pre></div>
@@ -55,30 +56,30 @@
 <p>Teste</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;XsdCtrl&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="nx">XsdCtrl</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">$http</span><span class="p">,</span> <span class="nx">fzXsd</span><span class="p">,</span> <span class="nx">$routeParams</span><span class="p">,</span> <span class="nx">fzLocalization</span><span class="p">)</span> <span class="p">{</span>
-  
-  <span class="nx">$scope</span><span class="p">.</span><span class="nx">save</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">form</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">$scope</span><span class="p">.</span><span class="nx">showXml</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-  <span class="p">};</span>
+  <span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;XsdCtrl&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="nx">XsdCtrl</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">$http</span><span class="p">,</span> <span class="nx">fzXsd</span><span class="p">,</span> <span class="nx">$routeParams</span><span class="p">,</span> <span class="nx">fzLocalization</span><span class="p">)</span> <span class="p">{</span>
 
-  <span class="nx">$scope</span><span class="p">.</span><span class="nx">showXml</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-  <span class="nx">$scope</span><span class="p">.</span><span class="nx">locales</span> <span class="o">=</span> <span class="nx">fzLocalization</span><span class="p">;</span>
-  <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;xsd/&#39;</span> <span class="o">+</span> <span class="nx">$routeParams</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s1">&#39;.xsd&#39;</span><span class="p">).</span><span class="nx">success</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">$scope</span><span class="p">.</span><span class="nx">form</span> <span class="o">=</span> <span class="nx">fzXsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
-  <span class="p">});</span>
-<span class="p">}).</span><span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span> <span class="s1">&#39;$http&#39;</span><span class="p">,</span> <span class="s1">&#39;fzXsd&#39;</span><span class="p">,</span> <span class="s1">&#39;$routeParams&#39;</span><span class="p">,</span> <span class="s1">&#39;fzLocalization&#39;</span><span class="p">];</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">save</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">form</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$scope</span><span class="p">.</span><span class="nx">showXml</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">};</span>
+
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">showXml</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">locales</span> <span class="o">=</span> <span class="nx">fzLocalization</span><span class="p">;</span>
+    <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;xsd/&#39;</span> <span class="o">+</span> <span class="nx">$routeParams</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s1">&#39;.xsd&#39;</span><span class="p">).</span><span class="nx">success</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$scope</span><span class="p">.</span><span class="nx">form</span> <span class="o">=</span> <span class="nx">fzXsd</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}).</span><span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span> <span class="s1">&#39;$http&#39;</span><span class="p">,</span> <span class="s1">&#39;fzXsd&#39;</span><span class="p">,</span> <span class="s1">&#39;$routeParams&#39;</span><span class="p">,</span> <span class="s1">&#39;fzLocalization&#39;</span><span class="p">];</span>
 
 
-<span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;MainCtrl&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="nx">MainCtrl</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">$resource</span><span class="p">,</span> <span class="nx">fzLocalization</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">$scope</span><span class="p">.</span><span class="nx">locales</span> <span class="o">=</span> <span class="nx">fzLocalization</span><span class="p">;</span>
+  <span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;MainCtrl&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="nx">MainCtrl</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">$resource</span><span class="p">,</span> <span class="nx">fzLocalization</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">locales</span> <span class="o">=</span> <span class="nx">fzLocalization</span><span class="p">;</span>
 
-  <span class="kd">var</span> <span class="nx">FormsDefinitions</span> <span class="o">=</span> <span class="nx">$resource</span><span class="p">(</span><span class="s1">&#39;xsd/formsDefinitions.js&#39;</span><span class="p">);</span>
-  <span class="nx">$scope</span><span class="p">.</span><span class="nx">forms</span> <span class="o">=</span> <span class="nx">FormsDefinitions</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">$scope</span><span class="p">.</span><span class="nx">tabs</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">pluck</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">forms</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">);</span>
-  <span class="p">});</span>
-<span class="p">}).</span><span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span> <span class="s1">&#39;$resource&#39;</span><span class="p">,</span> <span class="s1">&#39;fzLocalization&#39;</span><span class="p">];</span>
+    <span class="kd">var</span> <span class="nx">FormsDefinitions</span> <span class="o">=</span> <span class="nx">$resource</span><span class="p">(</span><span class="s1">&#39;xsd/formsDefinitions.js&#39;</span><span class="p">);</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">forms</span> <span class="o">=</span> <span class="nx">FormsDefinitions</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">$scope</span><span class="p">.</span><span class="nx">tabs</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">pluck</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">forms</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}).</span><span class="nx">$inject</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span> <span class="s1">&#39;$resource&#39;</span><span class="p">,</span> <span class="s1">&#39;fzLocalization&#39;</span><span class="p">];</span>
 
-<span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s2">&quot;TabsCtrl&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">$routeParams</span><span class="p">,</span> <span class="nx">$location</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s2">&quot;TabsCtrl&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">$routeParams</span><span class="p">,</span> <span class="nx">$location</span><span class="p">)</span> <span class="p">{</span>
 
 
 </pre></div>
@@ -92,13 +93,14 @@
 <p>Each time controller is recreated, check tab in url</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">$scope</span><span class="p">.</span><span class="nx">currentTab</span> <span class="o">=</span> <span class="nx">$routeParams</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span> 
-  <span class="nx">$scope</span><span class="p">.</span><span class="nx">$watch</span><span class="p">(</span><span class="s1">&#39;currentTab&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">oldId</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">id</span> <span class="o">!==</span> <span class="nx">oldId</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">$location</span><span class="p">.</span><span class="nx">path</span><span class="p">(</span><span class="s1">&#39;/form/&#39;</span> <span class="o">+</span> <span class="nx">id</span><span class="p">);</span>
-    <span class="p">}</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">currentTab</span> <span class="o">=</span> <span class="nx">$routeParams</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">$watch</span><span class="p">(</span><span class="s1">&#39;currentTab&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">oldId</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">id</span> <span class="o">!==</span> <span class="nx">oldId</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$location</span><span class="p">.</span><span class="nx">path</span><span class="p">(</span><span class="s1">&#39;/form/&#39;</span> <span class="o">+</span> <span class="nx">id</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
   <span class="p">});</span>
-<span class="p">});</span>
+<span class="p">}());</span>
 </pre></div>
         </td>
       </tr>

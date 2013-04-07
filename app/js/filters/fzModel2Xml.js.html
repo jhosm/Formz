@@ -39,16 +39,16 @@
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+        <td class="code highlight"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
-<span class="cm">/* Filters */</span>
-
-<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.filters&#39;</span><span class="p">,</span> <span class="p">[]).</span>
-<span class="nx">filter</span><span class="p">(</span><span class="s1">&#39;asXml&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;fzModel2Xml&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fzModel2Xml</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">xmlSchema</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">fzModel2Xml</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">xmlSchema</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}]);</span>
+  <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.filters&#39;</span><span class="p">,</span> <span class="p">[]).</span>
+  <span class="nx">filter</span><span class="p">(</span><span class="s1">&#39;asXml&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;fzModel2Xml&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fzModel2Xml</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">xmlSchema</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">fzModel2Xml</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">xmlSchema</span><span class="p">);</span>
+    <span class="p">};</span>
+  <span class="p">}]);</span>
+<span class="p">}());</span>
 </pre></div>
         </td>
       </tr>

@@ -39,12 +39,15 @@
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre><span class="s1">&#39;use strict;&#39;</span>
+        <td class="code highlight"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
-<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.services&#39;</span><span class="p">).</span>
-<span class="nx">service</span><span class="p">(</span><span class="s1">&#39;fzLocalization&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;$resource&#39;</span><span class="p">,</span> <span class="s1">&#39;$cacheFactory&#39;</span><span class="p">,</span> <span class="s1">&#39;$locale&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$resource</span><span class="p">,</span> <span class="nx">$cacheFactory</span><span class="p">,</span> <span class="nx">$locale</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">cache</span> <span class="o">=</span> <span class="nx">$cacheFactory</span><span class="p">(</span><span class="s1">&#39;fzLocalization&#39;</span><span class="p">);</span>
-  <span class="kd">var</span> <span class="nx">Localization</span> <span class="o">=</span> <span class="nx">$resource</span><span class="p">(</span><span class="s1">&#39;locales/:localeId.js&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">localeId</span> <span class="o">:</span> <span class="nx">$locale</span><span class="p">.</span><span class="nx">id</span><span class="p">});</span>
+  <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.services&#39;</span><span class="p">).</span>
+  <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;fzLocalization&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;$resource&#39;</span><span class="p">,</span> <span class="s1">&#39;$cacheFactory&#39;</span><span class="p">,</span> <span class="s1">&#39;$locale&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$resource</span><span class="p">,</span> <span class="nx">$cacheFactory</span><span class="p">,</span> <span class="nx">$locale</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">cache</span> <span class="o">=</span> <span class="nx">$cacheFactory</span><span class="p">(</span><span class="s1">&#39;fzLocalization&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">Localization</span> <span class="o">=</span> <span class="nx">$resource</span><span class="p">(</span><span class="s1">&#39;locales/:localeId.js&#39;</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nx">localeId</span><span class="o">:</span> <span class="nx">$locale</span><span class="p">.</span><span class="nx">id</span>
+    <span class="p">});</span>
 
 
 </pre></div>
@@ -58,20 +61,22 @@
 <p>TODO: Needs to support "string.format"</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="kd">function</span> <span class="nx">string</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">strings</span> <span class="o">=</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;strings&#39;</span><span class="p">);</span>
-    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">strings</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">strings</span> <span class="o">=</span> <span class="nx">Localization</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">angular</span><span class="p">.</span><span class="nx">noop</span><span class="p">);</span>
-      <span class="nx">cache</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s1">&#39;strings&#39;</span><span class="p">,</span> <span class="nx">strings</span><span class="p">);</span>  
-    <span class="p">}</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">angular</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">strings</span><span class="p">[</span><span class="nx">key</span><span class="p">]))</span> <span class="k">return</span> <span class="nx">key</span><span class="p">;</span>
-    <span class="k">return</span> <span class="nx">strings</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
-  <span class="p">}</span>
 
-  <span class="k">return</span> <span class="p">{</span>
-    <span class="s1">&#39;string&#39;</span><span class="o">:</span> <span class="nx">string</span>
-  <span class="p">};</span>
-<span class="p">}]);</span>
+    <span class="kd">function</span> <span class="nx">string</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">strings</span> <span class="o">=</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;strings&#39;</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">strings</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">strings</span> <span class="o">=</span> <span class="nx">Localization</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">angular</span><span class="p">.</span><span class="nx">noop</span><span class="p">);</span>
+        <span class="nx">cache</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s1">&#39;strings&#39;</span><span class="p">,</span> <span class="nx">strings</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">angular</span><span class="p">.</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">strings</span><span class="p">[</span><span class="nx">key</span><span class="p">]))</span> <span class="k">return</span> <span class="nx">key</span><span class="p">;</span>
+      <span class="k">return</span> <span class="nx">strings</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="s1">&#39;string&#39;</span><span class="o">:</span> <span class="nx">string</span>
+    <span class="p">};</span>
+  <span class="p">}]);</span>
+<span class="p">}());</span>
 </pre></div>
         </td>
       </tr>

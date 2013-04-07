@@ -39,37 +39,41 @@
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+        <td class="code highlight"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
-<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;service&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">$httpBackend</span><span class="p">;</span>
+  <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;service&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">$httpBackend</span><span class="p">;</span>
 
-  <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.services&#39;</span><span class="p">);</span>
-    <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">_$httpBackend_</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">$httpBackend</span> <span class="o">=</span> <span class="nx">_$httpBackend_</span><span class="p">;</span>
-      <span class="nx">$httpBackend</span><span class="p">.</span><span class="nx">expectGET</span><span class="p">(</span><span class="s1">&#39;locales/en-us.js&#39;</span><span class="p">).</span>
-        <span class="nx">respond</span><span class="p">({</span><span class="nx">help</span><span class="o">:</span> <span class="s1">&#39;No help.&#39;</span><span class="p">});</span>
-    <span class="p">})</span>
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.services&#39;</span><span class="p">);</span>
+      <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">_$httpBackend_</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$httpBackend</span> <span class="o">=</span> <span class="nx">_$httpBackend_</span><span class="p">;</span>
+        <span class="nx">$httpBackend</span><span class="p">.</span><span class="nx">expectGET</span><span class="p">(</span><span class="s1">&#39;locales/en-us.js&#39;</span><span class="p">).</span>
+        <span class="nx">respond</span><span class="p">({</span>
+          <span class="nx">help</span><span class="o">:</span> <span class="s1">&#39;No help.&#39;</span>
+        <span class="p">});</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;The localization service&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should localize a given string&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzLocalization</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">fzLocalization</span><span class="p">.</span><span class="nx">string</span><span class="p">(</span><span class="s2">&quot;help&quot;</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s2">&quot;help&quot;</span><span class="p">);</span>
+
+        <span class="nx">$httpBackend</span><span class="p">.</span><span class="nx">flush</span><span class="p">();</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">fzLocalization</span><span class="p">.</span><span class="nx">string</span><span class="p">(</span><span class="s2">&quot;help&quot;</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;No help.&#39;</span><span class="p">);</span>
+      <span class="p">}));</span>
+
+      <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should return the same string when it&#39;s no possible to localize it&quot;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzLocalization</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">fzLocalization</span><span class="p">.</span><span class="nx">string</span><span class="p">(</span><span class="s2">&quot;unlocalizable&quot;</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;unlocalizable&#39;</span><span class="p">);</span>
+        <span class="nx">$httpBackend</span><span class="p">.</span><span class="nx">flush</span><span class="p">();</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">fzLocalization</span><span class="p">.</span><span class="nx">string</span><span class="p">(</span><span class="s2">&quot;unlocalizable&quot;</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;unlocalizable&#39;</span><span class="p">);</span>
+      <span class="p">}));</span>
+
+    <span class="p">});</span>
   <span class="p">});</span>
-
-  <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;The localization service&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should localize a given string&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzLocalization</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">fzLocalization</span><span class="p">.</span><span class="nx">string</span><span class="p">(</span><span class="s2">&quot;help&quot;</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s2">&quot;help&quot;</span><span class="p">);</span>
-
-      <span class="nx">$httpBackend</span><span class="p">.</span><span class="nx">flush</span><span class="p">();</span>
-
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">fzLocalization</span><span class="p">.</span><span class="nx">string</span><span class="p">(</span><span class="s2">&quot;help&quot;</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;No help.&#39;</span><span class="p">);</span>
-    <span class="p">}));</span>
-
-    <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should return the same string when it&#39;s no possible to localize it&quot;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzLocalization</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">fzLocalization</span><span class="p">.</span><span class="nx">string</span><span class="p">(</span><span class="s2">&quot;unlocalizable&quot;</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;unlocalizable&#39;</span><span class="p">);</span>
-      <span class="nx">$httpBackend</span><span class="p">.</span><span class="nx">flush</span><span class="p">();</span>
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">fzLocalization</span><span class="p">.</span><span class="nx">string</span><span class="p">(</span><span class="s2">&quot;unlocalizable&quot;</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;unlocalizable&#39;</span><span class="p">);</span>
-    <span class="p">}));</span>
-
-  <span class="p">});</span>
-<span class="p">});</span>
+<span class="p">}());</span>
 </pre></div>
         </td>
       </tr>

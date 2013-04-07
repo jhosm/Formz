@@ -39,90 +39,91 @@
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+        <td class="code highlight"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
-<span class="cm">/* jasmine specs for directives go here */</span>
 
-<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;directives&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;directives&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 
-  <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;The fzFieldSet directive&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    
-    <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.directives&#39;</span><span class="p">,</span> <span class="s1">&#39;partials/directives/fzFieldSet.html&#39;</span><span class="p">,</span> <span class="s1">&#39;partials/directives/fzField.html&#39;</span><span class="p">));</span>
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;The fzFieldSet directive&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="nx">beforeEach</span><span class="p">(</span>
-    <span class="nx">module</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$provide</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">mock</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="nx">string</span><span class="o">:</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">noop</span>
-      <span class="p">};</span>
-      <span class="nx">$provide</span><span class="p">.</span><span class="nx">value</span><span class="p">(</span><span class="s1">&#39;fzLocalization&#39;</span><span class="p">,</span> <span class="nx">mock</span><span class="p">);</span>
-    <span class="p">}));</span>
+      <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.directives&#39;</span><span class="p">,</span> <span class="s1">&#39;partials/directives/fzFieldSet.html&#39;</span><span class="p">,</span> <span class="s1">&#39;partials/directives/fzField.html&#39;</span><span class="p">));</span>
 
-    <span class="kd">function</span> <span class="nx">compileFzFieldSet</span><span class="p">(</span><span class="nx">model</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">element</span><span class="p">;</span>
-  
-      <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$compile</span><span class="p">,</span> <span class="nx">$rootScope</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">scope</span> <span class="o">=</span> <span class="nx">$rootScope</span><span class="p">;</span>
+      <span class="nx">beforeEach</span><span class="p">(</span>
+      <span class="nx">module</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$provide</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">mock</span> <span class="o">=</span> <span class="p">{</span>
+          <span class="nx">string</span><span class="o">:</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">noop</span>
+        <span class="p">};</span>
+        <span class="nx">$provide</span><span class="p">.</span><span class="nx">value</span><span class="p">(</span><span class="s1">&#39;fzLocalization&#39;</span><span class="p">,</span> <span class="nx">mock</span><span class="p">);</span>
+      <span class="p">}));</span>
 
-        <span class="nx">scope</span><span class="p">.</span><span class="nx">model</span> <span class="o">=</span> <span class="nx">model</span><span class="p">;</span>
+      <span class="kd">function</span> <span class="nx">compileFzFieldSet</span><span class="p">(</span><span class="nx">model</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">element</span><span class="p">;</span>
 
-        <span class="nx">element</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">element</span><span class="p">(</span><span class="s1">&#39;&lt;fz-fieldset data=&quot;model&quot;/&gt;&#39;</span><span class="p">);</span>
-        <span class="nx">$compile</span><span class="p">(</span><span class="nx">element</span><span class="p">)(</span><span class="nx">scope</span><span class="p">);</span>
+        <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$compile</span><span class="p">,</span> <span class="nx">$rootScope</span><span class="p">)</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">scope</span> <span class="o">=</span> <span class="nx">$rootScope</span><span class="p">;</span>
 
-        <span class="nx">scope</span><span class="p">.</span><span class="nx">$digest</span><span class="p">();</span>
+          <span class="nx">scope</span><span class="p">.</span><span class="nx">model</span> <span class="o">=</span> <span class="nx">model</span><span class="p">;</span>
+
+          <span class="nx">element</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">element</span><span class="p">(</span><span class="s1">&#39;&lt;fz-fieldset data=&quot;model&quot;/&gt;&#39;</span><span class="p">);</span>
+          <span class="nx">$compile</span><span class="p">(</span><span class="nx">element</span><span class="p">)(</span><span class="nx">scope</span><span class="p">);</span>
+
+          <span class="nx">scope</span><span class="p">.</span><span class="nx">$digest</span><span class="p">();</span>
+        <span class="p">});</span>
+
+        <span class="k">return</span> <span class="nx">element</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should handle a basic model&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nx">compileFzFieldSet</span><span class="p">({</span>
+          <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot; a name&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;children&quot;</span><span class="o">:</span> <span class="p">[],</span>
+          <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="s2">&quot;a label&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;documentation&quot;</span><span class="o">:</span> <span class="s2">&quot;some documentation&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;placeholder&quot;</span><span class="o">:</span> <span class="s2">&quot;a placeholder&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;a value&quot;</span>
+        <span class="p">});</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;legend&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;a label&#39;</span><span class="p">);</span>
+
+        <span class="kd">var</span> <span class="nx">expectedFieldset</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;legend&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">parentElement</span><span class="p">;</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">expectedFieldset</span><span class="p">.</span><span class="nx">tagName</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;FIELDSET&#39;</span><span class="p">);</span>
+
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;a value&#39;</span><span class="p">);</span>
       <span class="p">});</span>
 
-      <span class="k">return</span> <span class="nx">element</span><span class="p">;</span>
-    <span class="p">}</span>
+      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should handle a model with a child&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nx">compileFzFieldSet</span><span class="p">({</span>
+          <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;person&#39;</span><span class="p">,</span>
+          <span class="nx">children</span><span class="o">:</span> <span class="p">[{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;@gender&#39;</span><span class="p">,</span>
+            <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;male&#39;</span>
+          <span class="p">}]</span>
+        <span class="p">});</span>
 
-    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should handle a basic model&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nx">compileFzFieldSet</span><span class="p">({</span>
-        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot; a name&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;children&quot;</span><span class="o">:</span> <span class="p">[],</span>
-        <span class="s2">&quot;label&quot;</span><span class="o">:</span> <span class="s2">&quot;a label&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;documentation&quot;</span><span class="o">:</span> <span class="s2">&quot;some documentation&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;placeholder&quot;</span><span class="o">:</span> <span class="s2">&quot;a placeholder&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;a value&quot;</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;male&#39;</span><span class="p">);</span>
       <span class="p">});</span>
 
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;legend&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;a label&#39;</span><span class="p">);</span>
+      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should handle a model with more than one child&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nx">compileFzFieldSet</span><span class="p">({</span>
+          <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;person&#39;</span><span class="p">,</span>
+          <span class="nx">children</span><span class="o">:</span> <span class="p">[{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;@gender&#39;</span><span class="p">,</span>
+            <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;male&#39;</span>
+          <span class="p">},</span> <span class="p">{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;@height&#39;</span><span class="p">,</span>
+            <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;1.86&#39;</span>
+          <span class="p">}]</span>
+        <span class="p">});</span>
 
-      <span class="kd">var</span> <span class="nx">expectedFieldset</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;legend&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">parentElement</span><span class="p">;</span>
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">expectedFieldset</span><span class="p">.</span><span class="nx">tagName</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;FIELDSET&#39;</span><span class="p">);</span>
-
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;a value&#39;</span><span class="p">);</span>
-    <span class="p">});</span>
-
-    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should handle a model with a child&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nx">compileFzFieldSet</span><span class="p">({</span>
-        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;person&#39;</span><span class="p">,</span>
-        <span class="nx">children</span><span class="o">:</span> <span class="p">[{</span>
-          <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;@gender&#39;</span><span class="p">,</span>
-          <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;male&#39;</span>
-        <span class="p">}]</span>
-      <span class="p">});</span>
-
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;male&#39;</span><span class="p">);</span>
-    <span class="p">});</span>
-
-    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should handle a model with more than one child&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nx">compileFzFieldSet</span><span class="p">({</span>
-        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;person&#39;</span><span class="p">,</span>
-        <span class="nx">children</span><span class="o">:</span> <span class="p">[{</span>
-          <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;@gender&#39;</span><span class="p">,</span>
-          <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;male&#39;</span>
-        <span class="p">},{</span>
-          <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;@height&#39;</span><span class="p">,</span>
-          <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;1.86&#39;</span>
-        <span class="p">}]</span>
-      <span class="p">});</span>
-
-      <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;input[type=&quot;text&quot;]&#39;</span><span class="p">),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elm</span><span class="p">,</span> <span class="nx">idx</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="nx">idx</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="nx">expect</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">value</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;male&#39;</span><span class="p">);</span>
-        <span class="k">if</span><span class="p">(</span><span class="nx">idx</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="nx">expect</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">value</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;1.86&#39;</span><span class="p">);</span>
+        <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;input[type=&quot;text&quot;]&#39;</span><span class="p">),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elm</span><span class="p">,</span> <span class="nx">idx</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">idx</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="nx">expect</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">value</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;male&#39;</span><span class="p">);</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">idx</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="nx">expect</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">value</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;1.86&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
       <span class="p">});</span>
     <span class="p">});</span>
   <span class="p">});</span>
-<span class="p">});</span>
+<span class="p">}());</span>
 </pre></div>
         </td>
       </tr>

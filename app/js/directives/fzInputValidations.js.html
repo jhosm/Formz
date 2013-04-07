@@ -40,11 +40,24 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
 </div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
 <p><a href="https://www.google.pt/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=4&amp;cad=rja&amp;ved=0CFQQFjAD&amp;url=https%3A%2F%2Fgroups.google.com%2Fd%2Fmsg%2Fangular%2FX1DD7jsdScE%2F2hDQ6APqVTYJ&amp;ei=uR5WUczHMY2h7AaMroHwCA&amp;usg=AFQjCNFbl24_GEMfth5aqv8qgw4kEVlrWw&amp;sig2=g5fHlIqywXJXXrZHjoZ-4w&amp;bvm=bv.44442042,d.ZGU">Why do we need this directives?</a></p>
         </td>
-        <td class="code highlight"><div class="highlight"><pre><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
-<span class="kd">var</span> <span class="nx">formzDirectives</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.directives&#39;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">formzDirectives</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.directives&#39;</span><span class="p">);</span>
 
 
 </pre></div>
@@ -61,28 +74,13 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">formzDirectives</span><span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="s1">&#39;fzMinlength&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="nx">fzMinlengthFactory</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">{</span>
-    <span class="nx">require</span><span class="o">:</span> <span class="s1">&#39;ngModel&#39;</span><span class="p">,</span>
-    <span class="nx">link</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="nx">elm</span><span class="p">,</span> <span class="nx">attrs</span><span class="p">,</span> <span class="nx">ctrl</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">minlength</span> <span class="o">=</span>  <span class="nx">scope</span><span class="p">.</span><span class="nx">$eval</span><span class="p">(</span><span class="nx">attrs</span><span class="p">.</span><span class="nx">fzMinlength</span><span class="p">);</span>
-      <span class="nx">ctrl</span><span class="p">.</span><span class="nx">$parsers</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">viewValue</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">viewValue</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;=</span> <span class="nx">minlength</span><span class="p">)</span> <span class="p">{</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
-</div>
-<p>it is valid</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nx">ctrl</span><span class="p">.</span><span class="nx">$setValidity</span><span class="p">(</span><span class="s1">&#39;minlength&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-          <span class="k">return</span> <span class="nx">viewValue</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">formzDirectives</span><span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="s1">&#39;fzMinlength&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="nx">fzMinlengthFactory</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">require</span><span class="o">:</span> <span class="s1">&#39;ngModel&#39;</span><span class="p">,</span>
+      <span class="nx">link</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="nx">elm</span><span class="p">,</span> <span class="nx">attrs</span><span class="p">,</span> <span class="nx">ctrl</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">minlength</span> <span class="o">=</span> <span class="nx">scope</span><span class="p">.</span><span class="nx">$eval</span><span class="p">(</span><span class="nx">attrs</span><span class="p">.</span><span class="nx">fzMinlength</span><span class="p">);</span>
+        <span class="nx">ctrl</span><span class="p">.</span><span class="nx">$parsers</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">viewValue</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">viewValue</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;=</span> <span class="nx">minlength</span><span class="p">)</span> <span class="p">{</span>
 
 </pre></div>
         </td>
@@ -92,16 +90,32 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
 </div>
+<p>it is valid</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nx">ctrl</span><span class="p">.</span><span class="nx">$setValidity</span><span class="p">(</span><span class="s1">&#39;minlength&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+            <span class="k">return</span> <span class="nx">viewValue</span><span class="p">;</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
 <p>it is invalid, return undefined (no model update)</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-          <span class="nx">ctrl</span><span class="p">.</span><span class="nx">$setValidity</span><span class="p">(</span><span class="s1">&#39;minlength&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
-          <span class="k">return</span> <span class="kc">undefined</span><span class="p">;</span>
-        <span class="p">}</span>
-      <span class="p">});</span>
-    <span class="p">}</span>
-  <span class="p">};</span>
-<span class="p">});</span>
+            <span class="nx">ctrl</span><span class="p">.</span><span class="nx">$setValidity</span><span class="p">(</span><span class="s1">&#39;minlength&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+            <span class="k">return</span> <span class="kc">undefined</span><span class="p">;</span>
+          <span class="p">}</span>
+        <span class="p">});</span>
+      <span class="p">}</span>
+    <span class="p">};</span>
+  <span class="p">});</span>
+<span class="p">}());</span>
 </pre></div>
         </td>
       </tr>

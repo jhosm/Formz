@@ -39,104 +39,106 @@
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+        <td class="code highlight"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
-<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;service&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">sampleXml</span> <span class="o">=</span> <span class="s1">&#39;&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; targetNamespace=&quot;urn:bancobpi.pt/papiro/model/definition&quot;/&gt;&#39;</span><span class="p">;</span>
+  <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;service&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">sampleXml</span> <span class="o">=</span> <span class="s1">&#39;&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; targetNamespace=&quot;urn:bancobpi.pt/papiro/model/definition&quot;/&gt;&#39;</span><span class="p">;</span>
 
-  <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.services&#39;</span><span class="p">));</span>
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.services&#39;</span><span class="p">));</span>
 
-  <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;The xml parser&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should parse and load a xml document from a string&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">sampleXml</span><span class="p">);</span>
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">).</span><span class="nx">not</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
-    <span class="p">}));</span>
-
-    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should serialize a xml document into a string&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">sampleXml</span><span class="p">);</span>
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">(</span><span class="nx">sampleXml</span><span class="p">);</span>
-    <span class="p">}));</span>
-
-    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;offers the &quot;select&quot; method which&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should select nodes based on a xpath&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;The xml parser&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should parse and load a xml document from a string&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">sampleXml</span><span class="p">);</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/xs:schema&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">nodeName</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;xs:schema&#39;</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">).</span><span class="nx">not</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
       <span class="p">}));</span>
 
-      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should select nodes based on a xpath, and the given namespace mappings&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">xmlWithNamespaces</span> <span class="o">=</span> <span class="s1">&#39;&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:ui=&quot;urn:myui.pt&quot;&gt;&lt;ui:info&gt;hello&lt;/ui:info&gt;&lt;/xs:schema&gt;&#39;</span><span class="p">;</span>
-
-        <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">xmlWithNamespaces</span><span class="p">);</span>
-
-        <span class="kd">var</span> <span class="nx">selectedZeroNodes</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/xs:schema/ui:info&#39;</span><span class="p">,</span> <span class="p">{</span>
-          <span class="s1">&#39;xs&#39;</span><span class="o">:</span> <span class="s1">&#39;http://www.w3.org/2001/XMLSchema&#39;</span><span class="p">,</span>
-          <span class="s1">&#39;ui&#39;</span><span class="o">:</span> <span class="s1">&#39;wrongnamespace&#39;</span>
-        <span class="p">});</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">selectedZeroNodes</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-
-        <span class="kd">var</span> <span class="nx">selectedOneNode</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/xs:schema/ui:info&#39;</span><span class="p">,</span> <span class="p">{</span>
-          <span class="s1">&#39;xs&#39;</span><span class="o">:</span> <span class="s1">&#39;http://www.w3.org/2001/XMLSchema&#39;</span><span class="p">,</span>
-          <span class="s1">&#39;ui&#39;</span><span class="o">:</span> <span class="s1">&#39;urn:myui.pt&#39;</span>
-        <span class="p">});</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">selectedOneNode</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">selectedOneNode</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">textContent</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">);</span>
-      <span class="p">}));</span>
-    <span class="p">});</span>
-
-    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;offers the &quot;selectOne&quot; method which&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-
-      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should selectOne node based on a xpath&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should serialize a xml document into a string&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">sampleXml</span><span class="p">);</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">.</span><span class="nx">selectOne</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/xs:schema&#39;</span><span class="p">).</span><span class="nx">nodeName</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;xs:schema&#39;</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">)).</span><span class="nx">toEqual</span><span class="p">(</span><span class="nx">sampleXml</span><span class="p">);</span>
       <span class="p">}));</span>
 
-      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should return null when selectOne receives a xpath which matches no nodes&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">sampleXml</span><span class="p">);</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">.</span><span class="nx">selectOne</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/noMatch&#39;</span><span class="p">)).</span><span class="nx">toBeNull</span><span class="p">();</span>
-      <span class="p">}));</span>
+      <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;offers the &quot;select&quot; method which&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should select nodes based on a xpath&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">sampleXml</span><span class="p">);</span>
+          <span class="nx">expect</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/xs:schema&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">nodeName</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;xs:schema&#39;</span><span class="p">);</span>
+        <span class="p">}));</span>
 
-      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should selectOne node based on a xpath, and the given namespace mappings&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">xmlWithNamespaces</span> <span class="o">=</span> <span class="s1">&#39;&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:ui=&quot;urn:myui.pt&quot;&gt;&lt;ui:info&gt;hello&lt;/ui:info&gt;&lt;/xs:schema&gt;&#39;</span><span class="p">;</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should select nodes based on a xpath, and the given namespace mappings&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">xmlWithNamespaces</span> <span class="o">=</span> <span class="s1">&#39;&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:ui=&quot;urn:myui.pt&quot;&gt;&lt;ui:info&gt;hello&lt;/ui:info&gt;&lt;/xs:schema&gt;&#39;</span><span class="p">;</span>
 
-        <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">xmlWithNamespaces</span><span class="p">);</span>
+          <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">xmlWithNamespaces</span><span class="p">);</span>
+
+          <span class="kd">var</span> <span class="nx">selectedZeroNodes</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/xs:schema/ui:info&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;xs&#39;</span><span class="o">:</span> <span class="s1">&#39;http://www.w3.org/2001/XMLSchema&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ui&#39;</span><span class="o">:</span> <span class="s1">&#39;wrongnamespace&#39;</span>
+          <span class="p">});</span>
+          <span class="nx">expect</span><span class="p">(</span><span class="nx">selectedZeroNodes</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+          <span class="kd">var</span> <span class="nx">selectedOneNode</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/xs:schema/ui:info&#39;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;xs&#39;</span><span class="o">:</span> <span class="s1">&#39;http://www.w3.org/2001/XMLSchema&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ui&#39;</span><span class="o">:</span> <span class="s1">&#39;urn:myui.pt&#39;</span>
+          <span class="p">});</span>
+          <span class="nx">expect</span><span class="p">(</span><span class="nx">selectedOneNode</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+          <span class="nx">expect</span><span class="p">(</span><span class="nx">selectedOneNode</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">textContent</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">);</span>
+        <span class="p">}));</span>
+      <span class="p">});</span>
+
+      <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;offers the &quot;selectOne&quot; method which&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should selectOne node based on a xpath&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">sampleXml</span><span class="p">);</span>
+          <span class="nx">expect</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">.</span><span class="nx">selectOne</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/xs:schema&#39;</span><span class="p">).</span><span class="nx">nodeName</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;xs:schema&#39;</span><span class="p">);</span>
+        <span class="p">}));</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should return null when selectOne receives a xpath which matches no nodes&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">sampleXml</span><span class="p">);</span>
+          <span class="nx">expect</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">.</span><span class="nx">selectOne</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/noMatch&#39;</span><span class="p">)).</span><span class="nx">toBeNull</span><span class="p">();</span>
+        <span class="p">}));</span>
+
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should selectOne node based on a xpath, and the given namespace mappings&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">xmlWithNamespaces</span> <span class="o">=</span> <span class="s1">&#39;&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:ui=&quot;urn:myui.pt&quot;&gt;&lt;ui:info&gt;hello&lt;/ui:info&gt;&lt;/xs:schema&gt;&#39;</span><span class="p">;</span>
+
+          <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">xmlWithNamespaces</span><span class="p">);</span>
 
           <span class="kd">var</span> <span class="nx">selectedOneNode</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">selectOne</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/xs:schema/ui:info&#39;</span><span class="p">,</span> <span class="p">{</span>
-          <span class="s1">&#39;xs&#39;</span><span class="o">:</span> <span class="s1">&#39;http://www.w3.org/2001/XMLSchema&#39;</span><span class="p">,</span>
-          <span class="s1">&#39;ui&#39;</span><span class="o">:</span> <span class="s1">&#39;urn:myui.pt&#39;</span>
-        <span class="p">});</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">selectedOneNode</span><span class="p">.</span><span class="nx">textContent</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">);</span>
-      <span class="p">}));</span>
-    <span class="p">});</span>
+            <span class="s1">&#39;xs&#39;</span><span class="o">:</span> <span class="s1">&#39;http://www.w3.org/2001/XMLSchema&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ui&#39;</span><span class="o">:</span> <span class="s1">&#39;urn:myui.pt&#39;</span>
+          <span class="p">});</span>
+          <span class="nx">expect</span><span class="p">(</span><span class="nx">selectedOneNode</span><span class="p">.</span><span class="nx">textContent</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">);</span>
+        <span class="p">}));</span>
+      <span class="p">});</span>
 
-    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;offers the &quot;getValue&quot; method which&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;offers the &quot;getValue&quot; method which&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 
-      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should get a value based on a xpath&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">sampleXml</span><span class="p">);</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">.</span><span class="nx">getValue</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/xs:schema/@targetNamespace&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;urn:bancobpi.pt/papiro/model/definition&#39;</span><span class="p">);</span>
-      <span class="p">}));</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should get a value based on a xpath&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">sampleXml</span><span class="p">);</span>
+          <span class="nx">expect</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">.</span><span class="nx">getValue</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/xs:schema/@targetNamespace&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;urn:bancobpi.pt/papiro/model/definition&#39;</span><span class="p">);</span>
+        <span class="p">}));</span>
 
-      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should return a default value, when the xpath returns no value&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">sampleXml</span><span class="p">);</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">.</span><span class="nx">getValue</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/xs:schema&#39;</span><span class="p">,</span> <span class="s1">&#39;defaultValue&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;defaultValue&#39;</span><span class="p">);</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">.</span><span class="nx">getValue</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/unknown&#39;</span><span class="p">,</span> <span class="s1">&#39;defaultValue&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;defaultValue&#39;</span><span class="p">);</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">.</span><span class="nx">getValue</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/xs:schema/@noAttribute&#39;</span><span class="p">,</span> <span class="s1">&#39;defaultValue&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;defaultValue&#39;</span><span class="p">);</span>
-      <span class="p">}));</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should return a default value, when the xpath returns no value&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">sampleXml</span><span class="p">);</span>
+          <span class="nx">expect</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">.</span><span class="nx">getValue</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/xs:schema&#39;</span><span class="p">,</span> <span class="s1">&#39;defaultValue&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;defaultValue&#39;</span><span class="p">);</span>
+          <span class="nx">expect</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">.</span><span class="nx">getValue</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/unknown&#39;</span><span class="p">,</span> <span class="s1">&#39;defaultValue&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;defaultValue&#39;</span><span class="p">);</span>
+          <span class="nx">expect</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">.</span><span class="nx">getValue</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/xs:schema/@noAttribute&#39;</span><span class="p">,</span> <span class="s1">&#39;defaultValue&#39;</span><span class="p">)).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;defaultValue&#39;</span><span class="p">);</span>
+        <span class="p">}));</span>
 
-      <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should get a value based on a xpath, and the given namespace mappings&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">xmlWithNamespaces</span> <span class="o">=</span> <span class="s1">&#39;&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:ui=&quot;urn:myui.pt&quot;&gt;&lt;ui:info&gt;hello&lt;/ui:info&gt;&lt;/xs:schema&gt;&#39;</span><span class="p">;</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should get a value based on a xpath, and the given namespace mappings&#39;</span><span class="p">,</span> <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fzXml</span><span class="p">)</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">xmlWithNamespaces</span> <span class="o">=</span> <span class="s1">&#39;&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:ui=&quot;urn:myui.pt&quot;&gt;&lt;ui:info&gt;hello&lt;/ui:info&gt;&lt;/xs:schema&gt;&#39;</span><span class="p">;</span>
 
-        <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">xmlWithNamespaces</span><span class="p">);</span>
+          <span class="kd">var</span> <span class="nx">loadedSampleXml</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">xmlWithNamespaces</span><span class="p">);</span>
 
           <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">fzXml</span><span class="p">.</span><span class="nx">getValue</span><span class="p">(</span><span class="nx">loadedSampleXml</span><span class="p">,</span> <span class="s1">&#39;/xs:schema/ui:info/text()&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">{</span>
-          <span class="s1">&#39;xs&#39;</span><span class="o">:</span> <span class="s1">&#39;http://www.w3.org/2001/XMLSchema&#39;</span><span class="p">,</span>
-          <span class="s1">&#39;ui&#39;</span><span class="o">:</span> <span class="s1">&#39;urn:myui.pt&#39;</span>
-        <span class="p">});</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">value</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">);</span>
-      <span class="p">}));</span>
-    <span class="p">});</span>
+            <span class="s1">&#39;xs&#39;</span><span class="o">:</span> <span class="s1">&#39;http://www.w3.org/2001/XMLSchema&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ui&#39;</span><span class="o">:</span> <span class="s1">&#39;urn:myui.pt&#39;</span>
+          <span class="p">});</span>
+          <span class="nx">expect</span><span class="p">(</span><span class="nx">value</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">);</span>
+        <span class="p">}));</span>
+      <span class="p">});</span>
 
+    <span class="p">});</span>
   <span class="p">});</span>
-<span class="p">});</span>
+<span class="p">}());</span>
 </pre></div>
         </td>
       </tr>

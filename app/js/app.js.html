@@ -39,8 +39,8 @@
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
-
+        <td class="code highlight"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
 </pre></div>
         </td>
@@ -53,16 +53,21 @@
 <p>Declare app level module which depends on filters, and services</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;bootstrap&#39;</span><span class="p">,</span> <span class="s1">&#39;formz.controllers&#39;</span><span class="p">,</span> <span class="s1">&#39;formz.filters&#39;</span><span class="p">,</span> <span class="s1">&#39;formz.services&#39;</span><span class="p">,</span> <span class="s1">&#39;formz.directives&#39;</span><span class="p">]).</span>
+  <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;bootstrap&#39;</span><span class="p">,</span> <span class="s1">&#39;formz.controllers&#39;</span><span class="p">,</span> <span class="s1">&#39;formz.filters&#39;</span><span class="p">,</span> <span class="s1">&#39;formz.services&#39;</span><span class="p">,</span> <span class="s1">&#39;formz.directives&#39;</span><span class="p">]).</span>
   <span class="nx">config</span><span class="p">([</span><span class="s1">&#39;$routeProvider&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$routeProvider</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">$routeProvider</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="s1">&#39;/form/:id&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;partials/form.html&#39;</span><span class="p">});</span>
-    <span class="nx">$routeProvider</span><span class="p">.</span><span class="nx">otherwise</span><span class="p">({</span><span class="nx">redirectTo</span><span class="o">:</span> <span class="s1">&#39;/form/human&#39;</span><span class="p">});</span>
+    <span class="nx">$routeProvider</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="s1">&#39;/form/:id&#39;</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;partials/form.html&#39;</span>
+    <span class="p">});</span>
+    <span class="nx">$routeProvider</span><span class="p">.</span><span class="nx">otherwise</span><span class="p">({</span>
+      <span class="nx">redirectTo</span><span class="o">:</span> <span class="s1">&#39;/form/human&#39;</span>
+    <span class="p">});</span>
   <span class="p">}]);</span>
 
-<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.controllers&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;ngResource&#39;</span><span class="p">]);</span>
-<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.filters&#39;</span><span class="p">,</span> <span class="p">[]);</span>
-<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.services&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;ngResource&#39;</span><span class="p">]);</span>
-<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.directives&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+  <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.controllers&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;ngResource&#39;</span><span class="p">]);</span>
+  <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.filters&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+  <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.services&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;ngResource&#39;</span><span class="p">]);</span>
+  <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;formz.directives&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+<span class="p">}());</span>
 </pre></div>
         </td>
       </tr>
