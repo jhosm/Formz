@@ -12,6 +12,7 @@ module.exports = function(grunt) {
         dest: 'build/<%= pkg.name %>.min.js'
       }
     },
+    //grunt jshint
     jshint: {
       options: {
         browser: true,
@@ -35,28 +36,40 @@ module.exports = function(grunt) {
       all: ['Gruntfile.js', 'app/js/**/*.js', 'test/unit/**/*.js', 'test/e2e/**/*.js']
     },
     karma: {
-      options: {
-        configFile: './config/karma.conf.js'
-      },
       continuous: {
+        configFile: './config/karma.conf.js',
         singleRun: true,
         browsers: ['PhantomJS']
       },
       dev: {
+        configFile: './config/karma.conf.js',
         reporters: 'dots'
+      },
+      e2e: {
+        configFile: './config/karma-e2e.conf.js',
+        browsers: ['PhantomJS']
       }
     },
     docker: {
       app: {
-      expand: true,
-      src: ['app/js', 'app/locales', 'app/partials', 'app/index*.html', 'test/e2e', 'test/unit', 'README.md'],
-      dest: './doc',
-      options: {
-        ignoreHidden: true,
-        exclude: 'lib',
-        extras: ['fileSearch']
+        expand: true,
+        src: ['app/js', 'app/locales', 'app/partials', 'app/index*.html', 'test/e2e', 'test/unit', 'README.md', 'Gruntfile.js'],
+        dest: './doc',
+        options: {
+          ignoreHidden: true,
+          exclude: 'lib',
+          extras: ['fileSearch']
+        }
       }
-    }
+    },
+    bgShell: {
+      _defaults: {
+        bg: true,
+        fail: true
+      },
+      runWebServer: {
+        cmd: 'node scripts/web-server.js'
+      }
     }
   });
 
@@ -64,11 +77,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-docker');
+  grunt.loadNpmTasks('grunt-bg-shell');
 
   // Default task(s).
   grunt.registerTask('default', ['karma:dev']);
 
   // Travis CI task.
-  grunt.registerTask('travis', ['karma:continuous', 'docker', 'jshint']);
+  grunt.registerTask('travis', ['bgShell:runWebServer', 'karma:continuous', 'karma:e2e', 'docker', 'jshint']);
 
 };
