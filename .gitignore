@@ -14,3 +14,5 @@ app/xsd/Schema/
 doc/
 node_modules/
 build/
+
+.vagrant/
