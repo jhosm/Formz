@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gruntfile.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="doc-style.css" />
+  <script src="doc-filelist.js"></script>
+  <script>
+    var relativeDir = "", thisFile = "Gruntfile.js", defaultSidebar = true;
+  </script>
+  <script src="doc-script.js"></script>
+  <script src="fileSearch.js"></script>
+  <link rel="stylesheet" href="fileSearch.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>Gruntfile.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>Project configuration.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+    <span class="nx">pkg</span><span class="o">:</span> <span class="nx">grunt</span><span class="p">.</span><span class="nx">file</span><span class="p">.</span><span class="nx">readJSON</span><span class="p">(</span><span class="s1">&#39;package.json&#39;</span><span class="p">),</span>
+    <span class="nx">uglify</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">banner</span><span class="o">:</span> <span class="s1">&#39;/*! &lt;%= pkg.name %&gt; &lt;%= grunt.template.today(&quot;yyyy-mm-dd&quot;) %&gt; */\n&#39;</span>
+      <span class="p">},</span>
+      <span class="nx">build</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">src</span><span class="o">:</span> <span class="s1">&#39;app/js/app.js&#39;</span><span class="p">,</span>
+        <span class="nx">dest</span><span class="o">:</span> <span class="s1">&#39;build/&lt;%= pkg.name %&gt;.min.js&#39;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>grunt jshint</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">jshint</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">browser</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">globals</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">angular</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="nx">Showdown</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="nx">_</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="nx">ActiveXObject</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="nx">describe</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="nx">it</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="nx">expect</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="nx">input</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="nx">element</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="nx">beforeEach</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="nx">browser</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="nx">repeater</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="nx">module</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="nx">inject</span><span class="o">:</span> <span class="kc">false</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nx">all</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Gruntfile.js&#39;</span><span class="p">,</span> <span class="s1">&#39;app/js/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;test/unit/**/*.js&#39;</span><span class="p">,</span> <span class="s1">&#39;test/e2e/**/*.js&#39;</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nx">karma</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">continuous</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">configFile</span><span class="o">:</span> <span class="s1">&#39;./config/karma.conf.js&#39;</span><span class="p">,</span>
+        <span class="nx">singleRun</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">browsers</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;PhantomJS&#39;</span><span class="p">]</span>
+      <span class="p">},</span>
+      <span class="nx">dev</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">configFile</span><span class="o">:</span> <span class="s1">&#39;./config/karma.conf.js&#39;</span><span class="p">,</span>
+        <span class="nx">reporters</span><span class="o">:</span> <span class="s1">&#39;dots&#39;</span>
+      <span class="p">},</span>
+      <span class="nx">e2e</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">configFile</span><span class="o">:</span> <span class="s1">&#39;./config/karma-e2e.conf.js&#39;</span><span class="p">,</span>
+        <span class="nx">browsers</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;PhantomJS&#39;</span><span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">docker</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">app</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">expand</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">src</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;app/js&#39;</span><span class="p">,</span> <span class="s1">&#39;app/locales&#39;</span><span class="p">,</span> <span class="s1">&#39;app/partials&#39;</span><span class="p">,</span> <span class="s1">&#39;app/index*.html&#39;</span><span class="p">,</span> <span class="s1">&#39;test/e2e&#39;</span><span class="p">,</span> <span class="s1">&#39;test/unit&#39;</span><span class="p">,</span> <span class="s1">&#39;README.md&#39;</span><span class="p">,</span> <span class="s1">&#39;Gruntfile.js&#39;</span><span class="p">],</span>
+        <span class="nx">dest</span><span class="o">:</span> <span class="s1">&#39;./doc&#39;</span><span class="p">,</span>
+        <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">ignoreHidden</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="nx">exclude</span><span class="o">:</span> <span class="s1">&#39;lib&#39;</span><span class="p">,</span>
+          <span class="nx">extras</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;fileSearch&#39;</span><span class="p">]</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">bgShell</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">_defaults</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">bg</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">fail</span><span class="o">:</span> <span class="kc">true</span>
+      <span class="p">},</span>
+      <span class="nx">runWebServer</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">cmd</span><span class="o">:</span> <span class="s1">&#39;node scripts/web-server.js&#39;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="s1">&#39;grunt-contrib-uglify&#39;</span><span class="p">);</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="s1">&#39;grunt-contrib-jshint&#39;</span><span class="p">);</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="s1">&#39;grunt-karma&#39;</span><span class="p">);</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="s1">&#39;grunt-docker&#39;</span><span class="p">);</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="s1">&#39;grunt-bg-shell&#39;</span><span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>Default task(s).</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;karma:dev&#39;</span><span class="p">]);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>Travis CI task.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;travis&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;bgShell:runWebServer&#39;</span><span class="p">,</span> <span class="s1">&#39;karma:continuous&#39;</span><span class="p">,</span> <span class="s1">&#39;karma:e2e&#39;</span><span class="p">,</span> <span class="s1">&#39;docker&#39;</span><span class="p">,</span> <span class="s1">&#39;jshint&#39;</span><span class="p">]);</span>
+
+<span class="p">};</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
