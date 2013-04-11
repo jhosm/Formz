@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.0.4
+ * @license AngularJS v1.0.6
  * (c) 2010-2012 Google, Inc. http://angularjs.org
  * License: MIT
  *
@@ -244,7 +244,7 @@ angular.mock.$ExceptionHandlerProvider = function() {
    *   - `rethrow`: If any errors are are passed into the handler in tests, it typically
    *                means that there is a bug in the application or test, so this mock will
    *                make these tests fail.
-   *   - `log`: Sometimes it is desirable to test that an error is throw, for this case the `log` mode stores an
+   *   - `log`: Sometimes it is desirable to test that an error is thrown, for this case the `log` mode stores an
    *            array of errors in `$exceptionHandler.errors`, to allow later assertion of them.
    *            See {@link ngMock.$log#assertEmpty assertEmpty()} and
    *             {@link ngMock.$log#reset reset()}
@@ -430,7 +430,7 @@ angular.mock.$LogProvider = function() {
    *
    * *NOTE*: this is not an injectable instance, just a globally available mock class of `Date`.
    *
-   * Mock of the Date type which has its timezone specified via constroctor arg.
+   * Mock of the Date type which has its timezone specified via constructor arg.
    *
    * The main purpose is to create Date-like instances with timezone fixed to the specified timezone
    * offset, so that we can test code that depends on local timezone settings without dependency on
@@ -1439,8 +1439,8 @@ angular.module('ngMockE2E', ['ng']).config(function($provide) {
  * on the `ngMockE2E` and your application modules and defines the fake backend:
  *
  * <pre>
- *   formzDev = angular.module('formzDev', ['formz', 'ngMockE2E']);
- *   formzDev.run(function($httpBackend) {
+ *   myAppDev = angular.module('myAppDev', ['myApp', 'ngMockE2E']);
+ *   myAppDev.run(function($httpBackend) {
  *     phones = [{name: 'phone1'}, {name: 'phone2'}];
  *
  *     // returns the current list of phones
@@ -1653,7 +1653,7 @@ window.jasmine && (function(window) {
    * @name angular.mock.module
    * @description
    *
-   * *NOTE*: This is function is also published on window for easy access.<br>
+   * *NOTE*: This function is also published on window for easy access.<br>
    * *NOTE*: Only available with {@link http://pivotal.github.com/jasmine/ jasmine}.
    *
    * This function registers a module configuration code. It collects the configuration information
@@ -1687,8 +1687,12 @@ window.jasmine && (function(window) {
    * @name angular.mock.inject
    * @description
    *
+<<<<<<< HEAD
    * *NOTE*: This is function is also published on window for easy access.<br>
    * *NOTE*: Only available with {@link http://pivotal.github.com/jasmine/ jasmine}.
+=======
+   * *NOTE*: This function is also published on window for easy access.<br>
+>>>>>>> 8dca056... docs(mocks): fix typos
    *
    * The inject function wraps a function into an injectable function. The inject() creates new
    * instance of {@link AUTO.$injector $injector} per test, which is then used for
@@ -1699,16 +1703,16 @@ window.jasmine && (function(window) {
    * Example of what a typical jasmine tests looks like with the inject method.
    * <pre>
    *
-   *   angular.module('formzlicationModule', [])
+   *   angular.module('myApplicationModule', [])
    *       .value('mode', 'app')
    *       .value('version', 'v1.0.1');
    *
    *
-   *   describe('formz', function() {
+   *   describe('MyApp', function() {
    *
    *     // You need to load modules that you want to test,
    *     // it loads only the "ng" module by default.
-   *     beforeEach(module('formzlicationModule'));
+   *     beforeEach(module('myApplicationModule'));
    *
    *
    *     // inject() is used to inject arguments of all given functions
@@ -1753,7 +1757,7 @@ window.jasmine && (function(window) {
         try {
           injector.invoke(blockFns[i] || angular.noop, this);
         } catch (e) {
-          if(e.stack) e.stack +=  '\n' + errorForStack.stack;
+          if(e.stack && errorForStack) e.stack +=  '\n' + errorForStack.stack;
           throw e;
         } finally {
           errorForStack = null;
