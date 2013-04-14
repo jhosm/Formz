@@ -4,6 +4,7 @@ node_js:
   - '0.10'
 before_script:
   - npm install -g grunt-cli
+  - npm install -g bower
   - sudo easy_install Pygments
 after_success: ./update-gh-pages.sh
 env:

@@ -1,16 +1,26 @@
 module.exports = function(grunt) {
 
+  var releaseDir = 'release/';
+
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-      },
-      build: {
-        src: 'app/js/app.js',
-        dest: 'build/<%= pkg.name %>.min.js'
+    clean: [releaseDir],
+    copy: {
+      main: {
+        files: [
+          {src: ['app/**', 'test/**', 'config/**', 'scripts/**'], dest: releaseDir} // includes files in path and its subdirs
+        ]
       }
+    },
+    useminPrepare: {
+      html: releaseDir + 'app/index.html'
+    },
+    usemin: {
+      html: [releaseDir + 'app/index.html']
+    },
+    rev: {
+      js: releaseDir + 'app/js/all.js'
     },
     //grunt jshint
     jshint: {
@@ -69,20 +79,39 @@ module.exports = function(grunt) {
       },
       runWebServer: {
         cmd: 'node scripts/web-server.js'
+      },
+      runWebServerRelease: {
+        cmd: 'node scripts/web-server.js',
+        execOpts: {
+          cwd: './' + releaseDir
+        }
+      },
+      bowerInstall: {
+        cmd: 'bower install',
+        bg: false
+      },
+      killWebServer: {
+        cmd: 'kill `lsof -t -i tcp:8000`'
       }
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib');
+  grunt.loadNpmTasks('grunt-usemin');
+  grunt.loadNpmTasks('grunt-rev');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-docker');
   grunt.loadNpmTasks('grunt-bg-shell');
 
-  // Default task(s).
-  grunt.registerTask('default', ['karma:dev']);
 
   // Travis CI task.
-  grunt.registerTask('travis', ['bgShell:runWebServer', 'karma:continuous', 'karma:e2e', 'docker', 'jshint']);
+  grunt.registerTask('travis', ['bgShell:bowerInstall', 'karma:continuous', 'docker', 'jshint', 'package']);
+
+  grunt.registerTask('package', ['clean', 'copy:main', 'useminPrepare', 'concat', 'uglify', 'rev', 'usemin', 'bgShell:runWebServerRelease', 'karma:e2e']);
+
+  // Default task(s).
+  grunt.registerTask('unitTests', ['karma:dev']);
+  grunt.registerTask('runWebServer', ['bgShell:runWebServer']);
+  grunt.registerTask('killWebServer', ['bgShell:killWebServer']);
 
 };
