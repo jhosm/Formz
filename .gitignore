@@ -11,8 +11,11 @@ build.xml
 
 app/xsd/Data/
 app/xsd/Schema/
+app/components/
+
 doc/
 node_modules/
 build/
+release/
 
 .vagrant/
