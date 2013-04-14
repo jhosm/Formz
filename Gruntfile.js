@@ -20,7 +20,7 @@ module.exports = function(grunt) {
       html: [releaseDir + 'app/index.html']
     },
     rev: {
-      js: releaseDir + 'app/js/all.js'
+      js: releaseDir + 'app/js/all.min.js'
     },
     //grunt jshint
     jshint: {
