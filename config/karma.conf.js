@@ -10,7 +10,7 @@ files = [
   'components/underscore/underscore-min.js',
   'components/showdown/compressed/showdown.js',
   'lib/angular/angular-bootstrap.min.js',
-  '../test/lib/angular/angular-mocks.js',
+  'components/angular-mocks/angular-mocks.js',
   'js/**/*.js',
   '../test/unit/**/*.js',
 
