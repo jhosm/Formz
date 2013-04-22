@@ -53,7 +53,8 @@ module.exports = function(grunt) {
       },
       dev: {
         configFile: './config/karma.conf.js',
-        reporters: 'dots'
+        reporters: 'dots',
+        browsers: ['PhantomJS']
       },
       e2e: {
         configFile: './config/karma-e2e.conf.js',

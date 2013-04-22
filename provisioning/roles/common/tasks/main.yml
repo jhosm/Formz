@@ -1,0 +1,8 @@
+- name: update apt cache 
+  shell: apt-get update
+- name: ensure python-software-properties is installed
+  apt: pkg=python-software-properties 
+- name: ensure Chris Lea repository is installed 
+  apt_repository: repo=ppa:chris-lea/node.js
+- name: update apt cache 
+  shell: apt-get update
