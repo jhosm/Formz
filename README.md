@@ -6,7 +6,7 @@ so the main scenario is to facilitate the creation of GUI's to xml-based configu
 
 It is also a simple opportunity to learn about many interesting things:
 - [Angular JS](http://angularjs.org/) - HTML enhanced for web apps.
-- [karma](http://karma-runner.github.io/0.8/index.html) - Spectacular test runner for Javascript.
+- [karma](http://karma-runner.github.io) - Spectacular test runner for Javascript.
 - [Node.js](http://nodejs.org) - Node.js is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. 
 - [bower](http://bower.io/) - A package manager for the web, html, css and javascript
 - [docker](http://jbt.github.io/docker/src/docker.js.html) - A simple documentation generator based on [docco](http://jashkenas.github.io/docco/).
