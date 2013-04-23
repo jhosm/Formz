@@ -11,6 +11,11 @@ module.exports = function(grunt) {
         files: [
           {src: ['app/**', 'test/**', 'config/**', 'scripts/**'], dest: releaseDir} // includes files in path and its subdirs
         ]
+      },
+      docsIndex: {
+        files: [
+          {src: ['doc/README.md.html'], dest: 'doc/index.html'} // includes files in path and its subdirs
+        ]
       }
     },
     useminPrepare: {
@@ -106,7 +111,7 @@ module.exports = function(grunt) {
 
 
   // Travis CI task.
-  grunt.registerTask('travis', ['bgShell:bowerInstall', 'karma:continuous', 'docker', 'jshint', 'package']);
+  grunt.registerTask('travis', ['bgShell:bowerInstall', 'karma:continuous', 'docker', 'copy:docsIndex', 'jshint', 'package']);
 
   grunt.registerTask('package', ['clean', 'copy:main', 'useminPrepare', 'concat', 'uglify', 'rev', 'usemin', 'bgShell:runWebServerRelease', 'karma:e2e']);
 
