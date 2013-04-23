@@ -1,13 +1,13 @@
 - name: downloading phantomjs
-  shell: wget http://phantomjs.googlecode.com/files/${phantomjs-tarball}.tar.bz2 -P /usr/local/share
+  shell: wget http://phantomjs.googlecode.com/files/${phantomjs-tarball}.tar.bz2 -P /usr/local/share creates=/usr/bin/phantomjs
 - name: untar phantomjs
-  shell: tar xjf /usr/local/share/${phantomjs-tarball}.tar.bz2 -C /usr/local/share
+  shell: tar xjf /usr/local/share/${phantomjs-tarball}.tar.bz2 -C /usr/local/share creates=/usr/bin/phantomjs
 - name: link phantomjs to /usr/local/share/phantomjs
-  shell: ln -s /usr/local/share/${phantomjs-tarball}/bin/phantomjs /usr/local/share/phantomjs
+  shell: ln -s /usr/local/share/${phantomjs-tarball}/bin/phantomjs /usr/local/share/phantomjs creates=/usr/bin/phantomjs
 - name: link phantomjs to /usr/local/bin/phantomjs
-  shell: ln -s /usr/local/share/${phantomjs-tarball}/bin/phantomjs /usr/local/bin/phantomjs
+  shell: ln -s /usr/local/share/${phantomjs-tarball}/bin/phantomjs /usr/local/bin/phantomjs creates=/usr/bin/phantomjs
 - name: link phantomjs to /usr/bin/phantomjs
-  shell: ln -s /usr/local/share/${phantomjs-tarball}/bin/phantomjs /usr/bin/phantomjs
+  shell: ln -s /usr/local/share/${phantomjs-tarball}/bin/phantomjs /usr/bin/phantomjs creates=/usr/bin/phantomjs
 - name: ensure libfreetype6 is installed 
   apt: pkg=libfreetype6 
 - name: ensure libfontconfig1 is installed 
