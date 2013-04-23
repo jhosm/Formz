@@ -21,19 +21,84 @@
     <div id="tree"></div>
     <div id="headings">
       <div class="heading h1">
-        <a href="#formz%20">Formz </a>
+        <a href="#formz%20%20">Formz  </a>
+      </div>
+      <div class="heading h1">
+        <a href="#getting%20started">Getting Started</a>
       </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
   <div id="container"><div class="docs markdown">
-<div class="pilwrap" id="formz%20">
+<div class="pilwrap" id="formz%20%20">
   <h1>
-    <a href="#formz%20" name="formz%20" class="pilcrow">&#182;</a>
-    Formz <a href="https://travis-ci.org/jhosm/Formz"><img src="https://travis-ci.org/jhosm/Formz.png?branch=master" alt="Build Status" title="" /></a>
+    <a href="#formz%20%20" name="formz%20%20" class="pilcrow">&#182;</a>
+    Formz <a href="https://travis-ci.org/jhosm/Formz"><img src="https://travis-ci.org/jhosm/Formz.png?branch=master" alt="Build Status" title="" /></a> <a href="https://gemnasium.com/jhosm/Formz"><img src="https://gemnasium.com/jhosm/Formz.png" alt="Dependency Status" title="" /></a>
   </h1>
 </div>
+
+
+<p>Formz aims to build web forms based on Xml Schemas. We know that that data-driven web apps are not very flexible, 
+so the main scenario is to facilitate the creation of GUI's to xml-based configuration files.</p>
+
+<p>It is also a simple opportunity to learn about many interesting things:
+- <a href="http://angularjs.org/">Angular JS</a> - HTML enhanced for web apps.
+- <a href="http://karma-runner.github.io/0.8/index.html">karma</a> - Spectacular test runner for Javascript.
+- <a href="http://nodejs.org">Node.js</a> - Node.js is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. 
+- <a href="http://bower.io/">bower</a> - A package manager for the web, html, css and javascript
+- <a href="http://jbt.github.io/docker/src/docker.js.html">docker</a> - A simple documentation generator based on <a href="http://jashkenas.github.io/docco/">docco</a>.
+- <a href="http://gruntjs.com">grunt</a> - The Javascript task runner.
+- <a href="http://npmjs.org">npm</a> - Node.js package manager.
+- <a href="https://travis-ci.org">Travis CI</a> - Continuous integration in the cloud.
+- <a href="http://vagrantup.com">Vagrant</a> - Development environments made easy.
+- <a href="http://ansible.cc">Ansible</a> - Ansible is the easiest way to deploy, manage, and orchestrate computer systems you've ever seen, or so they say. ;)
+- <a href="http://gemnasium.com">Gemnasium</a> - Gemnasium is an online tool to monitor your project dependencies.</p>
+
+<p>Read about <a href="http://jhosm.github.com/Formz/" title="Formz docs">Formz</a></p>
+
+
+<div class="pilwrap" id="getting%20started">
+  <h1>
+    <a href="#getting%20started" name="getting%20started" class="pilcrow">&#182;</a>
+    Getting Started
+  </h1>
 </div>
+
+
+<p>Theses instructions only work for Unix-based machines. Follow them if you want to hack away.</p>
+
+<p>Clone Formz repository:</p>
+
+
+<div class="highlight"><pre><code><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/jhosm/Formz.git</span>
+</code></pre></div>
+
+
+
+<p>Install <a href="http://vagrantup.com/" title="Vagrant">Vagrant</a>.</p>
+
+<p>Install <a href="http://ansible.cc/" title="Ansible">ansible</a>, at least v1.2.</p>
+
+<p>Create your vagrant machine:</p>
+
+
+<div class="highlight"><pre><code><span class="n">cd</span> <span class="n">Formz</span>
+<span class="n">vagrant</span> <span class="n">up</span>
+</code></pre></div>
+
+
+
+<p>Fire up karma for continuous unit test execution:</p>
+
+
+<div class="highlight"><pre><code><span class="n">vagrant</span> <span class="n">ssh</span>
+<span class="n">cd</span> <span class="o">/</span><span class="n">vagrant</span>
+<span class="n">grunt</span> <span class="n">unitTests</span>
+</code></pre></div>
+
+
+
+<p>Happy coding!</p></div>
   </div>
 </body>
 </html>
