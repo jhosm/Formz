@@ -116,7 +116,7 @@ module.exports = function(grunt) {
   grunt.registerTask('package', ['clean', 'copy:main', 'useminPrepare', 'concat', 'uglify', 'rev', 'usemin', 'bgShell:runWebServerRelease', 'karma:e2e']);
 
   // Default task(s).
-  grunt.registerTask('unitTests', ['karma:dev']);
+  grunt.registerTask('unitTests', ['bgShell:bowerInstall', 'karma:dev']);
   grunt.registerTask('runWebServer', ['bgShell:runWebServer']);
   grunt.registerTask('killWebServer', ['bgShell:killWebServer']);
 

@@ -12,6 +12,4 @@
   npm: name=bower global=yes
 - name: install Formz
   npm: path=/vagrant
-- name: install Formz client dependencies
-  shell: bower install
 - include: phantomjs.yml
