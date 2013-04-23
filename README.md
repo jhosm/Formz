@@ -18,7 +18,7 @@ It is also a simple opportunity to learn about many interesting things:
 * [Ansible](http://ansible.cc) - Ansible is the easiest way to deploy, manage, and orchestrate computer systems you've ever seen, or so they say. ;)
 * [Gemnasium](http://gemnasium.com) - Gemnasium is an online tool to monitor your project dependencies.
 
-Read about [Formz](http://jhosm.github.com/Formz/ "Formz docs")
+Read about [Formz](http://jhosm.github.com/Formz/ "Formz docs").
 
 Getting Started
 ===============
