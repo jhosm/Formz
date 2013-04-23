@@ -1,3 +1,5 @@
+- name: ensure git is installed
+  apt: pkg=git    
 - name: ensure easy_install is installed
   apt: pkg=python-setuptools    
 - name: ensure Pygments is installed
