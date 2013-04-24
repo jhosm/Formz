@@ -7,7 +7,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     clean: [releaseDir],
     copy: {
-      main: {
+      release: {
         files: [
           {src: ['app/**', 'test/**', 'config/**', 'scripts/**'], dest: releaseDir} // includes files in path and its subdirs
         ]
@@ -123,9 +123,9 @@ module.exports = function(grunt) {
 
 
   // Travis CI task.
-  grunt.registerTask('travis', ['bgShell:bowerInstall', 'karma:continuous', 'docker', 'copy:docsIndex', 'copy:publishDemoSite', 'jshint', 'package']);
+  grunt.registerTask('travis', ['bgShell:bowerInstall', 'karma:continuous', 'docker', 'copy:docsIndex', 'jshint', 'package', 'copy:publishDemoSite']);
 
-  grunt.registerTask('package', ['clean', 'copy:main', 'useminPrepare', 'concat', 'uglify', 'rev', 'usemin', 'bgShell:runWebServerRelease', 'karma:e2e']);
+  grunt.registerTask('package', ['clean', 'copy:release', 'useminPrepare', 'concat', 'uglify', 'rev', 'usemin', 'bgShell:runWebServerRelease', 'karma:e2e']);
 
   // Default task(s).
   grunt.registerTask('unitTests', ['bgShell:bowerInstall', 'karma:dev']);
