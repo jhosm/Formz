@@ -42,13 +42,13 @@ Fire up karma for continuous unit test execution:
 	
 	vagrant ssh
 	cd /vagrant
-	grunt unitTests
+	sudo grunt unitTests
 
 If you want to run the end-2-end (e2e) tests, do:
 	
 	vagrant ssh
 	cd /vagrant
-	grunt e2eTests
+	sudo grunt e2eTests
 
 Finally, if you want to run a simple webserver to host Formz, do:
 	
