@@ -202,6 +202,7 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;unitTests&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;bgShell:bowerInstall&#39;</span><span class="p">,</span> <span class="s1">&#39;karma:dev&#39;</span><span class="p">]);</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;e2eTests&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;bgShell:bowerInstall&#39;</span><span class="p">,</span> <span class="s1">&#39;bgShell:runWebServer&#39;</span><span class="p">,</span> <span class="s1">&#39;karma:e2e&#39;</span><span class="p">]);</span>
   <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;runWebServer&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;bgShell:runWebServer&#39;</span><span class="p">]);</span>
   <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">&#39;killWebServer&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;bgShell:killWebServer&#39;</span><span class="p">]);</span>
 

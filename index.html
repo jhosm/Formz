@@ -101,12 +101,22 @@ so the main scenario is to facilitate the creation of GUI's to xml-based configu
 
 
 
-<p>If you want to run a simple webserver to host Formz, do:</p>
+<p>If you want to run the end-2-end (e2e) tests, do:</p>
 
 
 <div class="highlight"><pre><code><span class="n">vagrant</span> <span class="n">ssh</span>
 <span class="n">cd</span> <span class="o">/</span><span class="n">vagrant</span>
-<span class="n">node</span> <span class="n">node</span> <span class="n">scripts</span><span class="o">/</span><span class="n">web</span><span class="o">-</span><span class="n">server</span><span class="p">.</span><span class="n">js</span>
+<span class="n">grunt</span> <span class="n">e2eTests</span>
+</code></pre></div>
+
+
+
+<p>Finally, if you want to run a simple webserver to host Formz, do:</p>
+
+
+<div class="highlight"><pre><code><span class="n">vagrant</span> <span class="n">ssh</span>
+<span class="n">cd</span> <span class="o">/</span><span class="n">vagrant</span>
+<span class="n">node</span> <span class="n">scripts</span><span class="o">/</span><span class="n">web</span><span class="o">-</span><span class="n">server</span><span class="p">.</span><span class="n">js</span>
 </code></pre></div>
 
 
