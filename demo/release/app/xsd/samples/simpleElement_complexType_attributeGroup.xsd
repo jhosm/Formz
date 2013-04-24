@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ui="http://formz.com/UI">
+	<xs:element name="person" type="personType"/>
+	<xs:complexType name="personType">
+		<xs:annotation>
+			<xs:appinfo>
+				<ui:info label="Pessoa"/>
+			</xs:appinfo>
+			<xs:documentation>Humano</xs:documentation>
+		</xs:annotation>
+		<xs:attributeGroup ref="fur" />
+	</xs:complexType>
+	<xs:attributeGroup name="fur">
+		<xs:attribute name="color" type="xs:string">
+			<xs:annotation>
+				<xs:appinfo>
+					<ui:info label="Cor Pêlo" placeholder="Castanho, preto..." />
+				</xs:appinfo>
+				<xs:documentation>Indicar cor do pêlo.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+</xs:schema>

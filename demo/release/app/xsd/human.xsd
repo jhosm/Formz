@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ui="http://formz.com/UI">
+	<xs:element name="person" type="xs:string" >
+		<xs:annotation>
+			<xs:appinfo>
+				<ui:info label="Pessoa" placeholder="Nome da Pessoa"/>
+			</xs:appinfo>
+            <xs:documentation>
+                Humano (conhecido taxonomicamente como Homo sapiens,[2][3] do latim "homem sábio",[4] e também chamado de pessoa, gente ou homem) é a única espécie animal de primata bípede do gênero Homo ainda viva.[5][6] Os humanos anatomicamente modernos originaram-se na África há cerca de 200 mil anos, atingindo o comportamento moderno há cerca de 50 mil anos.[7]
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+</xs:schema>

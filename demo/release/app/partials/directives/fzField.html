@@ -1,0 +1,16 @@
+<div ng-form="fieldForm">
+	<div class="control-group" ng-class="controlGroupClasses">
+		<label class="control-label" ><span ng-show="data.required">*</span> {{data.label}}:</label>
+		<div class="controls">
+			<input type="text" placeholder="{{data.placeholder}}" name="input" ng-model="data.value" ng-required="data.required" fz-minlength="data.restrictions.minLength">
+			 <i class="help-inline icon-question-sign" ng-click="showHelp = !showHelp" ng-init="showHelp=false"></i>
+			<span class="help-block" ng-show="showHelp">
+				<div fz-markdown text="{{locales.string(data.documentation)}}"></div>
+			</span>
+			<div ng-show="fieldForm.input.$dirty && fieldForm.input.$invalid">
+				<span ng-show="fieldForm.input.$error.required" class="help-inline required-message">{{locales.string('.field-required')}}</span>
+				<span ng-show="fieldForm.input.$error.minlength" class="help-inline min-length-message">{{locales.string('.field-min-length', data.restrictions.minLength)}}</span>
+			</div>
+		</div>
+	</div>
+</div>
