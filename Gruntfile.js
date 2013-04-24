@@ -16,8 +16,8 @@ module.exports = function(grunt) {
         files: [
           {src: [releaseDir + 'app/**', '!**/components/**'], dest: './doc/demo/'}, // includes files in path and its subdirs
           {src: [releaseDir + 'app/components/bootstrap/docs/assets/css/bootstrap.css', 
-                 releaseDir + 'app/angular/angular.min.js', 
-                 releaseDir + 'app/angular-resource/angular-resource.min.js', 
+                 releaseDir + 'app/components/angular/angular.min.js', 
+                 releaseDir + 'app/components/angular-resource/angular-resource.min.js', 
                  releaseDir + 'app/components/underscore/underscore-min.js', 
                  releaseDir + 'app/components/showdown/compressed/showdown.js', 
                  releaseDir + 'app/lib/angular/angular-bootstrap.min.js'],
