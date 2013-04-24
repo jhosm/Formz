@@ -12,6 +12,18 @@ module.exports = function(grunt) {
           {src: ['app/**', 'test/**', 'config/**', 'scripts/**'], dest: releaseDir} // includes files in path and its subdirs
         ]
       },
+      publishDemoSite: {
+        files: [
+          {src: [releaseDir + 'app/**', '!**/components/**'], dest: './doc/demo/'}, // includes files in path and its subdirs
+          {src: [releaseDir + 'app/components/bootstrap/docs/assets/css/bootstrap.css', 
+                 releaseDir + 'app/angular/angular.min.js', 
+                 releaseDir + 'app/angular-resource/angular-resource.min.js', 
+                 releaseDir + 'app/components/underscore/underscore-min.js', 
+                 releaseDir + 'app/components/showdown/compressed/showdown.js', 
+                 releaseDir + 'app/lib/angular/angular-bootstrap.min.js'],
+           dest: './doc/demo/'} // includes files in path and its subdirs
+        ]
+      },
       docsIndex: {
         files: [
           {src: ['doc/README.md.html'], dest: 'doc/index.html'} // includes files in path and its subdirs
@@ -111,7 +123,7 @@ module.exports = function(grunt) {
 
 
   // Travis CI task.
-  grunt.registerTask('travis', ['bgShell:bowerInstall', 'karma:continuous', 'docker', 'copy:docsIndex', 'jshint', 'package']);
+  grunt.registerTask('travis', ['bgShell:bowerInstall', 'karma:continuous', 'docker', 'copy:docsIndex', 'copy:publishDemoSite', 'jshint', 'package']);
 
   grunt.registerTask('package', ['clean', 'copy:main', 'useminPrepare', 'concat', 'uglify', 'rev', 'usemin', 'bgShell:runWebServerRelease', 'karma:e2e']);
 
