@@ -1,6 +1,9 @@
 Formz [![Build Status](https://travis-ci.org/jhosm/Formz.png?branch=master)](https://travis-ci.org/jhosm/Formz) [![Dependency Status](https://gemnasium.com/jhosm/Formz.png)](https://gemnasium.com/jhosm/Formz)
 ================================================================================================================================================================================================================
 
+**Important note:** Right now Formz is pretty much in its infancy and feature incomplete. Check [demo](http://jhosm.github.io/Formz/demo/release/app) 
+site to check it's maturity.
+
 Formz aims to build web forms based on Xml Schemas. We know that that data-driven web apps are not very flexible, 
 so the main scenario is to facilitate the creation of GUI's to xml-based configuration files.
 
