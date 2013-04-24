@@ -117,6 +117,7 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('unitTests', ['bgShell:bowerInstall', 'karma:dev']);
+  grunt.registerTask('e2eTests', ['bgShell:bowerInstall', 'bgShell:runWebServer', 'karma:e2e']);
   grunt.registerTask('runWebServer', ['bgShell:runWebServer']);
   grunt.registerTask('killWebServer', ['bgShell:killWebServer']);
 
