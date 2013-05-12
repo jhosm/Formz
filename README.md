@@ -51,18 +51,16 @@ Fire up karma for continuous unit test execution:
 	cd /vagrant
 	sudo grunt unitTests
 
-If you want to run the end-2-end (e2e) tests, do:
-	
+If you want to run the end-2-end (e2e) tests or just browse to the Formz site, you have to start the web server:
+
 	vagrant ssh
 	cd /vagrant
+	node scripts/web-server.js &
+
+Then, if you want to run the e2e tests, do:
+	
 	sudo grunt e2eTests
 
-Finally, if you want to run a simple webserver to host Formz, do:
-	
-	vagrant ssh
-	cd /vagrant
-	node scripts/web-server.js
-
-Then browse to http://localhost:8080/ on your host machine.
+Or, if you just want to browse to the Formz site and see it in action, go to http://localhost:8080/ on your host machine.
 
 Happy coding!
