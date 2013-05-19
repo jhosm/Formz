@@ -169,7 +169,8 @@
       <span class="p">},</span>
       <span class="nx">bowerInstall</span><span class="o">:</span> <span class="p">{</span>
         <span class="nx">cmd</span><span class="o">:</span> <span class="s1">&#39;bower install&#39;</span><span class="p">,</span>
-        <span class="nx">bg</span><span class="o">:</span> <span class="kc">false</span>
+        <span class="nx">bg</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">fail</span><span class="o">:</span> <span class="kc">false</span> <span class="c1">// Do not like it, but it&#39;s a quick way to ignore bower install warnings. If there&#39;s a problem, the build will fail soon after this task...</span>
       <span class="p">},</span>
       <span class="nx">killWebServer</span><span class="o">:</span> <span class="p">{</span>
         <span class="nx">cmd</span><span class="o">:</span> <span class="s1">&#39;kill `lsof -t -i tcp:8000`&#39;</span>

@@ -108,27 +108,25 @@ so the main scenario is to facilitate the creation of GUI's to xml-based configu
 
 
 
-<p>If you want to run the end-2-end (e2e) tests, do:</p>
+<p>If you want to run the end-2-end (e2e) tests or just browse to the Formz site, you have to start the web server:</p>
 
 
 <div class="highlight"><pre><code><span class="n">vagrant</span> <span class="n">ssh</span>
 <span class="n">cd</span> <span class="o">/</span><span class="n">vagrant</span>
-<span class="n">sudo</span> <span class="n">grunt</span> <span class="n">e2eTests</span>
+<span class="n">node</span> <span class="n">scripts</span><span class="o">/</span><span class="n">web</span><span class="o">-</span><span class="n">server</span><span class="p">.</span><span class="n">js</span> <span class="o">&amp;</span>
 </code></pre></div>
 
 
 
-<p>Finally, if you want to run a simple webserver to host Formz, do:</p>
+<p>Then, if you want to run the e2e tests, do:</p>
 
 
-<div class="highlight"><pre><code><span class="n">vagrant</span> <span class="n">ssh</span>
-<span class="n">cd</span> <span class="o">/</span><span class="n">vagrant</span>
-<span class="n">node</span> <span class="n">scripts</span><span class="o">/</span><span class="n">web</span><span class="o">-</span><span class="n">server</span><span class="p">.</span><span class="n">js</span>
+<div class="highlight"><pre><code><span class="n">sudo</span> <span class="n">grunt</span> <span class="n">e2eTests</span>
 </code></pre></div>
 
 
 
-<p>Then browse to <a href='http://localhost:8080/'>http://localhost:8080/</a> on your host machine.</p>
+<p>Or, if you just want to browse to the Formz site and see it in action, go to <a href='http://localhost:8080/'>http://localhost:8080/</a> on your host machine.</p>
 
 <p>Happy coding!</p></div>
   </div>
