@@ -106,7 +106,8 @@ module.exports = function(grunt) {
       },
       bowerInstall: {
         cmd: 'bower install',
-        bg: false
+        bg: false,
+        fail: false // Do not like it, but it's a quick way to ignore bower install warnings. If there's a problem, the build will fail soon after this task...
       },
       killWebServer: {
         cmd: 'kill `lsof -t -i tcp:8000`'
